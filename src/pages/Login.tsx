@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import { LogIn, Key } from "lucide-react";
+import { LogIn, Key, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -45,8 +45,8 @@ const Login = () => {
         description: "Redirecting to dashboard...",
       });
       
-      // For now, we'll just simulate a successful login
-      // In production, you would typically redirect to the dashboard here
+      // Redirect to dashboard after successful login
+      window.location.href = "/dashboard";
     } catch (error) {
       toast({
         title: "Login failed",
@@ -61,6 +61,13 @@ const Login = () => {
   return (
     <div className="min-h-screen pt-24 pb-12 flex flex-col items-center">
       <div className="w-full max-w-md p-8 space-y-8 bg-dark-card rounded-lg border border-gray-800">
+        <div className="flex items-center justify-between mb-4">
+          <Link to="/" className="flex items-center text-neon-cyan hover:text-neon-cyan/80 transition">
+            <ArrowLeft size={20} className="mr-1" />
+            <span>Back to Home</span>
+          </Link>
+        </div>
+        
         <div className="text-center">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-neon-lime/10 text-neon-lime mb-4">
             <LogIn size={24} />
