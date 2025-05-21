@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,21 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+        // MicroForge custom colors
+        neon: {
+          cyan: '#00FFFF',
+          lime: '#AAFF00',
+          orange: '#FF7A00',
+        },
+        dark: {
+          DEFAULT: '#121212',
+          lighter: '#1A1A1A',
+          card: '#222222',
+        },
+			},
+			fontFamily: {
+				sans: ['Space Grotesk', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,12 +99,61 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+        'fade-in-up': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(20px)'
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)'
+          }
+        },
+        'pulse-glow': {
+          '0%, 100%': {
+            opacity: '1',
+            filter: 'brightness(1)'
+          },
+          '50%': {
+            opacity: '0.8',
+            filter: 'brightness(1.2)'
+          }
+        },
+        'float': {
+          '0%, 100%': {
+            transform: 'translateY(0)'
+          },
+          '50%': {
+            transform: 'translateY(-10px)'
+          }
+        },
+        'gradient-flow': {
+          '0%': {
+            backgroundPosition: '0% 50%'
+          },
+          '50%': {
+            backgroundPosition: '100% 50%'
+          },
+          '100%': {
+            backgroundPosition: '0% 50%'
+          }
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+        'fade-in-up': 'fade-in-up 0.7s ease-out forwards',
+        'pulse-glow': 'pulse-glow 3s infinite ease-in-out',
+        'float': 'float 6s infinite ease-in-out',
+        'gradient-flow': 'gradient-flow 10s ease infinite'
+			},
+      backgroundImage: {
+        'hero-pattern': 'radial-gradient(circle at 30% 50%, rgba(0, 255, 255, 0.1), rgba(0, 0, 0, 0) 25%), radial-gradient(circle at 70% 20%, rgba(170, 255, 0, 0.05), rgba(0, 0, 0, 0) 25%)',
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-neon': 'linear-gradient(90deg, #00FFFF, #AAFF00, #FF7A00)'
+      },
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
