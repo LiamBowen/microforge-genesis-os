@@ -1,0 +1,160 @@
+
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
+import { LogIn, Key } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const loginSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
+
+const Login = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = async (values: LoginFormValues) => {
+    setIsLoading(true);
+    
+    try {
+      // This is a simulated login - in a real app, you would connect to Supabase or another auth provider
+      console.log("Login credentials:", values);
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Login successful",
+        description: "Redirecting to dashboard...",
+      });
+      
+      // For now, we'll just simulate a successful login
+      // In production, you would typically redirect to the dashboard here
+    } catch (error) {
+      toast({
+        title: "Login failed",
+        description: "Please check your credentials and try again",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen pt-24 pb-12 flex flex-col items-center">
+      <div className="w-full max-w-md p-8 space-y-8 bg-dark-card rounded-lg border border-gray-800">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-neon-lime/10 text-neon-lime mb-4">
+            <LogIn size={24} />
+          </div>
+          <h1 className="text-2xl font-bold">Login to MicroForge</h1>
+          <p className="mt-2 text-gray-400">Access your factory dashboard</p>
+        </div>
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input 
+                      placeholder="you@example.com" 
+                      type="email" 
+                      className="bg-dark-lighter border-gray-700" 
+                      {...field} 
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input 
+                        placeholder="••••••••" 
+                        type="password" 
+                        className="bg-dark-lighter border-gray-700" 
+                        {...field} 
+                      />
+                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                        <Key size={16} />
+                      </div>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-gray-700 bg-dark-lighter text-neon-lime focus:ring-neon-lime/50"
+                />
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
+                  Remember me
+                </label>
+              </div>
+
+              <div className="text-sm">
+                <Link to="/forgot-password" className="text-neon-lime hover:text-neon-lime/80">
+                  Forgot password?
+                </Link>
+              </div>
+            </div>
+
+            <Button 
+              type="submit" 
+              className="w-full bg-neon-lime/20 text-neon-lime hover:bg-neon-lime/30 border border-neon-lime/30"
+              disabled={isLoading}
+            >
+              {isLoading ? "Logging in..." : "Login"}
+            </Button>
+          </form>
+        </Form>
+
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-400">
+            Don't have an account?{" "}
+            <Link to="/early-access" className="text-neon-lime hover:text-neon-lime/80">
+              Request early access
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

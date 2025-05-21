@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn } from "lucide-react";
 import RequestAccessButton from "./RequestAccessButton";
 
 const Navbar = () => {
@@ -71,7 +71,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4">
             <div className="hidden md:flex space-x-8">
               {navLinks.map((link) => (
                 <Link 
@@ -88,7 +88,16 @@ const Navbar = () => {
                 </Link>
               ))}
             </div>
-            <RequestAccessButton size="sm" />
+            <div className="flex items-center space-x-4">
+              <Link 
+                to="/login" 
+                className="flex items-center text-sm font-medium text-gray-300 hover:text-neon-lime transition"
+              >
+                <LogIn size={18} className="mr-1" />
+                Login
+              </Link>
+              <RequestAccessButton size="sm" />
+            </div>
           </div>
 
           {/* Mobile Navigation Button */}
@@ -118,6 +127,14 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
+              <Link
+                to="/login"
+                className="flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-neon-lime"
+                onClick={() => setIsOpen(false)}
+              >
+                <LogIn size={18} className="mr-2" />
+                Login
+              </Link>
               <div className="mt-4 px-3 py-3">
                 <RequestAccessButton fullWidth size="sm" />
               </div>

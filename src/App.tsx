@@ -12,6 +12,7 @@ import Product from "./pages/Product";
 import UseCases from "./pages/UseCases";
 import GetInvolved from "./pages/GetInvolved";
 import EarlyAccess from "./pages/EarlyAccess";
+import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
 // Components
@@ -36,6 +37,7 @@ const App = () => (
               <Route path="/use-cases" element={<UseCases />} />
               <Route path="/get-involved" element={<GetInvolved />} />
               <Route path="/early-access" element={<EarlyAccess />} />
+              <Route path="/login" element={<Login />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
