@@ -36,7 +36,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               <img 
                 src="/lovable-uploads/b74af20b-1111-4c06-8b41-ce0fec9793a0.png" 
                 alt="MicroForge Logo" 
-                className="w-full h-full p-0.5 object-contain" 
+                className="w-full h-full object-contain" 
               />
             </div>
           </div>
@@ -82,7 +82,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               <img 
                 src="/lovable-uploads/b74af20b-1111-4c06-8b41-ce0fec9793a0.png" 
                 alt="MicroForge Logo" 
-                className="w-full h-full p-0.5 object-contain" 
+                className="w-full h-full object-contain" 
               />
             </div>
           </div>
