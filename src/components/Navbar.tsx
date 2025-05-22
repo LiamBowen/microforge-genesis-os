@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, LogIn } from "lucide-react";
@@ -47,7 +48,7 @@ const Navbar = () => {
                 <div className="w-9 h-9 relative mr-2">
                   <div className="absolute inset-0 bg-neon-cyan rounded-md opacity-20 animate-pulse-glow"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <img src="/lovable-uploads/b74af20b-1111-4c06-8b41-ce0fec9793a0.png" alt="MicroForge Logo" className="w-6 h-6 object-fill" />
+                    <img src="/lovable-uploads/b74af20b-1111-4c06-8b41-ce0fec9793a0.png" alt="MicroForge Logo" className="w-full h-full p-1 object-contain" />
                   </div>
                 </div>
                 <span className="text-xl font-bold gradient-text">MicroForge</span>
