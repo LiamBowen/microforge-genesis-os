@@ -33,19 +33,11 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           <div className="w-8 h-8 relative">
             <div className="absolute inset-0 bg-neon-cyan rounded-md opacity-20 animate-pulse-glow"></div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <svg 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className="w-5 h-5 text-neon-cyan"
-              >
-                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                <path d="M3 9h18" />
-                <path d="M9 21V9" />
-              </svg>
+              <img 
+                src="/lovable-uploads/b74af20b-1111-4c06-8b41-ce0fec9793a0.png" 
+                alt="MicroForge Logo" 
+                className="w-5 h-5" 
+              />
             </div>
           </div>
           <span className="text-lg font-bold gradient-text">MicroForge</span>
@@ -87,19 +79,11 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           <div className="w-8 h-8 relative">
             <div className="absolute inset-0 bg-neon-cyan rounded-md opacity-20 animate-pulse-glow"></div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <svg 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className="w-5 h-5 text-neon-cyan"
-              >
-                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                <path d="M3 9h18" />
-                <path d="M9 21V9" />
-              </svg>
+              <img 
+                src="/lovable-uploads/b74af20b-1111-4c06-8b41-ce0fec9793a0.png" 
+                alt="MicroForge Logo" 
+                className="w-5 h-5" 
+              />
             </div>
           </div>
           <span className="text-lg font-bold gradient-text">MicroForge</span>

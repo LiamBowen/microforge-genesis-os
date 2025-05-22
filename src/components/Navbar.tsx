@@ -50,19 +50,11 @@ const Navbar = () => {
                 <div className="w-9 h-9 relative mr-2">
                   <div className="absolute inset-0 bg-neon-cyan rounded-md opacity-20 animate-pulse-glow"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <svg 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      className="w-6 h-6 text-neon-cyan"
-                    >
-                      <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                      <path d="M3 9h18" />
-                      <path d="M9 21V9" />
-                    </svg>
+                    <img 
+                      src="/lovable-uploads/b74af20b-1111-4c06-8b41-ce0fec9793a0.png" 
+                      alt="MicroForge Logo" 
+                      className="w-6 h-6" 
+                    />
                   </div>
                 </div>
                 <span className="text-xl font-bold gradient-text">MicroForge</span>
