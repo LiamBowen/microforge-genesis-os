@@ -19,10 +19,16 @@ const Hero = () => {
       heroRef.current.style.setProperty('--mouse-y', `${y}`);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    // Only add mouse move listener on desktop
+    const isMobile = window.innerWidth < 768;
+    if (!isMobile) {
+      window.addEventListener('mousemove', handleMouseMove);
+    }
     
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      if (!isMobile) {
+        window.removeEventListener('mousemove', handleMouseMove);
+      }
     };
   }, []);
 
@@ -35,9 +41,9 @@ const Hero = () => {
         '--mouse-y': '0.5' 
       } as React.CSSProperties}
     >
-      {/* Animated background gradient */}
+      {/* Animated background gradient - only show on desktop */}
       <div 
-        className="absolute top-0 left-0 w-full h-full opacity-30"
+        className="absolute top-0 left-0 w-full h-full opacity-30 hidden md:block"
         style={{ 
           background: `radial-gradient(
             circle at calc(var(--mouse-x) * 100%) calc(var(--mouse-y) * 100%), 
