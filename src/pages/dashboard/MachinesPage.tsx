@@ -1,13 +1,15 @@
-
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import CreateMachineDialog from "@/components/CreateMachineDialog";
+import MachineLogs from "@/components/MachineLogs";
 import { useMachines } from "@/hooks/useMachines";
-import { Play, Square, AlertCircle, Wrench } from "lucide-react";
+import { Play, Square, AlertCircle, Wrench, FileText } from "lucide-react";
+import { useState } from "react";
 
 const MachinesPage = () => {
   const { machines, loading, startMachine, stopMachine, createMachine } = useMachines();
+  const [selectedMachineForLogs, setSelectedMachineForLogs] = useState<string | null>(null);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -56,8 +58,9 @@ const MachinesPage = () => {
     
     actions.push({
       label: "View Logs",
-      onClick: () => console.log(`View logs for ${machine.id}`),
-      variant: "outline" as const
+      onClick: () => setSelectedMachineForLogs(machine.id),
+      variant: "outline" as const,
+      icon: FileText
     });
 
     return actions;
@@ -74,6 +77,34 @@ const MachinesPage = () => {
           <div className="flex items-center justify-center py-8">
             <div className="text-gray-400">Loading machines...</div>
           </div>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  // If a machine is selected for logs, show the logs view
+  if (selectedMachineForLogs) {
+    const selectedMachine = machines.find(m => m.id === selectedMachineForLogs);
+    return (
+      <DashboardLayout>
+        <div className="space-y-8">
+          <div className="flex items-center gap-4">
+            <Button 
+              variant="outline" 
+              onClick={() => setSelectedMachineForLogs(null)}
+              className="border-gray-700"
+            >
+              ← Back to Machines
+            </Button>
+            <div>
+              <h1 className="text-3xl font-bold mb-1">Machine Logs</h1>
+              <p className="text-gray-400">View recent events and activities.</p>
+            </div>
+          </div>
+          <MachineLogs 
+            machineId={selectedMachineForLogs} 
+            machineName={selectedMachine?.name}
+          />
         </div>
       </DashboardLayout>
     );
@@ -128,6 +159,7 @@ const MachinesPage = () => {
                         className={action.variant === "outline" ? "border-gray-700" : ""}
                         onClick={action.onClick}
                       >
+                        {action.icon && <action.icon size={16} className="mr-1" />}
                         {action.label}
                       </Button>
                     ))}
