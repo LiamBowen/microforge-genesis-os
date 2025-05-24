@@ -2,15 +2,15 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
@@ -24,15 +24,14 @@ interface EditConfigurationDrawerProps {
 
 const EditConfigurationDrawer = ({ machineId, machineName, onConfigUpdate }: EditConfigurationDrawerProps) => {
   const [open, setOpen] = useState(false);
-  const [configuration, setConfiguration] = useState("");
+  const [configuration, setConfiguration] = useState("{}");
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [jsonError, setJsonError] = useState("");
   const { toast } = useToast();
   const { user } = useAuth();
 
   const fetchConfiguration = async () => {
-    if (!user || !open) return;
+    if (!user || !machineId) return;
 
     setLoading(true);
     try {
@@ -66,43 +65,27 @@ const EditConfigurationDrawer = ({ machineId, machineName, onConfigUpdate }: Edi
     }
   };
 
-  useEffect(() => {
-    if (open) {
-      fetchConfiguration();
-    }
-  }, [open, user, machineId]);
-
-  const validateJson = (jsonString: string) => {
-    try {
-      JSON.parse(jsonString);
-      setJsonError("");
-      return true;
-    } catch (error) {
-      setJsonError("Invalid JSON format");
-      return false;
-    }
-  };
-
-  const handleConfigurationChange = (value: string) => {
-    setConfiguration(value);
-    if (value.trim()) {
-      validateJson(value);
-    } else {
-      setJsonError("");
-    }
-  };
-
   const handleSave = async () => {
-    if (!user || !validateJson(configuration)) return;
+    if (!user || !machineId) return;
+
+    // Validate JSON
+    try {
+      JSON.parse(configuration);
+    } catch (error) {
+      toast({
+        title: "Invalid JSON",
+        description: "Please enter valid JSON configuration",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setSaving(true);
     try {
-      const parsedConfig = JSON.parse(configuration);
-      
-      const { error } = await supabase.functions.invoke('update-machine-config', {
+      const { data, error } = await supabase.functions.invoke('update-machine-config', {
         body: { 
           machineId: machineId,
-          configuration: parsedConfig 
+          configuration: JSON.parse(configuration)
         },
         headers: {
           Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
@@ -140,58 +123,61 @@ const EditConfigurationDrawer = ({ machineId, machineName, onConfigUpdate }: Edi
     }
   };
 
+  useEffect(() => {
+    if (open && user && machineId) {
+      fetchConfiguration();
+    }
+  }, [open, user, machineId]);
+
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
         <Button variant="outline" size="sm" className="border-gray-700">
           <Settings size={16} className="mr-1" />
-          Edit Config
+          Configure
         </Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        <div className="mx-auto w-full max-w-4xl">
-          <DrawerHeader>
-            <DrawerTitle>Edit Configuration</DrawerTitle>
-            <DrawerDescription>
-              Update the configuration for {machineName}. Make sure the JSON is valid before saving.
-            </DrawerDescription>
-          </DrawerHeader>
-          <div className="p-4 pb-0">
-            {loading ? (
-              <div className="text-center text-gray-400 py-8">Loading configuration...</div>
-            ) : (
-              <div className="space-y-4">
-                <div>
-                  <label className="text-sm font-medium text-gray-300 mb-2 block">
-                    Configuration (JSON)
-                  </label>
-                  <textarea
-                    value={configuration}
-                    onChange={(e) => handleConfigurationChange(e.target.value)}
-                    className="w-full h-64 p-3 bg-gray-900 border border-gray-700 rounded-md font-mono text-sm text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                    placeholder='{"key": "value"}'
-                  />
-                  {jsonError && (
-                    <p className="text-red-400 text-sm mt-1">{jsonError}</p>
-                  )}
-                </div>
+      </SheetTrigger>
+      <SheetContent className="w-[400px] sm:w-[540px]">
+        <SheetHeader>
+          <SheetTitle>Edit Configuration</SheetTitle>
+          <SheetDescription>
+            Update the configuration for {machineName}. Enter valid JSON format.
+          </SheetDescription>
+        </SheetHeader>
+        <div className="py-4">
+          {loading ? (
+            <div className="text-center text-gray-400">Loading configuration...</div>
+          ) : (
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium">Configuration (JSON)</label>
+                <Textarea
+                  value={configuration}
+                  onChange={(e) => setConfiguration(e.target.value)}
+                  className="mt-1 h-64 font-mono text-sm bg-dark-lighter border-gray-700"
+                  placeholder='{"key": "value"}'
+                />
               </div>
-            )}
-          </div>
-          <DrawerFooter>
-            <Button
-              onClick={handleSave}
-              disabled={saving || loading || !!jsonError || !configuration.trim()}
-            >
-              {saving ? "Saving..." : "Save Configuration"}
-            </Button>
-            <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DrawerClose>
-          </DrawerFooter>
+            </div>
+          )}
         </div>
-      </DrawerContent>
-    </Drawer>
+        <SheetFooter>
+          <Button
+            variant="outline"
+            onClick={() => setOpen(false)}
+            disabled={saving}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSave}
+            disabled={loading || saving}
+          >
+            {saving ? "Saving..." : "Save Configuration"}
+          </Button>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 };
 
