@@ -13,6 +13,12 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleLogoClick = () => {
+    setIsOpen(false);
+    // Always scroll to top when logo is clicked
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -60,7 +66,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center" onClick={() => setIsOpen(false)}>
+            <Link to="/" className="flex items-center" onClick={handleLogoClick}>
               <div className="flex items-center">
                 <div className="w-8 h-8 lg:w-10 lg:h-10 relative mr-2 lg:mr-3">
                   <div className="absolute inset-0 bg-neon-cyan rounded-md opacity-20 animate-pulse-glow"></div>
