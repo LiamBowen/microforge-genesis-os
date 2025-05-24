@@ -124,10 +124,10 @@ const Signup = () => {
                       <Input 
                         placeholder="••••••••" 
                         type={showPassword ? "text" : "password"}
-                        className="bg-dark-lighter border-gray-700 pr-20" 
+                        className="bg-dark-lighter border-gray-700 pr-16" 
                         {...field} 
                       />
-                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
+                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
@@ -155,10 +155,10 @@ const Signup = () => {
                       <Input 
                         placeholder="••••••••" 
                         type={showConfirmPassword ? "text" : "password"}
-                        className="bg-dark-lighter border-gray-700 pr-20" 
+                        className="bg-dark-lighter border-gray-700 pr-16" 
                         {...field} 
                       />
-                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
+                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
                         <button
                           type="button"
                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
