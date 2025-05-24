@@ -152,13 +152,27 @@
     text-shadow: 0 0 10px rgba(255, 122, 0, 0.5);
   }
 
-  /* Gradient text animation */
+  /* Gradient text animation - works on all devices */
   .gradient-text {
-    @apply bg-gradient-neon bg-clip-text text-transparent animate-gradient-flow bg-300;
+    background: linear-gradient(90deg, #00FFFF, #AAFF00, #FF7A00, #00FFFF);
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: gradient-flow 8s ease infinite;
+    /* Ensure it works on all browsers */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  .bg-300 {
-    background-size: 300% 300%;
+  /* Fallback for browsers that don't support background-clip: text */
+  @supports not (background-clip: text) or not (-webkit-background-clip: text) {
+    .gradient-text {
+      background: none;
+      color: #00FFFF;
+      -webkit-text-fill-color: initial;
+    }
   }
 
   /* Custom scrollbar - hidden on mobile for better UX */
@@ -264,15 +278,15 @@
   --glow-color: rgba(255, 122, 0, 0.5);
 }
 
-/* Mobile-specific optimizations */
+/* Mobile-specific optimizations - ensure animations still work */
 @media (max-width: 768px) {
-  /* Reduce motion for better mobile performance */
-  .animate-pulse-glow {
-    animation-duration: 4s;
+  /* Keep gradient animation on mobile but optimize performance */
+  .gradient-text {
+    animation: gradient-flow 10s ease infinite;
   }
   
-  .animate-gradient-flow {
-    animation-duration: 15s;
+  .animate-pulse-glow {
+    animation-duration: 4s;
   }
   
   /* Optimize text rendering */
