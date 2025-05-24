@@ -6,6 +6,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
+// Auth Provider
+import { AuthProvider } from "@/contexts/AuthContext";
+import ProtectedRoute from "@/components/ProtectedRoute";
+
 // Pages
 import Index from "./pages/Index";
 import Vision from "./pages/Vision";
@@ -14,6 +18,7 @@ import UseCases from "./pages/UseCases";
 import GetInvolved from "./pages/GetInvolved";
 import EarlyAccess from "./pages/EarlyAccess";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 
 // Dashboard Pages
@@ -60,13 +65,14 @@ const AppLayout = () => {
           <Route path="/get-involved" element={<GetInvolved />} />
           <Route path="/early-access" element={<EarlyAccess />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           
-          {/* Dashboard Routes */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/machines" element={<MachinesPage />} />
-          <Route path="/dashboard/jobs" element={<JobsPage />} />
-          <Route path="/dashboard/ai" element={<AIAssistantPage />} />
-          <Route path="/dashboard/settings" element={<SettingsPage />} />
+          {/* Protected Dashboard Routes */}
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/dashboard/machines" element={<ProtectedRoute><MachinesPage /></ProtectedRoute>} />
+          <Route path="/dashboard/jobs" element={<ProtectedRoute><JobsPage /></ProtectedRoute>} />
+          <Route path="/dashboard/ai" element={<ProtectedRoute><AIAssistantPage /></ProtectedRoute>} />
+          <Route path="/dashboard/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
           
           {/* Not Found Route */}
           <Route path="*" element={<NotFound />} />
@@ -82,14 +88,16 @@ const AppLayout = () => {
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <AppLayout />
-        </BrowserRouter>
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTop />
+            <AppLayout />
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 };

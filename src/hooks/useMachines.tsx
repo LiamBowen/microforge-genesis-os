@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 export interface Machine {
   id: string;
@@ -19,10 +20,20 @@ export const useMachines = () => {
   const [machines, setMachines] = useState<Machine[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const fetchMachines = async () => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
     try {
-      const { data, error } = await supabase.functions.invoke('get-user-machines');
+      const { data, error } = await supabase.functions.invoke('get-user-machines', {
+        headers: {
+          Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
+        },
+      });
       
       if (error) {
         console.error('Error fetching machines:', error);
@@ -48,9 +59,14 @@ export const useMachines = () => {
   };
 
   const startMachine = async (machineId: string) => {
+    if (!user) return;
+
     try {
       const { data, error } = await supabase.functions.invoke('start-machine', {
-        body: { machineId }
+        body: { machineId },
+        headers: {
+          Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
+        },
       });
 
       if (error) {
@@ -81,9 +97,14 @@ export const useMachines = () => {
   };
 
   const stopMachine = async (machineId: string) => {
+    if (!user) return;
+
     try {
       const { data, error } = await supabase.functions.invoke('stop-machine', {
-        body: { machineId }
+        body: { machineId },
+        headers: {
+          Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
+        },
       });
 
       if (error) {
@@ -114,9 +135,14 @@ export const useMachines = () => {
   };
 
   const createMachine = async (name: string, machineType: string) => {
+    if (!user) return;
+
     try {
       const { data, error } = await supabase.functions.invoke('create-machine', {
-        body: { name, machineType }
+        body: { name, machineType },
+        headers: {
+          Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
+        },
       });
 
       if (error) {
@@ -147,8 +173,10 @@ export const useMachines = () => {
   };
 
   useEffect(() => {
-    fetchMachines();
-  }, []);
+    if (user) {
+      fetchMachines();
+    }
+  }, [user]);
 
   return {
     machines,

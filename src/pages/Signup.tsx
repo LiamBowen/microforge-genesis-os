@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import { LogIn, Key, ArrowLeft } from "lucide-react";
+import { UserPlus, Key, ArrowLeft, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -11,49 +11,54 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/contexts/AuthContext";
 
-const loginSchema = z.object({
+const signupSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
+  confirmPassword: z.string().min(6, "Please confirm your password"),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
 });
 
-type LoginFormValues = z.infer<typeof loginSchema>;
+type SignupFormValues = z.infer<typeof signupSchema>;
 
-const Login = () => {
+const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { signIn } = useAuth();
+  const { signUp } = useAuth();
   const navigate = useNavigate();
 
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
     defaultValues: {
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
-  const onSubmit = async (values: LoginFormValues) => {
+  const onSubmit = async (values: SignupFormValues) => {
     setIsLoading(true);
     
     try {
-      const { error } = await signIn(values.email, values.password);
+      const { error } = await signUp(values.email, values.password);
       
       if (error) {
         toast({
-          title: "Login failed",
+          title: "Signup failed",
           description: error.message,
           variant: "destructive",
         });
       } else {
         toast({
-          title: "Login successful",
-          description: "Welcome back!",
+          title: "Account created!",
+          description: "Please check your email to verify your account.",
         });
-        navigate("/dashboard");
+        navigate("/login");
       }
     } catch (error) {
       toast({
-        title: "Login failed",
+        title: "Signup failed",
         description: "An unexpected error occurred",
         variant: "destructive",
       });
@@ -74,10 +79,10 @@ const Login = () => {
         
         <div className="text-center">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-neon-lime/10 text-neon-lime mb-4">
-            <LogIn size={24} />
+            <UserPlus size={24} />
           </div>
-          <h1 className="text-2xl font-bold">Login to MicroForge</h1>
-          <p className="mt-2 text-gray-400">Access your factory dashboard</p>
+          <h1 className="text-2xl font-bold">Join MicroForge</h1>
+          <p className="mt-2 text-gray-400">Create your account to get started</p>
         </div>
 
         <Form {...form}>
@@ -89,12 +94,17 @@ const Login = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input 
-                      placeholder="you@example.com" 
-                      type="email" 
-                      className="bg-dark-lighter border-gray-700" 
-                      {...field} 
-                    />
+                    <div className="relative">
+                      <Input 
+                        placeholder="you@example.com" 
+                        type="email" 
+                        className="bg-dark-lighter border-gray-700" 
+                        {...field} 
+                      />
+                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                        <Mail size={16} />
+                      </div>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -125,38 +135,51 @@ const Login = () => {
               )}
             />
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-gray-700 bg-dark-lighter text-neon-lime focus:ring-neon-lime/50"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <Link to="/signup" className="text-neon-lime hover:text-neon-lime/80">
-                  Need an account?
-                </Link>
-              </div>
-            </div>
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input 
+                        placeholder="••••••••" 
+                        type="password" 
+                        className="bg-dark-lighter border-gray-700" 
+                        {...field} 
+                      />
+                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                        <Key size={16} />
+                      </div>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <Button 
               type="submit" 
               className="w-full bg-neon-lime/20 text-neon-lime hover:bg-neon-lime/30 border border-neon-lime/30"
               disabled={isLoading}
             >
-              {isLoading ? "Logging in..." : "Login"}
+              {isLoading ? "Creating account..." : "Create Account"}
             </Button>
           </form>
         </Form>
+
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-400">
+            Already have an account?{" "}
+            <Link to="/login" className="text-neon-lime hover:text-neon-lime/80">
+              Sign in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Signup;
