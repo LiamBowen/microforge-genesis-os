@@ -1,14 +1,18 @@
+
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import CreateMachineDialog from "@/components/CreateMachineDialog";
 import MachineLogs from "@/components/MachineLogs";
+import DeployProtocolDialog from "@/components/DeployProtocolDialog";
+import EditConfigurationDrawer from "@/components/EditConfigurationDrawer";
+import DashboardSummary from "@/components/dashboard/DashboardSummary";
 import { useMachines } from "@/hooks/useMachines";
 import { Play, Square, AlertCircle, Wrench, FileText } from "lucide-react";
 import { useState } from "react";
 
 const MachinesPage = () => {
-  const { machines, loading, startMachine, stopMachine, createMachine } = useMachines();
+  const { machines, loading, startMachine, stopMachine, createMachine, refetch } = useMachines();
   const [selectedMachineForLogs, setSelectedMachineForLogs] = useState<string | null>(null);
 
   const getStatusColor = (status: string) => {
@@ -118,6 +122,12 @@ const MachinesPage = () => {
           <p className="text-gray-400">Manage and monitor your connected devices.</p>
         </div>
 
+        {/* Dashboard Summary */}
+        <section>
+          <h2 className="text-xl font-semibold mb-4">Overview</h2>
+          <DashboardSummary />
+        </section>
+
         <section>
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Connected Machines</h2>
@@ -163,6 +173,16 @@ const MachinesPage = () => {
                         {action.label}
                       </Button>
                     ))}
+                    <DeployProtocolDialog 
+                      machineId={machine.id}
+                      machineName={machine.name}
+                      onDeploySuccess={refetch}
+                    />
+                    <EditConfigurationDrawer 
+                      machineId={machine.id}
+                      machineName={machine.name}
+                      onConfigUpdate={refetch}
+                    />
                   </CardFooter>
                 </Card>
               ))}
