@@ -13,7 +13,6 @@ interface Protocol {
   id: string;
   name: string;
   description: string | null;
-  version: string;
   created_at: string;
   configuration: any;
 }
@@ -147,9 +146,6 @@ const ProtocolsPage = () => {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-gray-300 mb-2">
-                      Version: {protocol.version}
-                    </p>
                     {protocol.description && (
                       <p className="text-sm text-gray-400">{protocol.description}</p>
                     )}

@@ -25,7 +25,6 @@ const CreateProtocolDialog = ({ onCreateProtocol }: CreateProtocolDialogProps) =
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [version, setVersion] = useState("1.0.0");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const { user } = useAuth();
@@ -40,7 +39,6 @@ const CreateProtocolDialog = ({ onCreateProtocol }: CreateProtocolDialogProps) =
         .insert({
           name: name.trim(),
           description: description.trim() || null,
-          version: version.trim(),
           created_by: user.id,
           configuration: {}
         });
@@ -63,7 +61,6 @@ const CreateProtocolDialog = ({ onCreateProtocol }: CreateProtocolDialogProps) =
       setOpen(false);
       setName("");
       setDescription("");
-      setVersion("1.0.0");
       
       if (onCreateProtocol) {
         onCreateProtocol();
@@ -105,18 +102,6 @@ const CreateProtocolDialog = ({ onCreateProtocol }: CreateProtocolDialogProps) =
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter protocol name"
-              className="bg-dark-lighter border-gray-700"
-            />
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="version" className="text-sm font-medium">
-              Version
-            </label>
-            <Input
-              id="version"
-              value={version}
-              onChange={(e) => setVersion(e.target.value)}
-              placeholder="1.0.0"
               className="bg-dark-lighter border-gray-700"
             />
           </div>
