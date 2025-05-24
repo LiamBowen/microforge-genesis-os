@@ -32,7 +32,7 @@ serve(async (req) => {
       );
     }
 
-    const { name, configuration } = await parseBody(req);
+    const { name, machineType, configuration } = await parseBody(req);
     
     if (!name) {
       return new Response(
@@ -48,8 +48,9 @@ serve(async (req) => {
       .insert({
         user_id: user.id,
         name,
+        machine_type: machineType || 'generic',
         configuration: configuration || {},
-        status: 'stopped',
+        status: 'idle',
         created_at: new Date().toISOString()
       })
       .select();
@@ -66,7 +67,7 @@ serve(async (req) => {
     await supabase.from('machine_events').insert({
       machine_id: data[0].id,
       event_type: 'created',
-      details: 'Machine created successfully'
+      message: 'Machine created successfully'
     });
 
     return new Response(

@@ -31,10 +31,10 @@ serve(async (req) => {
 
     console.log(`Starting machine: ${machineId}`);
     
-    // Update machine status to 'starting'
+    // Update machine status to 'running'
     const { data, error } = await supabase
       .from('machines')
-      .update({ status: 'starting', last_started: new Date().toISOString() })
+      .update({ status: 'running', last_started: new Date().toISOString() })
       .eq('id', machineId)
       .select();
 
@@ -50,7 +50,7 @@ serve(async (req) => {
     await supabase.from('machine_events').insert({
       machine_id: machineId,
       event_type: 'start',
-      details: 'Machine start initiated'
+      message: 'Machine start initiated'
     });
 
     return new Response(

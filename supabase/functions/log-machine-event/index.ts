@@ -20,7 +20,7 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_ANON_KEY') ?? ''
     );
 
-    const { machineId, eventType, details } = await parseBody(req);
+    const { machineId, eventType, message, details } = await parseBody(req);
     
     if (!machineId || !eventType) {
       return new Response(
@@ -36,7 +36,8 @@ serve(async (req) => {
       .insert({
         machine_id: machineId,
         event_type: eventType,
-        details: details || '',
+        message: message || '',
+        details: details || {},
         created_at: new Date().toISOString()
       })
       .select();

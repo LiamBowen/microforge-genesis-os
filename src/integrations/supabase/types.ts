@@ -9,7 +9,146 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      machine_events: {
+        Row: {
+          created_at: string | null
+          details: Json | null
+          event_type: string
+          id: string
+          machine_id: string
+          message: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          details?: Json | null
+          event_type: string
+          id?: string
+          machine_id: string
+          message?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          details?: Json | null
+          event_type?: string
+          id?: string
+          machine_id?: string
+          message?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "machine_events_machine_id_fkey"
+            columns: ["machine_id"]
+            isOneToOne: false
+            referencedRelation: "machines"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      machines: {
+        Row: {
+          configuration: Json | null
+          created_at: string | null
+          id: string
+          last_started: string | null
+          last_stopped: string | null
+          machine_type: string | null
+          name: string
+          status: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          configuration?: Json | null
+          created_at?: string | null
+          id?: string
+          last_started?: string | null
+          last_stopped?: string | null
+          machine_type?: string | null
+          name: string
+          status?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          configuration?: Json | null
+          created_at?: string | null
+          id?: string
+          last_started?: string | null
+          last_stopped?: string | null
+          machine_type?: string | null
+          name?: string
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      protocol_deployments: {
+        Row: {
+          deployed_at: string | null
+          id: string
+          machine_id: string
+          protocol_id: string
+          status: string | null
+        }
+        Insert: {
+          deployed_at?: string | null
+          id?: string
+          machine_id: string
+          protocol_id: string
+          status?: string | null
+        }
+        Update: {
+          deployed_at?: string | null
+          id?: string
+          machine_id?: string
+          protocol_id?: string
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "protocol_deployments_machine_id_fkey"
+            columns: ["machine_id"]
+            isOneToOne: false
+            referencedRelation: "machines"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "protocol_deployments_protocol_id_fkey"
+            columns: ["protocol_id"]
+            isOneToOne: false
+            referencedRelation: "protocols"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      protocols: {
+        Row: {
+          configuration: Json
+          created_at: string | null
+          created_by: string
+          description: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          configuration?: Json
+          created_at?: string | null
+          created_by: string
+          description?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          configuration?: Json
+          created_at?: string | null
+          created_by?: string
+          description?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

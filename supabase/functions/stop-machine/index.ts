@@ -31,10 +31,10 @@ serve(async (req) => {
 
     console.log(`Stopping machine: ${machineId}`);
     
-    // Update machine status to 'stopping'
+    // Update machine status to 'idle'
     const { data, error } = await supabase
       .from('machines')
-      .update({ status: 'stopping', last_stopped: new Date().toISOString() })
+      .update({ status: 'idle', last_stopped: new Date().toISOString() })
       .eq('id', machineId)
       .select();
 
@@ -50,7 +50,7 @@ serve(async (req) => {
     await supabase.from('machine_events').insert({
       machine_id: machineId,
       event_type: 'stop',
-      details: 'Machine stop initiated'
+      message: 'Machine stop initiated'
     });
 
     return new Response(

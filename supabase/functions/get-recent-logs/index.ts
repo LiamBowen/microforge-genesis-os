@@ -33,7 +33,7 @@ serve(async (req) => {
 
     const url = new URL(req.url);
     const machineId = url.searchParams.get('machineId');
-    const limit = parseInt(url.searchParams.get('limit') || '50');
+    const limit = parseInt(url.searchParams.get('limit') || '20');
     
     console.log(`Getting recent logs for machine: ${machineId || 'all'}`);
     

@@ -32,46 +32,88 @@ serve(async (req) => {
       );
     }
 
-    const { machineId, protocolConfig } = await parseBody(req);
+    const { machineId, protocolId, protocolConfig } = await parseBody(req);
     
-    if (!machineId || !protocolConfig) {
+    if (!machineId || (!protocolId && !protocolConfig)) {
       return new Response(
-        JSON.stringify({ error: 'Machine ID and protocol configuration are required' }),
+        JSON.stringify({ error: 'Machine ID and either protocol ID or protocol configuration are required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     console.log(`Deploying protocol to machine: ${machineId}`);
     
-    // Update machine with new protocol configuration
-    const { data: machineData, error: machineError } = await supabase
-      .from('machines')
-      .update({ 
-        configuration: protocolConfig,
-        status: 'deploying',
-        updated_at: new Date().toISOString()
-      })
-      .eq('id', machineId)
-      .eq('user_id', user.id)
-      .select();
+    let deploymentData;
+    
+    if (protocolId) {
+      // Deploy existing protocol
+      const { data, error } = await supabase
+        .from('protocol_deployments')
+        .insert({
+          machine_id: machineId,
+          protocol_id: protocolId,
+          status: 'active'
+        })
+        .select();
 
-    if (machineError || !machineData.length) {
-      console.error('Database error:', machineError);
-      return new Response(
-        JSON.stringify({ error: 'Failed to update machine or unauthorized' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      if (error) {
+        console.error('Database error:', error);
+        return new Response(
+          JSON.stringify({ error: 'Failed to deploy protocol' }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      deploymentData = data[0];
+    } else {
+      // Create new protocol and deploy it
+      const { data: protocolData, error: protocolError } = await supabase
+        .from('protocols')
+        .insert({
+          name: protocolConfig.name || 'Custom Protocol',
+          description: protocolConfig.description || '',
+          configuration: protocolConfig,
+          created_by: user.id
+        })
+        .select();
+
+      if (protocolError) {
+        console.error('Protocol creation error:', protocolError);
+        return new Response(
+          JSON.stringify({ error: 'Failed to create protocol' }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      // Deploy the newly created protocol
+      const { data: deployData, error: deployError } = await supabase
+        .from('protocol_deployments')
+        .insert({
+          machine_id: machineId,
+          protocol_id: protocolData[0].id,
+          status: 'active'
+        })
+        .select();
+
+      if (deployError) {
+        console.error('Deployment error:', deployError);
+        return new Response(
+          JSON.stringify({ error: 'Failed to deploy protocol' }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      deploymentData = deployData[0];
     }
 
     // Log the deployment event
     await supabase.from('machine_events').insert({
       machine_id: machineId,
-      event_type: 'deploy',
-      details: `Protocol deployed: ${protocolConfig.name || 'Unknown'}`
+      event_type: 'protocol_deployed',
+      message: `Protocol deployment completed`,
+      details: { deployment_id: deploymentData.id }
     });
 
     return new Response(
-      JSON.stringify({ success: true, machine: machineData[0] }),
+      JSON.stringify({ success: true, deployment: deploymentData }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
 
