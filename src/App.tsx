@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -44,18 +45,26 @@ const ScrollToTop = () => {
   return null;
 };
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 3,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes
+    },
+  },
+});
 
 // Main layout component that handles showing/hiding navbar and footer
 const AppLayout = () => {
   const { isDashboardRoute } = useNavigation();
   
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen w-full">
       {/* Show Navbar on all non-dashboard routes */}
       {!isDashboardRoute && <Navbar />}
       
-      <main className={`flex-grow ${!isDashboardRoute ? '' : 'p-0'}`}>
+      <main className={`flex-grow w-full ${!isDashboardRoute ? '' : 'p-0'}`}>
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Index />} />
@@ -86,17 +95,27 @@ const AppLayout = () => {
 };
 
 const App = () => {
+  // Add viewport meta tag programmatically for better mobile support
+  useEffect(() => {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) {
+      viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no');
+    }
+  }, []);
+
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <ScrollToTop />
-              <AppLayout />
-            </BrowserRouter>
+            <div className="w-full min-h-screen">
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <ScrollToTop />
+                <AppLayout />
+              </BrowserRouter>
+            </div>
           </TooltipProvider>
         </AuthProvider>
       </QueryClientProvider>
