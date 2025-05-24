@@ -15,12 +15,12 @@ const Footer = () => {
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center mb-4" onClick={handleLogoClick}>
               <div className="w-9 h-9 relative mr-2">
-                <div className="absolute inset-0 bg-neon-cyan rounded-md opacity-20"></div>
+                <div className="absolute inset-0 bg-neon-cyan rounded-md opacity-20 animate-pulse-glow"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
                   <img 
                     src="/lovable-uploads/b74af20b-1111-4c06-8b41-ce0fec9793a0.png" 
                     alt="MicroForge Logo" 
-                    className="w-6 h-6 object-contain" 
+                    className="w-full h-full object-contain" 
                   />
                 </div>
               </div>
@@ -70,8 +70,6 @@ const Footer = () => {
               <li><Link to="/about" className="text-gray-400 hover:text-neon-cyan text-sm">About</Link></li>
               <li><Link to="/careers" className="text-gray-400 hover:text-neon-cyan text-sm">Careers</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-neon-cyan text-sm">Contact</Link></li>
-              <li><Link to="/privacy" className="text-gray-400 hover:text-neon-cyan text-sm">Privacy</Link></li>
-              <li><Link to="/terms" className="text-gray-400 hover:text-neon-cyan text-sm">Terms</Link></li>
             </ul>
           </div>
         </div>
