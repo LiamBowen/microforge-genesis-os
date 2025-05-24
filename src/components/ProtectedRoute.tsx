@@ -1,12 +1,16 @@
 
 import { useAuth } from '@/contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+  // Temporarily bypass authentication for development
+  // TODO: Re-enable authentication when ready for production
+  return <>{children}</>;
+  
+  /* Original auth logic - commented out for now
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -22,6 +26,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   }
 
   return <>{children}</>;
+  */
 };
 
 export default ProtectedRoute;
