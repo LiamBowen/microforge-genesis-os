@@ -12,10 +12,14 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Plus } from "lucide-react";
+import { protocolSchema, type ProtocolFormData } from "@/schemas/protocol";
 
 interface CreateProtocolDialogProps {
   onCreateProtocol?: () => void;
@@ -23,24 +27,29 @@ interface CreateProtocolDialogProps {
 
 const CreateProtocolDialog = ({ onCreateProtocol }: CreateProtocolDialogProps) => {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const { user } = useAuth();
 
-  const handleCreate = async () => {
-    if (!name.trim() || !user) return;
+  const form = useForm<ProtocolFormData>({
+    resolver: zodResolver(protocolSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      configuration: {},
+    },
+  });
 
-    setLoading(true);
+  const handleCreate = async (data: ProtocolFormData) => {
+    if (!user) return;
+
     try {
       const { error } = await supabase
         .from('protocols')
         .insert({
-          name: name.trim(),
-          description: description.trim() || null,
+          name: data.name,
+          description: data.description || null,
           created_by: user.id,
-          configuration: {}
+          configuration: data.configuration
         });
 
       if (error) {
@@ -59,8 +68,7 @@ const CreateProtocolDialog = ({ onCreateProtocol }: CreateProtocolDialogProps) =
       });
 
       setOpen(false);
-      setName("");
-      setDescription("");
+      form.reset();
       
       if (onCreateProtocol) {
         onCreateProtocol();
@@ -72,8 +80,6 @@ const CreateProtocolDialog = ({ onCreateProtocol }: CreateProtocolDialogProps) =
         description: "Failed to create protocol",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -92,48 +98,63 @@ const CreateProtocolDialog = ({ onCreateProtocol }: CreateProtocolDialogProps) =
             Create a new protocol configuration for your machines.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid gap-2">
-            <label htmlFor="name" className="text-sm font-medium">
-              Protocol Name *
-            </label>
-            <Input
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter protocol name"
-              className="bg-dark-lighter border-gray-700"
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleCreate)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Protocol Name *</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter protocol name"
+                      className="bg-dark-lighter border-gray-700"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="description" className="text-sm font-medium">
-              Description
-            </label>
-            <Textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Optional description"
-              className="bg-dark-lighter border-gray-700"
-              rows={3}
+            
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Optional description"
+                      className="bg-dark-lighter border-gray-700"
+                      rows={3}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => setOpen(false)}
-            disabled={loading}
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleCreate}
-            disabled={!name.trim() || loading}
-          >
-            {loading ? "Creating..." : "Create Protocol"}
-          </Button>
-        </DialogFooter>
+            
+            <DialogFooter>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setOpen(false)}
+                disabled={form.formState.isSubmitting}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                disabled={form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting ? "Creating..." : "Create Protocol"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

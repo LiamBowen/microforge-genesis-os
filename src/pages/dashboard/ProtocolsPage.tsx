@@ -1,7 +1,8 @@
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import CreateProtocolDialog from "@/components/CreateProtocolDialog";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,13 +18,64 @@ interface Protocol {
   configuration: any;
 }
 
+const ProtocolCard = React.memo(({ protocol, onDelete }: { protocol: Protocol; onDelete: (id: string) => void }) => {
+  const handleDelete = useCallback(() => {
+    onDelete(protocol.id);
+  }, [onDelete, protocol.id]);
+
+  const formattedDate = useMemo(() => 
+    new Date(protocol.created_at).toLocaleDateString(),
+    [protocol.created_at]
+  );
+
+  return (
+    <Card className="bg-dark-card border-gray-800">
+      <CardHeader>
+        <div className="flex items-center gap-2">
+          <FileText size={20} className="text-neon-lime" />
+          <CardTitle className="text-lg">{protocol.name}</CardTitle>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-gray-400">
+          <Calendar size={16} />
+          {formattedDate}
+        </div>
+      </CardHeader>
+      <CardContent>
+        {protocol.description && (
+          <p className="text-sm text-gray-400">{protocol.description}</p>
+        )}
+      </CardContent>
+      <CardFooter className="flex gap-2">
+        <Button 
+          variant="outline" 
+          size="sm"
+          className="border-gray-700"
+        >
+          <Edit size={16} className="mr-1" />
+          Edit
+        </Button>
+        <Button 
+          variant="destructive" 
+          size="sm"
+          onClick={handleDelete}
+        >
+          <Trash2 size={16} className="mr-1" />
+          Delete
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+});
+
+ProtocolCard.displayName = 'ProtocolCard';
+
 const ProtocolsPage = () => {
   const [protocols, setProtocols] = useState<Protocol[]>([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const { toast } = useToast();
 
-  const fetchProtocols = async () => {
+  const fetchProtocols = useCallback(async () => {
     if (!user) {
       setLoading(false);
       return;
@@ -57,9 +109,9 @@ const ProtocolsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user, toast]);
 
-  const deleteProtocol = async (protocolId: string) => {
+  const deleteProtocol = useCallback(async (protocolId: string) => {
     try {
       const { error } = await supabase
         .from('protocols')
@@ -90,11 +142,11 @@ const ProtocolsPage = () => {
         variant: "destructive",
       });
     }
-  };
+  }, [fetchProtocols, toast]);
 
   useEffect(() => {
     fetchProtocols();
-  }, [user]);
+  }, [fetchProtocols]);
 
   if (loading) {
     return (
@@ -104,9 +156,17 @@ const ProtocolsPage = () => {
             <h1 className="text-3xl font-bold mb-1">Protocols</h1>
             <p className="text-gray-400">Manage your protocol configurations.</p>
           </div>
-          <div className="flex items-center justify-center py-8">
-            <div className="text-gray-400">Loading protocols...</div>
-          </div>
+          <section>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">Your Protocols</h2>
+              <Skeleton className="h-10 w-32 rounded" />
+            </div>
+            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <Skeleton key={i} className="h-48 w-full rounded-lg" />
+              ))}
+            </div>
+          </section>
         </div>
       </DashboardLayout>
     );
@@ -134,41 +194,11 @@ const ProtocolsPage = () => {
           ) : (
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {protocols.map((protocol) => (
-                <Card key={protocol.id} className="bg-dark-card border-gray-800">
-                  <CardHeader>
-                    <div className="flex items-center gap-2">
-                      <FileText size={20} className="text-neon-lime" />
-                      <CardTitle className="text-lg">{protocol.name}</CardTitle>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <Calendar size={16} />
-                      {new Date(protocol.created_at).toLocaleDateString()}
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    {protocol.description && (
-                      <p className="text-sm text-gray-400">{protocol.description}</p>
-                    )}
-                  </CardContent>
-                  <CardFooter className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      className="border-gray-700"
-                    >
-                      <Edit size={16} className="mr-1" />
-                      Edit
-                    </Button>
-                    <Button 
-                      variant="destructive" 
-                      size="sm"
-                      onClick={() => deleteProtocol(protocol.id)}
-                    >
-                      <Trash2 size={16} className="mr-1" />
-                      Delete
-                    </Button>
-                  </CardFooter>
-                </Card>
+                <ProtocolCard
+                  key={protocol.id}
+                  protocol={protocol}
+                  onDelete={deleteProtocol}
+                />
               ))}
             </div>
           )}
