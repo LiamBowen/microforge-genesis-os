@@ -1,5 +1,5 @@
 
-import { render, screen, fireEvent } from '../test/test-utils'
+import { render, screen, fireEvent } from '@/test/test-utils'
 import MachineCard from '../MachineCard'
 import { vi } from 'vitest'
 
