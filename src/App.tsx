@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -20,6 +19,11 @@ import GetInvolved from "./pages/GetInvolved";
 import EarlyAccess from "./pages/EarlyAccess";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import About from "./pages/About";
+import Careers from "./pages/Careers";
+import Contact from "./pages/Contact";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 
 // Dashboard Pages
@@ -75,6 +79,11 @@ const AppLayout = () => {
           <Route path="/early-access" element={<EarlyAccess />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
           
           {/* Protected Dashboard Routes */}
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />

@@ -3,32 +3,29 @@ import { Link } from "react-router-dom";
 import { Twitter, Linkedin, Github } from "lucide-react";
 
 const Footer = () => {
+  const handleLogoClick = () => {
+    // Always scroll to top when logo is clicked
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="bg-dark-lighter pt-16 pb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pb-8">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center mb-4">
+            <Link to="/" className="flex items-center mb-4" onClick={handleLogoClick}>
               <div className="w-9 h-9 relative mr-2">
                 <div className="absolute inset-0 bg-neon-cyan rounded-md opacity-20"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <svg 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    className="w-6 h-6 text-neon-cyan"
-                  >
-                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                    <path d="M3 9h18" />
-                    <path d="M9 21V9" />
-                  </svg>
+                  <img 
+                    src="/lovable-uploads/b74af20b-1111-4c06-8b41-ce0fec9793a0.png" 
+                    alt="MicroForge Logo" 
+                    className="w-6 h-6 object-contain" 
+                  />
                 </div>
               </div>
               <span className="text-xl font-bold gradient-text">MicroForge</span>
-            </div>
+            </Link>
             <p className="text-gray-400 text-sm mb-4">
               The AI OS for autonomous manufacturing.
               <br />Turn machines into factories that think.
@@ -70,9 +67,11 @@ const Footer = () => {
           <div>
             <h4 className="text-white font-semibold mb-4">Company</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-neon-cyan text-sm">About</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-neon-cyan text-sm">Careers</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-neon-cyan text-sm">Contact</a></li>
+              <li><Link to="/about" className="text-gray-400 hover:text-neon-cyan text-sm">About</Link></li>
+              <li><Link to="/careers" className="text-gray-400 hover:text-neon-cyan text-sm">Careers</Link></li>
+              <li><Link to="/contact" className="text-gray-400 hover:text-neon-cyan text-sm">Contact</Link></li>
+              <li><Link to="/privacy" className="text-gray-400 hover:text-neon-cyan text-sm">Privacy</Link></li>
+              <li><Link to="/terms" className="text-gray-400 hover:text-neon-cyan text-sm">Terms</Link></li>
             </ul>
           </div>
         </div>
@@ -82,8 +81,8 @@ const Footer = () => {
             MicroForge © {new Date().getFullYear()}. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <a href="#" className="text-gray-500 hover:text-white text-sm">Privacy</a>
-            <a href="#" className="text-gray-500 hover:text-white text-sm">Terms</a>
+            <Link to="/privacy" className="text-gray-500 hover:text-white text-sm">Privacy</Link>
+            <Link to="/terms" className="text-gray-500 hover:text-white text-sm">Terms</Link>
           </div>
         </div>
       </div>
