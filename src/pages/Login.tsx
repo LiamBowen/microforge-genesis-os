@@ -112,14 +112,14 @@ const Login = () => {
                       <Input 
                         placeholder="••••••••" 
                         type={showPassword ? "text" : "password"}
-                        className="bg-dark-lighter border-gray-700 pr-12" 
+                        className="bg-dark-lighter border-gray-700 pr-10" 
                         {...field} 
                       />
-                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                      <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="text-gray-500 hover:text-gray-300 transition-colors"
+                          className="text-gray-500 hover:text-gray-300 transition-colors p-1"
                         >
                           {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                         </button>
