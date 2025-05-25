@@ -8,6 +8,7 @@ import DashboardSummary from "@/components/dashboard/DashboardSummary";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { useMachines } from "@/hooks/useMachines";
+import { ArrowLeft } from "lucide-react";
 
 const MachinesPage = () => {
   const { machines, loading, startMachine, stopMachine, createMachine, refetch } = useMachines();
@@ -37,29 +38,29 @@ const MachinesPage = () => {
   if (loading) {
     return (
       <DashboardLayout>
-        <div className="space-y-8">
-          <div>
-            <h1 className="text-3xl font-bold mb-1">Machines</h1>
+        <div className="space-y-8 p-6">
+          <div className="space-y-2">
+            <h1 className="text-3xl font-bold text-white">Machines</h1>
             <p className="text-gray-400">Manage and monitor your connected devices.</p>
           </div>
           
-          <section>
-            <h2 className="text-xl font-semibold mb-4">Overview</h2>
+          <section className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Overview</h2>
             <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
               {Array.from({ length: 4 }).map((_, i) => (
-                <Skeleton key={i} className="h-24 w-full rounded-lg" />
+                <Skeleton key={i} className="h-24 w-full rounded-lg bg-gray-800" />
               ))}
             </div>
           </section>
 
-          <section>
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Connected Machines</h2>
-              <Skeleton className="h-10 w-32 rounded" />
+          <section className="space-y-4">
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-semibold text-white">Connected Machines</h2>
+              <Skeleton className="h-10 w-32 rounded bg-gray-800" />
             </div>
-            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 3 }).map((_, i) => (
-                <Skeleton key={i} className="h-48 w-full rounded-lg" />
+                <Skeleton key={i} className="h-64 w-full rounded-lg bg-gray-800" />
               ))}
             </div>
           </section>
@@ -72,17 +73,18 @@ const MachinesPage = () => {
   if (selectedMachineForLogs) {
     return (
       <DashboardLayout>
-        <div className="space-y-8">
+        <div className="space-y-8 p-6">
           <div className="flex items-center gap-4">
             <Button 
               variant="outline" 
               onClick={() => setSelectedMachineForLogs(null)}
-              className="border-gray-700"
+              className="border-gray-700 hover:bg-gray-800 flex items-center gap-2"
             >
-              ← Back to Machines
+              <ArrowLeft size={16} />
+              <span>Back to Machines</span>
             </Button>
-            <div>
-              <h1 className="text-3xl font-bold mb-1">Machine Logs</h1>
+            <div className="space-y-1">
+              <h1 className="text-3xl font-bold text-white">Machine Logs</h1>
               <p className="text-gray-400">View recent events and activities.</p>
             </div>
           </div>
@@ -97,30 +99,33 @@ const MachinesPage = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-8">
-        <div>
-          <h1 className="text-3xl font-bold mb-1">Machines</h1>
+      <div className="space-y-8 p-6">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold text-white">Machines</h1>
           <p className="text-gray-400">Manage and monitor your connected devices.</p>
         </div>
 
         {/* Dashboard Summary */}
-        <section>
-          <h2 className="text-xl font-semibold mb-4">Overview</h2>
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold text-white">Overview</h2>
           <DashboardSummary />
         </section>
 
-        <section>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Connected Machines</h2>
+        <section className="space-y-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-semibold text-white">Connected Machines</h2>
             <CreateMachineDialog onCreateMachine={handleCreateMachine} />
           </div>
           
           {machines.length === 0 ? (
-            <div className="text-center py-8 text-gray-400">
-              <p>No machines found. Create your first machine to get started.</p>
+            <div className="text-center py-12 bg-gray-900/30 rounded-lg border border-gray-800">
+              <div className="space-y-3">
+                <p className="text-gray-400 text-lg">No machines found</p>
+                <p className="text-gray-500 text-sm">Create your first machine to get started.</p>
+              </div>
             </div>
           ) : (
-            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {machines.map((machine) => (
                 <MachineCard
                   key={machine.id}

@@ -32,13 +32,13 @@ const MachineCard = React.memo(({ machine, onStart, onStop, onViewLogs, onRefetc
   const getStatusIcon = useCallback((status: string) => {
     switch (status) {
       case "running":
-        return <Play size={16} className="text-green-500" />;
+        return <Play size={16} className="text-green-500 flex-shrink-0" />;
       case "error":
-        return <AlertCircle size={16} className="text-red-500" />;
+        return <AlertCircle size={16} className="text-red-500 flex-shrink-0" />;
       case "maintenance":
-        return <Wrench size={16} className="text-yellow-500" />;
+        return <Wrench size={16} className="text-yellow-500 flex-shrink-0" />;
       default:
-        return <Square size={16} className="text-gray-500" />;
+        return <Square size={16} className="text-gray-500 flex-shrink-0" />;
     }
   }, []);
 
@@ -51,64 +51,98 @@ const MachineCard = React.memo(({ machine, onStart, onStop, onViewLogs, onRefetc
     [machine.machine_type]
   );
 
+  const statusDisplay = React.useMemo(() => 
+    machine.status.charAt(0).toUpperCase() + machine.status.slice(1),
+    [machine.status]
+  );
+
   return (
-    <Card className="bg-dark-card border-gray-800 overflow-hidden">
+    <Card className="bg-dark-card border-gray-800 overflow-hidden h-full flex flex-col">
       <div className={`h-1 ${getStatusColor(machine.status)}`}></div>
-      <CardContent className="p-6">
-        <div className="flex items-center gap-2 mb-2">
+      <CardContent className="p-6 flex-1">
+        <div className="flex items-center gap-3 mb-3">
           {getStatusIcon(machine.status)}
-          <h3 className="text-xl font-semibold">{machine.name}</h3>
+          <h3 className="text-xl font-semibold text-white truncate flex-1">{machine.name}</h3>
         </div>
-        <p className="text-gray-400 mb-2">
-          {machineTypeDisplay} | Status: {machine.status}
-        </p>
+        
+        <div className="space-y-2 text-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-gray-400">Type:</span>
+            <span className="text-gray-300 font-medium">{machineTypeDisplay}</span>
+          </div>
+          
+          <div className="flex items-center justify-between">
+            <span className="text-gray-400">Status:</span>
+            <span className={`font-medium px-2 py-1 rounded-full text-xs ${
+              machine.status === 'running' ? 'bg-green-500/20 text-green-400' :
+              machine.status === 'error' ? 'bg-red-500/20 text-red-400' :
+              machine.status === 'maintenance' ? 'bg-yellow-500/20 text-yellow-400' :
+              'bg-gray-500/20 text-gray-400'
+            }`}>
+              {statusDisplay}
+            </span>
+          </div>
+        </div>
+        
         {machine.last_started && (
-          <p className="text-sm text-gray-500">
-            Last started: {new Date(machine.last_started).toLocaleString()}
-          </p>
+          <div className="mt-4 pt-3 border-t border-gray-700">
+            <p className="text-xs text-gray-500">
+              <span className="block">Last started:</span>
+              <span className="text-gray-400">{new Date(machine.last_started).toLocaleString()}</span>
+            </p>
+          </div>
         )}
       </CardContent>
-      <CardFooter className="p-6 pt-0 flex gap-2 flex-wrap">
-        {machine.status === 'idle' && (
+      
+      <CardFooter className="p-6 pt-0 flex flex-col gap-3">
+        <div className="flex gap-2 w-full">
+          {machine.status === 'idle' && (
+            <Button 
+              variant="default"
+              size="sm" 
+              onClick={handleStart}
+              className="flex-1"
+            >
+              <Play size={14} className="mr-2" />
+              Start
+            </Button>
+          )}
+          
+          {machine.status === 'running' && (
+            <Button 
+              variant="destructive"
+              size="sm" 
+              onClick={handleStop}
+              className="flex-1"
+            >
+              <Square size={14} className="mr-2" />
+              Stop
+            </Button>
+          )}
+          
           <Button 
-            variant="default"
-            size="sm" 
-            onClick={handleStart}
+            variant="outline"
+            size="sm"
+            className="border-gray-700 flex-1"
+            onClick={handleViewLogs}
           >
-            Start
+            <FileText size={14} className="mr-2" />
+            Logs
           </Button>
-        )}
+        </div>
         
-        {machine.status === 'running' && (
-          <Button 
-            variant="destructive"
-            size="sm" 
-            onClick={handleStop}
-          >
-            Stop
-          </Button>
-        )}
-        
-        <Button 
-          variant="outline"
-          size="sm"
-          className="border-gray-700"
-          onClick={handleViewLogs}
-        >
-          <FileText size={16} className="mr-1" />
-          View Logs
-        </Button>
-        
-        <DeployProtocolDialog 
-          machineId={machine.id}
-          machineName={machine.name}
-          onDeploySuccess={onRefetch}
-        />
-        <EditConfigurationDrawer 
-          machineId={machine.id}
-          machineName={machine.name}
-          onConfigUpdate={onRefetch}
-        />
+        <div className="flex gap-2 w-full">
+          <DeployProtocolDialog 
+            machineId={machine.id}
+            machineName={machine.name}
+            onDeploySuccess={onRefetch}
+          />
+          <EditConfigurationDrawer 
+            machineId={machine.id}
+            machineName={machine.name}
+            onConfigUpdate={onRefetch}
+          />
+        </div>
       </CardFooter>
     </Card>
   );
