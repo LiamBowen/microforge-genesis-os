@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -36,6 +35,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Link } from "react-router-dom";
 
 const accountFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -718,15 +718,81 @@ const SettingsPage = () => {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between p-3 border border-gray-700 rounded-lg">
                     <span className="font-medium">Privacy Policy</span>
-                    <Button variant="outline" size="sm" className="border-gray-700">
-                      View
-                    </Button>
+                    <Link to="/privacy">
+                      <Button variant="outline" size="sm" className="border-gray-700">
+                        View
+                      </Button>
+                    </Link>
                   </div>
                   <div className="flex items-center justify-between p-3 border border-gray-700 rounded-lg">
                     <span className="font-medium">Terms of Service</span>
-                    <Button variant="outline" size="sm" className="border-gray-700">
-                      View
-                    </Button>
+                    <Link to="/terms">
+                      <Button variant="outline" size="sm" className="border-gray-700">
+                        View
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+
+                <Separator className="bg-gray-700" />
+
+                {/* Privacy Policy Content */}
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold">Privacy Policy</h4>
+                  <p className="text-sm text-gray-400 mb-4">Last updated: May 24, 2025</p>
+
+                  <div className="space-y-4 text-gray-400 leading-relaxed text-sm">
+                    <p>
+                      MicroForge respects your privacy. We only collect data necessary to provide and improve our platform.
+                      We do not sell or share your information with third parties.
+                    </p>
+
+                    <ul className="list-disc ml-6 space-y-2">
+                      <li>We collect basic analytics to understand usage (via anonymized tools).</li>
+                      <li>All data is encrypted and securely stored.</li>
+                      <li>You may request your data or account deletion at any time.</li>
+                    </ul>
+
+                    <p>
+                      For any questions, email us at{" "}
+                      <a 
+                        href="mailto:privacy@microforge.com" 
+                        className="text-neon-cyan hover:text-neon-lime underline transition-colors"
+                      >
+                        privacy@microforge.com
+                      </a>.
+                    </p>
+                  </div>
+                </div>
+
+                <Separator className="bg-gray-700" />
+
+                {/* Terms of Service Content */}
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold">Terms of Use</h4>
+                  <p className="text-sm text-gray-400 mb-4">Last updated: May 24, 2025</p>
+
+                  <div className="space-y-4 text-gray-400 leading-relaxed text-sm">
+                    <p>
+                      By accessing or using MicroForge, you agree to the following terms:
+                    </p>
+
+                    <ul className="list-disc ml-6 space-y-2">
+                      <li>You are responsible for how you use the platform.</li>
+                      <li>MicroForge is provided "as is" without warranties of any kind.</li>
+                      <li>We are not liable for any damages resulting from use of the platform.</li>
+                      <li>You may not reverse-engineer, resell, or exploit any part of the service.</li>
+                    </ul>
+
+                    <p>
+                      For legal inquiries, contact{" "}
+                      <a 
+                        href="mailto:legal@microforge.com" 
+                        className="text-neon-cyan hover:text-neon-lime underline transition-colors"
+                      >
+                        legal@microforge.com
+                      </a>.
+                    </p>
                   </div>
                 </div>
 
