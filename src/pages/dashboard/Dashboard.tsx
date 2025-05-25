@@ -1,6 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
+import UserInfoSection from "@/components/dashboard/UserInfoSection";
 
 const Dashboard = () => {
   const stats = [
@@ -19,9 +20,12 @@ const Dashboard = () => {
   return (
     <DashboardLayout>
       <div className="space-y-8">
-        <div>
-          <h1 className="text-3xl font-bold mb-1">Dashboard</h1>
-          <p className="text-gray-400">Welcome to your MicroForge control center.</p>
+        <div className="flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-bold mb-1">Dashboard</h1>
+            <p className="text-gray-400">Welcome to your MicroForge control center.</p>
+          </div>
+          <UserInfoSection />
         </div>
 
         <section>
