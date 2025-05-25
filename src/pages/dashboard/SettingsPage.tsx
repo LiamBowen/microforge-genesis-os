@@ -27,7 +27,8 @@ import {
   LogOut,
   Download,
   Trash2,
-  AlertTriangle
+  AlertTriangle,
+  ArrowLeft
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Switch } from "@/components/ui/switch";
@@ -55,6 +56,7 @@ type FactoryFormValues = z.infer<typeof factoryFormSchema>;
 const SettingsPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
+  const [legalView, setLegalView] = useState<'main' | 'privacy' | 'terms'>('main');
   const [notifications, setNotifications] = useState({
     machineStarted: true,
     protocolFailed: true,
@@ -710,125 +712,143 @@ const SettingsPage = () => {
             <Card className="bg-dark-card border-gray-800">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
+                  {legalView !== 'main' && (
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={() => setLegalView('main')}
+                      className="mr-2 text-gray-400 hover:text-white"
+                    >
+                      <ArrowLeft size={16} />
+                    </Button>
+                  )}
                   <FileText size={20} />
-                  Legal & Compliance
+                  {legalView === 'main' && 'Legal & Compliance'}
+                  {legalView === 'privacy' && 'Privacy Policy'}
+                  {legalView === 'terms' && 'Terms of Service'}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-3 border border-gray-700 rounded-lg">
-                    <span className="font-medium">Privacy Policy</span>
-                    <Link to="/privacy">
-                      <Button variant="outline" size="sm" className="border-gray-700">
-                        View
+                {legalView === 'main' && (
+                  <>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-3 border border-gray-700 rounded-lg">
+                        <span className="font-medium">Privacy Policy</span>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="border-gray-700"
+                          onClick={() => setLegalView('privacy')}
+                        >
+                          View
+                        </Button>
+                      </div>
+                      <div className="flex items-center justify-between p-3 border border-gray-700 rounded-lg">
+                        <span className="font-medium">Terms of Service</span>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="border-gray-700"
+                          onClick={() => setLegalView('terms')}
+                        >
+                          View
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="p-4 border border-blue-500/30 bg-blue-500/10 rounded-lg">
+                      <h4 className="font-medium text-blue-400 mb-2">Data Usage Information</h4>
+                      <p className="text-sm text-gray-300">
+                        MicroForge does not share or sell your data. All factory data remains encrypted and owned by you.
+                        We use industry-standard security measures to protect your information.
+                      </p>
+                    </div>
+
+                    <Separator className="bg-gray-700" />
+
+                    <div className="space-y-4">
+                      <h4 className="font-medium">Data Management</h4>
+                      <div className="flex gap-3">
+                        <Button variant="outline" className="border-gray-700">
+                          <Download size={16} className="mr-2" />
+                          Request Data Export
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="p-4 border border-red-500/30 bg-red-500/10 rounded-lg">
+                      <div className="flex items-center gap-3 mb-3">
+                        <AlertTriangle size={20} className="text-red-400" />
+                        <h4 className="font-medium text-red-400">Danger Zone</h4>
+                      </div>
+                      <p className="text-sm text-gray-300 mb-4">
+                        Once you delete your account, there is no going back. This will permanently delete your account and all associated data.
+                      </p>
+                      <Button variant="destructive">
+                        <Trash2 size={16} className="mr-2" />
+                        Delete Account
                       </Button>
-                    </Link>
+                    </div>
+                  </>
+                )}
+
+                {legalView === 'privacy' && (
+                  <div className="space-y-4">
+                    <p className="text-sm text-gray-400 mb-4">Last updated: May 24, 2025</p>
+
+                    <div className="space-y-4 text-gray-400 leading-relaxed text-sm">
+                      <p>
+                        MicroForge respects your privacy. We only collect data necessary to provide and improve our platform.
+                        We do not sell or share your information with third parties.
+                      </p>
+
+                      <ul className="list-disc ml-6 space-y-2">
+                        <li>We collect basic analytics to understand usage (via anonymized tools).</li>
+                        <li>All data is encrypted and securely stored.</li>
+                        <li>You may request your data or account deletion at any time.</li>
+                      </ul>
+
+                      <p>
+                        For any questions, email us at{" "}
+                        <a 
+                          href="mailto:privacy@microforge.com" 
+                          className="text-neon-cyan hover:text-neon-lime underline transition-colors"
+                        >
+                          privacy@microforge.com
+                        </a>.
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between p-3 border border-gray-700 rounded-lg">
-                    <span className="font-medium">Terms of Service</span>
-                    <Link to="/terms">
-                      <Button variant="outline" size="sm" className="border-gray-700">
-                        View
-                      </Button>
-                    </Link>
+                )}
+
+                {legalView === 'terms' && (
+                  <div className="space-y-4">
+                    <p className="text-sm text-gray-400 mb-4">Last updated: May 24, 2025</p>
+
+                    <div className="space-y-4 text-gray-400 leading-relaxed text-sm">
+                      <p>
+                        By accessing or using MicroForge, you agree to the following terms:
+                      </p>
+
+                      <ul className="list-disc ml-6 space-y-2">
+                        <li>You are responsible for how you use the platform.</li>
+                        <li>MicroForge is provided "as is" without warranties of any kind.</li>
+                        <li>We are not liable for any damages resulting from use of the platform.</li>
+                        <li>You may not reverse-engineer, resell, or exploit any part of the service.</li>
+                      </ul>
+
+                      <p>
+                        For legal inquiries, contact{" "}
+                        <a 
+                          href="mailto:legal@microforge.com" 
+                          className="text-neon-cyan hover:text-neon-lime underline transition-colors"
+                        >
+                          legal@microforge.com
+                        </a>.
+                      </p>
+                    </div>
                   </div>
-                </div>
-
-                <Separator className="bg-gray-700" />
-
-                {/* Privacy Policy Content */}
-                <div className="space-y-4">
-                  <h4 className="text-lg font-semibold">Privacy Policy</h4>
-                  <p className="text-sm text-gray-400 mb-4">Last updated: May 24, 2025</p>
-
-                  <div className="space-y-4 text-gray-400 leading-relaxed text-sm">
-                    <p>
-                      MicroForge respects your privacy. We only collect data necessary to provide and improve our platform.
-                      We do not sell or share your information with third parties.
-                    </p>
-
-                    <ul className="list-disc ml-6 space-y-2">
-                      <li>We collect basic analytics to understand usage (via anonymized tools).</li>
-                      <li>All data is encrypted and securely stored.</li>
-                      <li>You may request your data or account deletion at any time.</li>
-                    </ul>
-
-                    <p>
-                      For any questions, email us at{" "}
-                      <a 
-                        href="mailto:privacy@microforge.com" 
-                        className="text-neon-cyan hover:text-neon-lime underline transition-colors"
-                      >
-                        privacy@microforge.com
-                      </a>.
-                    </p>
-                  </div>
-                </div>
-
-                <Separator className="bg-gray-700" />
-
-                {/* Terms of Service Content */}
-                <div className="space-y-4">
-                  <h4 className="text-lg font-semibold">Terms of Use</h4>
-                  <p className="text-sm text-gray-400 mb-4">Last updated: May 24, 2025</p>
-
-                  <div className="space-y-4 text-gray-400 leading-relaxed text-sm">
-                    <p>
-                      By accessing or using MicroForge, you agree to the following terms:
-                    </p>
-
-                    <ul className="list-disc ml-6 space-y-2">
-                      <li>You are responsible for how you use the platform.</li>
-                      <li>MicroForge is provided "as is" without warranties of any kind.</li>
-                      <li>We are not liable for any damages resulting from use of the platform.</li>
-                      <li>You may not reverse-engineer, resell, or exploit any part of the service.</li>
-                    </ul>
-
-                    <p>
-                      For legal inquiries, contact{" "}
-                      <a 
-                        href="mailto:legal@microforge.com" 
-                        className="text-neon-cyan hover:text-neon-lime underline transition-colors"
-                      >
-                        legal@microforge.com
-                      </a>.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-4 border border-blue-500/30 bg-blue-500/10 rounded-lg">
-                  <h4 className="font-medium text-blue-400 mb-2">Data Usage Information</h4>
-                  <p className="text-sm text-gray-300">
-                    MicroForge does not share or sell your data. All factory data remains encrypted and owned by you.
-                    We use industry-standard security measures to protect your information.
-                  </p>
-                </div>
-
-                <Separator className="bg-gray-700" />
-
-                <div className="space-y-4">
-                  <h4 className="font-medium">Data Management</h4>
-                  <div className="flex gap-3">
-                    <Button variant="outline" className="border-gray-700">
-                      <Download size={16} className="mr-2" />
-                      Request Data Export
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="p-4 border border-red-500/30 bg-red-500/10 rounded-lg">
-                  <div className="flex items-center gap-3 mb-3">
-                    <AlertTriangle size={20} className="text-red-400" />
-                    <h4 className="font-medium text-red-400">Danger Zone</h4>
-                  </div>
-                  <p className="text-sm text-gray-300 mb-4">
-                    Once you delete your account, there is no going back. This will permanently delete your account and all associated data.
-                  </p>
-                  <Button variant="destructive">
-                    <Trash2 size={16} className="mr-2" />
-                    Delete Account
-                  </Button>
-                </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
