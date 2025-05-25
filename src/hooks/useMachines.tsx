@@ -23,6 +23,12 @@ export const useMachines = () => {
   const { user } = useAuth();
 
   const fetchMachines = async () => {
+    // Temporarily bypass authentication for development
+    // TODO: Re-enable authentication when ready for production
+    setLoading(false);
+    return;
+    
+    /* Original auth logic - commented out for now
     if (!user) {
       setLoading(false);
       return;
@@ -56,9 +62,18 @@ export const useMachines = () => {
     } finally {
       setLoading(false);
     }
+    */
   };
 
   const startMachine = async (machineId: string) => {
+    // Temporarily bypass authentication for development
+    toast({
+      title: "Demo Mode",
+      description: "Machine start simulated (auth disabled)",
+    });
+    return;
+    
+    /* Original auth logic - commented out for now
     if (!user) return;
 
     try {
@@ -94,9 +109,18 @@ export const useMachines = () => {
         variant: "destructive",
       });
     }
+    */
   };
 
   const stopMachine = async (machineId: string) => {
+    // Temporarily bypass authentication for development
+    toast({
+      title: "Demo Mode",
+      description: "Machine stop simulated (auth disabled)",
+    });
+    return;
+    
+    /* Original auth logic - commented out for now
     if (!user) return;
 
     try {
@@ -132,9 +156,18 @@ export const useMachines = () => {
         variant: "destructive",
       });
     }
+    */
   };
 
   const createMachine = async (name: string, machineType: string) => {
+    // Temporarily bypass authentication for development
+    toast({
+      title: "Demo Mode",
+      description: "Machine creation simulated (auth disabled)",
+    });
+    return;
+    
+    /* Original auth logic - commented out for now
     if (!user) return;
 
     try {
@@ -170,13 +203,19 @@ export const useMachines = () => {
         variant: "destructive",
       });
     }
+    */
   };
 
   useEffect(() => {
+    // Temporarily bypass user check for development
+    fetchMachines();
+    
+    /* Original auth logic - commented out for now
     if (user) {
       fetchMachines();
     }
-  }, [user]);
+    */
+  }, []);
 
   return {
     machines,
