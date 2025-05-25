@@ -1,8 +1,7 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import { LogIn, Key, ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { LogIn, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -113,10 +112,10 @@ const Login = () => {
                       <Input 
                         placeholder="••••••••" 
                         type={showPassword ? "text" : "password"}
-                        className="bg-dark-lighter border-gray-700 pr-16" 
+                        className="bg-dark-lighter border-gray-700 pr-12" 
                         {...field} 
                       />
-                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
@@ -124,7 +123,6 @@ const Login = () => {
                         >
                           {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                         </button>
-                        <Key size={16} className="text-gray-500" />
                       </div>
                     </div>
                   </FormControl>
