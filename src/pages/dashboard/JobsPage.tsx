@@ -7,8 +7,10 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Plus } from "lucide-react";
+import { Plus, Play, Square, AlertCircle, Clock, CheckCircle } from "lucide-react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
+import { useMachines } from "@/hooks/useMachines";
+import { useJobs } from "@/hooks/useJobs";
 
 const JobsPage = () => {
   const [open, setOpen] = useState(false);
@@ -17,19 +19,8 @@ const JobsPage = () => {
   const [file, setFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-
-  // Mock machines data - in real app this would come from a hook
-  const machines = [
-    { id: "forgebot-01", name: "ForgeBot-01" },
-    { id: "cnc-master", name: "CNC-Master" },
-    { id: "lasercutter-x", name: "LaserCutter-X" },
-  ];
-  
-  const jobQueue = [
-    ["Gearbox Casing", "ForgeBot-01", "Running", "12 min", "Cancel"],
-    ["Panel Cut A", "LaserCutter-X", "Error", "—", "Retry"],
-    ["Bracket Drill", "CNC-Master", "Queued", "—", "Start Now"],
-  ];
+  const { machines } = useMachines();
+  const { jobs, loading, submitJob, cancelJob } = useJobs();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -43,34 +34,70 @@ const JobsPage = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const success = await submitJob(jobName, selectedMachine, file);
       
-      console.log("Job submitted:", {
-        name: jobName,
-        machine_id: selectedMachine,
-        gcode_file: file,
-      });
-      
-      toast({
-        title: "Job submitted successfully",
-        description: `${jobName} has been added to the queue.`,
-      });
-      
-      // Reset form
-      setOpen(false);
-      setJobName("");
-      setSelectedMachine("");
-      setFile(null);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to submit job",
-        variant: "destructive",
-      });
+      if (success) {
+        // Reset form
+        setOpen(false);
+        setJobName("");
+        setSelectedMachine("");
+        setFile(null);
+      }
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "running":
+        return <Play className="w-4 h-4 text-green-400" />;
+      case "completed":
+        return <CheckCircle className="w-4 h-4 text-blue-400" />;
+      case "error":
+        return <AlertCircle className="w-4 h-4 text-red-400" />;
+      case "queued":
+      default:
+        return <Clock className="w-4 h-4 text-yellow-400" />;
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "running":
+        return "text-green-400";
+      case "completed":
+        return "text-blue-400";
+      case "error":
+        return "text-red-400";
+      case "queued":
+      default:
+        return "text-yellow-400";
+    }
+  };
+
+  const getActionButton = (job: any) => {
+    if (job.status === "running" || job.status === "queued") {
+      return (
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={() => cancelJob(job.id)}
+          className="border-gray-700 hover:bg-red-900/30 hover:text-red-400"
+        >
+          Cancel
+        </Button>
+      );
+    }
+    return null;
+  };
+
+  const formatDuration = (startTime: string | null, endTime: string | null) => {
+    if (!startTime) return "—";
+    const start = new Date(startTime);
+    const end = endTime ? new Date(endTime) : new Date();
+    const diff = Math.floor((end.getTime() - start.getTime()) / 1000 / 60);
+    return `${diff} min`;
   };
 
   return (
@@ -98,57 +125,83 @@ const JobsPage = () => {
               <CardTitle>Job Queue</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="text-left border-b border-gray-800">
-                      <th className="p-3 font-medium text-gray-300">Job Name</th>
-                      <th className="p-3 font-medium text-gray-300">Machine</th>
-                      <th className="p-3 font-medium text-gray-300">Status</th>
-                      <th className="p-3 font-medium text-gray-300">Time Remaining</th>
-                      <th className="p-3 font-medium text-gray-300">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {jobQueue.map((row, rowIndex) => (
-                      <tr 
-                        key={rowIndex} 
-                        className="border-b border-gray-800 last:border-0"
-                      >
-                        <td className="p-3">{row[0]}</td>
-                        <td className="p-3">{row[1]}</td>
-                        <td className={`p-3 ${
-                          row[2] === "Running" 
-                            ? "text-green-400" 
-                            : row[2] === "Error" 
-                              ? "text-red-400" 
-                              : row[2] === "Queued"
-                                ? "text-yellow-400"
-                                : ""
-                        }`}>
-                          {row[2]}
-                        </td>
-                        <td className="p-3">{row[3]}</td>
-                        <td className="p-3">
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            className={`border-gray-700 ${
-                              row[4] === "Cancel" 
-                                ? "hover:bg-red-900/30 hover:text-red-400" 
-                                : row[4] === "Retry" 
-                                  ? "hover:bg-yellow-900/30 hover:text-yellow-400" 
-                                  : "hover:bg-green-900/30 hover:text-green-400"
-                            }`}
-                          >
-                            {row[4]}
-                          </Button>
-                        </td>
+              {loading ? (
+                <div className="flex justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neon-lime"></div>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="text-left border-b border-gray-800">
+                        <th className="p-3 font-medium text-gray-300">Job Name</th>
+                        <th className="p-3 font-medium text-gray-300">Machine</th>
+                        <th className="p-3 font-medium text-gray-300">Status</th>
+                        <th className="p-3 font-medium text-gray-300">Duration</th>
+                        <th className="p-3 font-medium text-gray-300">Progress</th>
+                        <th className="p-3 font-medium text-gray-300">Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {jobs.map((job) => {
+                        const machine = machines.find(m => m.id === job.machine_id);
+                        return (
+                          <tr 
+                            key={job.id} 
+                            className="border-b border-gray-800 last:border-0"
+                          >
+                            <td className="p-3">
+                              <div>
+                                <div className="font-medium">{job.name}</div>
+                                {job.file_name && (
+                                  <div className="text-sm text-gray-500">{job.file_name}</div>
+                                )}
+                              </div>
+                            </td>
+                            <td className="p-3">{machine?.name || 'Unknown'}</td>
+                            <td className="p-3">
+                              <div className="flex items-center gap-2">
+                                {getStatusIcon(job.status)}
+                                <span className={getStatusColor(job.status)}>
+                                  {job.status.charAt(0).toUpperCase() + job.status.slice(1)}
+                                </span>
+                              </div>
+                            </td>
+                            <td className="p-3">
+                              {formatDuration(job.started_at, job.completed_at)}
+                            </td>
+                            <td className="p-3">
+                              {job.progress !== null ? (
+                                <div className="flex items-center gap-2">
+                                  <div className="w-16 bg-gray-700 rounded-full h-2">
+                                    <div 
+                                      className="bg-neon-lime h-2 rounded-full transition-all duration-300"
+                                      style={{ width: `${job.progress}%` }}
+                                    ></div>
+                                  </div>
+                                  <span className="text-sm text-gray-400">{job.progress}%</span>
+                                </div>
+                              ) : (
+                                "—"
+                              )}
+                            </td>
+                            <td className="p-3">
+                              {getActionButton(job)}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                      {jobs.length === 0 && (
+                        <tr>
+                          <td colSpan={6} className="p-8 text-center text-gray-500">
+                            No jobs found. Submit your first job to get started.
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </CardContent>
           </Card>
         </section>
@@ -192,11 +245,14 @@ const JobsPage = () => {
                 <Input
                   id="file-upload"
                   type="file"
-                  accept=".gcode"
+                  accept=".gcode,.nc,.tap"
                   onChange={handleFileChange}
                   className="bg-dark-lighter border-gray-700"
                   required
                 />
+                <p className="text-xs text-gray-500">
+                  Supported formats: .gcode, .nc, .tap
+                </p>
               </div>
 
               <Button
