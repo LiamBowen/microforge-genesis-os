@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -17,6 +16,11 @@ interface AgentStatus {
   error_count: number;
   user_email: string;
   is_online: boolean;
+}
+
+interface AgentPingDetails {
+  agent_version?: string;
+  [key: string]: any;
 }
 
 const AdminAgentStatusPage = () => {
@@ -55,6 +59,7 @@ const AdminAgentStatusPage = () => {
       recentPings?.forEach((ping) => {
         const machineId = ping.machine_id;
         const isRecent = new Date(ping.created_at).getTime() > Date.now() - 5 * 60 * 1000; // 5 minutes
+        const details = ping.details as AgentPingDetails | null;
 
         if (!statusMap.has(machineId)) {
           statusMap.set(machineId, {
@@ -62,7 +67,7 @@ const AdminAgentStatusPage = () => {
             machine_name: ping.machines.name,
             machine_id: machineId,
             last_ping: ping.created_at,
-            agent_version: ping.details?.agent_version || "1.0.0",
+            agent_version: details?.agent_version || "1.0.0",
             error_count: 0,
             user_email: "user@example.com", // Would need to join with user data
             is_online: isRecent

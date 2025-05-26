@@ -45,14 +45,14 @@ const GCodePath = ({ lines }: { lines: GCodeLine[] }) => {
   return (
     <group ref={meshRef}>
       {/* Rapid moves (travel) - dashed gray lines */}
-      <line geometry={moveGeometry}>
+      <lineSegments geometry={moveGeometry}>
         <lineDashedMaterial color="#666666" dashSize={0.5} gapSize={0.3} />
-      </line>
+      </lineSegments>
       
       {/* Cutting moves - solid colored lines */}
-      <line geometry={cutGeometry}>
-        <lineBasicMaterial color="#00ff88" linewidth={2} />
-      </line>
+      <lineSegments geometry={cutGeometry}>
+        <lineBasicMaterial color="#00ff88" />
+      </lineSegments>
     </group>
   );
 };
