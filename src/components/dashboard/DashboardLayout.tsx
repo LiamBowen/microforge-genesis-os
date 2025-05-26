@@ -1,7 +1,6 @@
-
 import { ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Layout, LayoutGrid, Activity, Bot, Settings, LogOut, Menu, X } from "lucide-react";
+import { Layout, LayoutGrid, Activity, Bot, Settings, LogOut, Menu, X, Cpu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -24,6 +23,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     { label: "Overview", icon: <LayoutGrid size={18} />, route: "/dashboard" },
     { label: "Machines", icon: <Layout size={18} />, route: "/dashboard/machines" },
     { label: "Jobs", icon: <Activity size={18} />, route: "/dashboard/jobs" },
+    { label: "Agent Setup", icon: <Cpu size={18} />, route: "/dashboard/agent-setup" },
     { label: "AI Assistant", icon: <Bot size={18} />, route: "/dashboard/ai" },
     { label: "Settings", icon: <Settings size={18} />, route: "/dashboard/settings" },
   ];

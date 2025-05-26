@@ -1,10 +1,10 @@
-
 import React, { useCallback } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Play, Square, AlertCircle, Wrench, FileText } from "lucide-react";
 import DeployProtocolDialog from "@/components/DeployProtocolDialog";
 import EditConfigurationDrawer from "@/components/EditConfigurationDrawer";
+import AgentConfigurationDrawer from "@/components/AgentConfigurationDrawer";
 import type { Machine } from '@/hooks/useMachines';
 
 interface MachineCardProps {
@@ -140,6 +140,13 @@ const MachineCard = React.memo(({ machine, onStart, onStop, onViewLogs, onRefetc
           <EditConfigurationDrawer 
             machineId={machine.id}
             machineName={machine.name}
+            onConfigUpdate={onRefetch}
+          />
+        </div>
+
+        <div className="flex gap-2 w-full">
+          <AgentConfigurationDrawer 
+            machine={machine}
             onConfigUpdate={onRefetch}
           />
         </div>

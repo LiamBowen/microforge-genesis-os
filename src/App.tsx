@@ -32,6 +32,8 @@ import MachinesPage from "./pages/dashboard/MachinesPage";
 import JobsPage from "./pages/dashboard/JobsPage";
 import AIAssistantPage from "./pages/dashboard/AIAssistantPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
+import AgentSetupPage from "./pages/dashboard/AgentSetupPage";
+import AgentDevPage from "./pages/dashboard/AgentDevPage";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -91,6 +93,8 @@ const AppLayout = () => {
           <Route path="/dashboard/jobs" element={<ProtectedRoute><JobsPage /></ProtectedRoute>} />
           <Route path="/dashboard/ai" element={<ProtectedRoute><AIAssistantPage /></ProtectedRoute>} />
           <Route path="/dashboard/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+          <Route path="/dashboard/agent-setup" element={<ProtectedRoute><AgentSetupPage /></ProtectedRoute>} />
+          <Route path="/dashboard/agent-dev" element={<ProtectedRoute><AgentDevPage /></ProtectedRoute>} />
           
           {/* Not Found Route */}
           <Route path="*" element={<NotFound />} />
