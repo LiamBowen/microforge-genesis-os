@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -47,7 +46,8 @@ export const useJobs = () => {
         return;
       }
 
-      setJobs(data || []);
+      // Type assertion to ensure status values match our interface
+      setJobs((data || []) as Job[]);
     } catch (error) {
       console.error('Error:', error);
       toast({
