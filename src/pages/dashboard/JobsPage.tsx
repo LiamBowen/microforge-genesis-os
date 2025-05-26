@@ -7,8 +7,9 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Play, Square, AlertCircle, Clock, CheckCircle } from "lucide-react";
+import { Plus, Play, Square, AlertCircle, Clock, CheckCircle, Eye } from "lucide-react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
+import GCodePreview from "@/components/GCodePreview";
 import { useMachines } from "@/hooks/useMachines";
 import { useJobs } from "@/hooks/useJobs";
 
@@ -17,14 +18,30 @@ const JobsPage = () => {
   const [jobName, setJobName] = useState("");
   const [selectedMachine, setSelectedMachine] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [fileContent, setFileContent] = useState<string>("");
+  const [showPreview, setShowPreview] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const { machines } = useMachines();
   const { jobs, loading, submitJob, cancelJob } = useJobs();
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0]);
+      const selectedFile = e.target.files[0];
+      setFile(selectedFile);
+      
+      // Read file content for preview
+      try {
+        const content = await selectedFile.text();
+        setFileContent(content);
+      } catch (error) {
+        console.error('Error reading file:', error);
+        toast({
+          title: "Error",
+          description: "Failed to read file content",
+          variant: "destructive",
+        });
+      }
     }
   };
 
@@ -42,6 +59,8 @@ const JobsPage = () => {
         setJobName("");
         setSelectedMachine("");
         setFile(null);
+        setFileContent("");
+        setShowPreview(false);
       }
     } finally {
       setIsSubmitting(false);
@@ -207,63 +226,103 @@ const JobsPage = () => {
         </section>
 
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogContent className="bg-dark-card border-gray-800">
+          <DialogContent className="bg-dark-card border-gray-800 max-w-4xl">
             <DialogHeader>
               <DialogTitle>Submit New Job</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="job-name">Job Name</Label>
-                <Input
-                  id="job-name"
-                  placeholder="Enter job name"
-                  value={jobName}
-                  onChange={(e) => setJobName(e.target.value)}
-                  className="bg-dark-lighter border-gray-700"
-                  required
-                />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Form Section */}
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="job-name">Job Name</Label>
+                  <Input
+                    id="job-name"
+                    placeholder="Enter job name"
+                    value={jobName}
+                    onChange={(e) => setJobName(e.target.value)}
+                    className="bg-dark-lighter border-gray-700"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="machine-select">Select Machine</Label>
+                  <Select value={selectedMachine} onValueChange={setSelectedMachine} required>
+                    <SelectTrigger className="bg-dark-lighter border-gray-700">
+                      <SelectValue placeholder="Choose machine" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {machines.map((machine) => (
+                        <SelectItem key={machine.id} value={machine.id}>
+                          {machine.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="file-upload">Upload G-code File</Label>
+                  <Input
+                    id="file-upload"
+                    type="file"
+                    accept=".gcode,.nc,.tap"
+                    onChange={handleFileChange}
+                    className="bg-dark-lighter border-gray-700"
+                    required
+                  />
+                  <p className="text-xs text-gray-500">
+                    Supported formats: .gcode, .nc, .tap
+                  </p>
+                </div>
+
+                {file && (
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowPreview(!showPreview)}
+                      className="border-gray-700"
+                    >
+                      <Eye className="w-4 h-4 mr-2" />
+                      {showPreview ? 'Hide Preview' : 'Show Preview'}
+                    </Button>
+                    <span className="text-sm text-gray-400">
+                      {file.name} ({Math.round(file.size / 1024)} KB)
+                    </span>
+                  </div>
+                )}
+
+                <Button
+                  size="sm"
+                  variant="default"
+                  onClick={handleSubmitJob}
+                  disabled={!jobName || !selectedMachine || !file || isSubmitting}
+                  className="w-full bg-neon-lime/20 text-neon-lime hover:bg-neon-lime/30 border border-neon-lime/30"
+                >
+                  {isSubmitting ? "Submitting..." : "Submit Job"}
+                </Button>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="machine-select">Select Machine</Label>
-                <Select value={selectedMachine} onValueChange={setSelectedMachine} required>
-                  <SelectTrigger className="bg-dark-lighter border-gray-700">
-                    <SelectValue placeholder="Choose machine" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {machines.map((machine) => (
-                      <SelectItem key={machine.id} value={machine.id}>
-                        {machine.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              {/* Preview Section */}
+              <div className="space-y-4">
+                {showPreview && fileContent ? (
+                  <div>
+                    <Label>G-code Preview</Label>
+                    <GCodePreview 
+                      gcode={fileContent} 
+                      className="h-80 relative"
+                    />
+                  </div>
+                ) : (
+                  <div className="h-80 bg-gray-900 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-700">
+                    <div className="text-center text-gray-500">
+                      <Eye className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                      <p>Upload a G-code file to see preview</p>
+                    </div>
+                  </div>
+                )}
               </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="file-upload">Upload G-code File</Label>
-                <Input
-                  id="file-upload"
-                  type="file"
-                  accept=".gcode,.nc,.tap"
-                  onChange={handleFileChange}
-                  className="bg-dark-lighter border-gray-700"
-                  required
-                />
-                <p className="text-xs text-gray-500">
-                  Supported formats: .gcode, .nc, .tap
-                </p>
-              </div>
-
-              <Button
-                size="sm"
-                variant="default"
-                onClick={handleSubmitJob}
-                disabled={!jobName || !selectedMachine || !file || isSubmitting}
-                className="w-full bg-neon-lime/20 text-neon-lime hover:bg-neon-lime/30 border border-neon-lime/30"
-              >
-                {isSubmitting ? "Submitting..." : "Submit Job"}
-              </Button>
             </div>
           </DialogContent>
         </Dialog>

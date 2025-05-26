@@ -34,6 +34,7 @@ import AIAssistantPage from "./pages/dashboard/AIAssistantPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
 import AgentSetupPage from "./pages/dashboard/AgentSetupPage";
 import AgentDevPage from "./pages/dashboard/AgentDevPage";
+import AdminAgentStatusPage from "./pages/dashboard/AdminAgentStatusPage";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -95,6 +96,7 @@ const AppLayout = () => {
           <Route path="/dashboard/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
           <Route path="/dashboard/agent-setup" element={<ProtectedRoute><AgentSetupPage /></ProtectedRoute>} />
           <Route path="/dashboard/agent-dev" element={<ProtectedRoute><AgentDevPage /></ProtectedRoute>} />
+          <Route path="/admin/agent-status" element={<ProtectedRoute><AdminAgentStatusPage /></ProtectedRoute>} />
           
           {/* Not Found Route */}
           <Route path="*" element={<NotFound />} />
