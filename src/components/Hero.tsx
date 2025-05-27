@@ -11,7 +11,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="font-bold mb-4 opacity-0 animate-fade-in-up">
-            <span className="gradient-text block">The OS for</span>
+            <span className="gradient-text block">The Operating System for</span>
             <span className="block">Autonomous Manufacturing</span>
           </h1>
           
