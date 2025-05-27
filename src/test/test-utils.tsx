@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { render as originalRender, RenderOptions } from '@testing-library/react'
+import { render as originalRender, RenderOptions, screen, fireEvent, waitFor, renderHook } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from '@/contexts/AuthContext'
@@ -32,6 +32,9 @@ const customRender = (
 
 // Re-export everything from @testing-library/react
 export * from '@testing-library/react'
+
+// Explicitly export the commonly used utilities
+export { screen, fireEvent, waitFor, renderHook }
 
 // Override the render function with our custom one
 export { customRender as render }
