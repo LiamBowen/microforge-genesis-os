@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Check, ArrowRight } from "lucide-react";
 
@@ -7,15 +6,14 @@ const EarlyAccess = () => {
     name: "",
     email: "",
     company: "",
-    website: "",
-    machines: "",
-    challenges: ""
+    machineTypes: "",
+    hearAboutUs: ""
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -53,7 +51,7 @@ const EarlyAccess = () => {
       {/* Form Section */}
       <section className="py-16 bg-dark-lighter">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-2xl mx-auto">
             <div className="bg-dark-card border border-gray-800 rounded-lg p-8 opacity-0 animate-fade-in-up delay-200">
               {!isSubmitted ? (
                 <>
@@ -62,7 +60,7 @@ const EarlyAccess = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
-                          Name
+                          Name *
                         </label>
                         <input
                           type="text"
@@ -77,7 +75,7 @@ const EarlyAccess = () => {
                       
                       <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
-                          Email
+                          Email *
                         </label>
                         <input
                           type="email"
@@ -92,7 +90,7 @@ const EarlyAccess = () => {
                       
                       <div>
                         <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-1">
-                          Company / Organization
+                          Company *
                         </label>
                         <input
                           type="text"
@@ -106,51 +104,47 @@ const EarlyAccess = () => {
                       </div>
                       
                       <div>
-                        <label htmlFor="website" className="block text-sm font-medium text-gray-300 mb-1">
-                          Website or LinkedIn
+                        <label htmlFor="machineTypes" className="block text-sm font-medium text-gray-300 mb-1">
+                          Machine Types *
                         </label>
                         <input
                           type="text"
-                          id="website"
-                          name="website"
-                          value={formData.website}
+                          id="machineTypes"
+                          name="machineTypes"
+                          required
+                          value={formData.machineTypes}
                           onChange={handleChange}
+                          placeholder="e.g., 3D printers, CNC mills, lasers"
                           className="w-full bg-dark border border-gray-800 rounded-md py-2 px-4 text-gray-300 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
                         />
                       </div>
                     </div>
                     
-                    <div className="mb-6">
-                      <label htmlFor="machines" className="block text-sm font-medium text-gray-300 mb-1">
-                        What kind of machines do you use?
+                    <div className="mb-8">
+                      <label htmlFor="hearAboutUs" className="block text-sm font-medium text-gray-300 mb-1">
+                        How did you hear about us? *
                       </label>
-                      <input
-                        type="text"
-                        id="machines"
-                        name="machines"
+                      <select
+                        id="hearAboutUs"
+                        name="hearAboutUs"
                         required
-                        value={formData.machines}
+                        value={formData.hearAboutUs}
                         onChange={handleChange}
                         className="w-full bg-dark border border-gray-800 rounded-md py-2 px-4 text-gray-300 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
-                        placeholder="E.g., 3D printers, CNC mills, lasers, etc."
-                      />
+                      >
+                        <option value="">Select an option</option>
+                        <option value="search">Google/Search</option>
+                        <option value="social">Social Media</option>
+                        <option value="referral">Friend/Colleague</option>
+                        <option value="industry">Industry Event</option>
+                        <option value="press">Press/Media</option>
+                        <option value="other">Other</option>
+                      </select>
                     </div>
                     
-                    <div className="mb-8">
-                      <label htmlFor="challenges" className="block text-sm font-medium text-gray-300 mb-1">
-                        What problems do you face in production?
-                      </label>
-                      <textarea
-                        id="challenges"
-                        name="challenges"
-                        rows={4}
-                        required
-                        value={formData.challenges}
-                        onChange={handleChange}
-                        className="w-full bg-dark border border-gray-800 rounded-md py-2 px-4 text-gray-300 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:border-transparent"
-                        placeholder="Tell us about your current challenges and what you hope MicroForge can solve..."
-                      />
-                    </div>
+                    <p className="text-sm text-gray-400 mb-6 text-center">
+                      Limited spots available in our early access cohort.
+                    </p>
                     
                     <button
                       type="submit"
@@ -164,7 +158,7 @@ const EarlyAccess = () => {
                         hover:bg-neon-cyan/20
                         disabled:opacity-50 disabled:cursor-not-allowed
                         button-glow cyan-glow
-                        w-full md:w-auto
+                        w-full
                       `}
                     >
                       {isSubmitting ? (
@@ -183,9 +177,9 @@ const EarlyAccess = () => {
                   <div className="w-16 h-16 mx-auto bg-neon-cyan/10 rounded-full flex items-center justify-center mb-6">
                     <Check className="h-8 w-8 text-neon-cyan" />
                   </div>
-                  <h2 className="text-2xl font-bold mb-4">Application Received!</h2>
+                  <h2 className="text-2xl font-bold mb-4">Thanks!</h2>
                   <p className="text-gray-300 mb-6">
-                    Thank you for your interest in MicroForge. We'll review your application and reach out soon with next steps.
+                    We'll be in touch soon. Your MicroForge journey is about to begin.
                   </p>
                   <p className="text-gray-400">
                     While you wait, check out our <a href="/vision" className="text-neon-cyan hover:underline">vision</a> and <a href="/product" className="text-neon-cyan hover:underline">product details</a> to learn more.
@@ -249,6 +243,27 @@ const EarlyAccess = () => {
             </h2>
             
             <div className="space-y-8 opacity-0 animate-fade-in-up delay-100">
+              <div className="bg-dark-card border border-gray-800 rounded-lg p-6">
+                <h3 className="text-xl font-bold mb-2">Can my machine connect directly via Wi-Fi?</h3>
+                <p className="text-gray-300">
+                  Yes, if your machine supports direct HTTP/websocket connection, you can skip the Agent. Setup instructions coming soon.
+                </p>
+              </div>
+              
+              <div className="bg-dark-card border border-gray-800 rounded-lg p-6">
+                <h3 className="text-xl font-bold mb-2">What is the MicroForge Agent?</h3>
+                <p className="text-gray-300">
+                  A lightweight bridge app that connects your offline machines to the cloud, securely.
+                </p>
+              </div>
+              
+              <div className="bg-dark-card border border-gray-800 rounded-lg p-6">
+                <h3 className="text-xl font-bold mb-2">Do I need the internet?</h3>
+                <p className="text-gray-300">
+                  Yes for cloud version. An on-premise version is coming soon.
+                </p>
+              </div>
+              
               <div className="bg-dark-card border border-gray-800 rounded-lg p-6">
                 <h3 className="text-xl font-bold mb-2">When will MicroForge be available?</h3>
                 <p className="text-gray-300">

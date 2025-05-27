@@ -1,21 +1,52 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import UserInfoSection from "@/components/dashboard/UserInfoSection";
 import AgentStatusDisplay from "@/components/AgentStatusDisplay";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Dashboard = () => {
   const stats = [
-    { label: "Active Machines", value: "3" },
-    { label: "Jobs in Queue", value: "6" },
-    { label: "Completed Today", value: "14" },
-    { label: "Downtime Alerts", value: "1" },
+    { 
+      label: "Active Machines", 
+      value: "3",
+      change: "+1 from yesterday",
+      trend: "up"
+    },
+    { 
+      label: "Jobs in Queue", 
+      value: "6",
+      change: "+2 from last hour", 
+      trend: "up"
+    },
+    { 
+      label: "Completed Today", 
+      value: "14",
+      change: "+8 vs yesterday",
+      trend: "up"
+    },
+    { 
+      label: "Downtime Alerts", 
+      value: "1",
+      change: "Alignment fault",
+      trend: "alert"
+    },
   ];
 
   const machineStatus = [
-    ["ForgeBot-01", "3D Printer", "Running", "72%", "Housing Shell - v2"],
-    ["CNC-Master", "CNC Router", "Idle", "–", "–"],
-    ["LaserCutter-X", "Laser Cutter", "Error", "–", "Alignment Fault"],
+    ["🖨️", "ForgeBot-01", "3D Printer", "Running", "72%", "Housing Shell - v2"],
+    ["⚙️", "CNC-Master", "CNC Router", "Idle", "–", "–"],
+    ["🔬", "LaserCutter-X", "Laser Cutter", "Error", "–", "Alignment Fault"],
   ];
+
+  const getMachineIcon = (type: string) => {
+    switch (type) {
+      case "3D Printer": return "🖨️";
+      case "CNC Router": return "⚙️";
+      case "Laser Cutter": return "🔬";
+      default: return "🏭";
+    }
+  };
 
   return (
     <DashboardLayout>
@@ -37,8 +68,38 @@ const Dashboard = () => {
             {stats.map((stat, index) => (
               <Card key={index} className="bg-dark-card border-gray-800">
                 <CardContent className="p-6">
-                  <p className="text-gray-400">{stat.label}</p>
-                  <h3 className="text-3xl font-bold mt-2">{stat.value}</h3>
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-gray-400">{stat.label}</p>
+                    {stat.label === "Downtime Alerts" && (
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <div className="w-4 h-4 rounded-full bg-orange-500 flex items-center justify-center">
+                              <span className="text-xs text-white">?</span>
+                            </div>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Machine errors reported in the last 24h</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
+                  </div>
+                  <h3 className={`text-3xl font-bold ${
+                    stat.trend === "alert" ? "text-red-400" : "text-white"
+                  }`}>
+                    {stat.value}
+                  </h3>
+                  <div className="mt-3 h-2 bg-gray-800 rounded-full overflow-hidden">
+                    <div 
+                      className={`h-full transition-all duration-300 ${
+                        stat.trend === "up" ? "bg-green-500" : 
+                        stat.trend === "alert" ? "bg-red-500" : "bg-gray-600"
+                      }`}
+                      style={{ width: `${Math.random() * 60 + 20}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2">{stat.change}</p>
                 </CardContent>
               </Card>
             ))}
@@ -55,6 +116,7 @@ const Dashboard = () => {
                 <table className="w-full">
                   <thead>
                     <tr className="text-left border-b border-gray-800">
+                      <th className="p-3 font-medium text-gray-300">Icon</th>
                       <th className="p-3 font-medium text-gray-300">Machine</th>
                       <th className="p-3 font-medium text-gray-300">Type</th>
                       <th className="p-3 font-medium text-gray-300">Status</th>
@@ -72,7 +134,7 @@ const Dashboard = () => {
                           <td 
                             key={cellIndex} 
                             className={`p-3 ${
-                              cellIndex === 2 
+                              cellIndex === 3 
                                 ? cell === "Running" 
                                   ? "text-green-400" 
                                   : cell === "Error" 

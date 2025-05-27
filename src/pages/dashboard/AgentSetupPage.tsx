@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Download, FileDown, Copy, ExternalLink } from "lucide-react";
+import { Download, FileDown, Copy, ExternalLink, Wifi } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useMachines } from "@/hooks/useMachines";
 import { supabase } from "@/integrations/supabase/client";
@@ -45,6 +45,22 @@ const AgentSetupPage = () => {
       setSelectedMachineId(machines[0].id);
     }
   }, [machines, selectedMachineId]);
+
+  const copyToClipboard = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast({
+        title: "Copied!",
+        description: `${label} copied to clipboard`,
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to copy to clipboard",
+        variant: "destructive",
+      });
+    }
+  };
 
   const generateAgentConfig = async () => {
     if (!selectedMachineId || !user) {
@@ -117,6 +133,25 @@ const AgentSetupPage = () => {
           </p>
         </div>
 
+        {/* WiFi Direct Connection Card */}
+        <Card className="bg-dark-card border-gray-800 border-l-4 border-l-neon-cyan">
+          <CardHeader>
+            <CardTitle className="flex items-center text-white">
+              <Wifi className="mr-2 h-5 w-5 text-neon-cyan" />
+              WiFi-Enabled Machines
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-300 mb-4">
+              If your machine supports direct internet connectivity, you may not need the Agent.
+            </p>
+            <Button variant="outline" className="border-neon-cyan text-neon-cyan hover:bg-neon-cyan/10">
+              <ExternalLink size={16} className="mr-2" />
+              Setup guide for Wi-Fi enabled machines →
+            </Button>
+          </CardContent>
+        </Card>
+
         <div className="grid gap-6 lg:grid-cols-2">
           <Card className="bg-dark-card border-gray-800">
             <CardHeader>
@@ -142,30 +177,60 @@ const AgentSetupPage = () => {
               {selectedMachine && (
                 <div className="space-y-2">
                   <Label>Machine ID</Label>
-                  <Input 
-                    value={selectedMachine.id}
-                    readOnly
-                    className="bg-gray-800 border-gray-700 text-gray-400"
-                  />
+                  <div className="flex">
+                    <Input 
+                      value={selectedMachine.id}
+                      readOnly
+                      className="bg-gray-800 border-gray-700 text-gray-400 rounded-r-none"
+                    />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="rounded-l-none border-gray-700"
+                      onClick={() => copyToClipboard(selectedMachine.id, "Machine ID")}
+                    >
+                      <Copy size={16} />
+                    </Button>
+                  </div>
                 </div>
               )}
 
               <div className="space-y-2">
                 <Label>Supabase Project URL</Label>
-                <Input 
-                  value="https://xsszkljybkvblexuampr.supabase.co"
-                  readOnly
-                  className="bg-gray-800 border-gray-700 text-gray-400"
-                />
+                <div className="flex">
+                  <Input 
+                    value="https://xsszkljybkvblexuampr.supabase.co"
+                    readOnly
+                    className="bg-gray-800 border-gray-700 text-gray-400 rounded-r-none"
+                  />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="rounded-l-none border-gray-700"
+                    onClick={() => copyToClipboard("https://xsszkljybkvblexuampr.supabase.co", "Supabase URL")}
+                  >
+                    <Copy size={16} />
+                  </Button>
+                </div>
               </div>
 
               <div className="space-y-2">
                 <Label>Supabase API Key</Label>
-                <Input 
-                  value="••••••••••••••••••••••••••••••••••••••••"
-                  readOnly
-                  className="bg-gray-800 border-gray-700 text-gray-400"
-                />
+                <div className="flex">
+                  <Input 
+                    value="••••••••••••••••••••••••••••••••••••••••"
+                    readOnly
+                    className="bg-gray-800 border-gray-700 text-gray-400 rounded-r-none"
+                  />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="rounded-l-none border-gray-700"
+                    onClick={() => copyToClipboard("your-api-key-here", "API Key")}
+                  >
+                    <Copy size={16} />
+                  </Button>
+                </div>
                 <p className="text-xs text-gray-500">
                   Machine-scoped authentication token (auto-generated)
                 </p>
