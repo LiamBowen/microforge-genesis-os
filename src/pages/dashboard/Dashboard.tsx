@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import UserInfoSection from "@/components/dashboard/UserInfoSection";
 import AgentStatusDisplay from "@/components/AgentStatusDisplay";
-import NotificationBell from "@/components/NotificationBell";
 
 const Dashboard = () => {
   const stats = [
@@ -27,7 +26,6 @@ const Dashboard = () => {
             <p className="text-gray-400">Welcome to your MicroForge control center.</p>
           </div>
           <div className="flex items-center gap-4">
-            <NotificationBell />
             <AgentStatusDisplay />
             <UserInfoSection />
           </div>
