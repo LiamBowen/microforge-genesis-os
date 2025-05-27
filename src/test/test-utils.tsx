@@ -30,7 +30,7 @@ const customRender = (
   options?: Omit<RenderOptions, 'wrapper'>,
 ) => originalRender(ui, { wrapper: AllTheProviders, ...options })
 
-// Re-export everything from @testing-library/react
+// Re-export everything from @testing-library/react except render
 export * from '@testing-library/react'
 
 // Override the render function with our custom one
