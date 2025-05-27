@@ -33,5 +33,24 @@ const customRender = (
 // Re-export everything from @testing-library/react
 export * from '@testing-library/react'
 
+// Explicitly re-export the commonly used utilities to ensure TypeScript recognizes them
+export {
+  screen,
+  fireEvent,
+  waitFor,
+  renderHook,
+  act,
+  cleanup,
+  within,
+  prettyDOM,
+  logRoles,
+  getDefaultNormalizer,
+  createEvent,
+  getNodeText,
+  getRoles,
+  isInaccessible,
+  getQueriesForElement
+} from '@testing-library/react'
+
 // Override the render function with our custom one
 export { customRender as render }
