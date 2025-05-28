@@ -99,9 +99,13 @@ export type Database = {
       }
       machines: {
         Row: {
+          auth_token: string | null
           configuration: Json | null
+          connectivity: string | null
           created_at: string | null
           id: string
+          ip_address: string | null
+          last_ping: string | null
           last_started: string | null
           last_stopped: string | null
           machine_type: string | null
@@ -111,9 +115,13 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          auth_token?: string | null
           configuration?: Json | null
+          connectivity?: string | null
           created_at?: string | null
           id?: string
+          ip_address?: string | null
+          last_ping?: string | null
           last_started?: string | null
           last_stopped?: string | null
           machine_type?: string | null
@@ -123,9 +131,13 @@ export type Database = {
           user_id: string
         }
         Update: {
+          auth_token?: string | null
           configuration?: Json | null
+          connectivity?: string | null
           created_at?: string | null
           id?: string
+          ip_address?: string | null
+          last_ping?: string | null
           last_started?: string | null
           last_stopped?: string | null
           machine_type?: string | null

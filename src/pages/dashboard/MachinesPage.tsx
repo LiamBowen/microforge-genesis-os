@@ -2,6 +2,7 @@
 import React, { useState, useCallback, useMemo } from "react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import CreateMachineDialog from "@/components/CreateMachineDialog";
+import CreateWiFiMachineDialog from "@/components/CreateWiFiMachineDialog";
 import MachineLogs from "@/components/MachineLogs";
 import MachineCard from "@/components/MachineCard";
 import DashboardSummary from "@/components/dashboard/DashboardSummary";
@@ -29,6 +30,10 @@ const MachinesPage = () => {
   const handleCreateMachine = useCallback((name: string, machineType: string) => {
     createMachine(name, machineType);
   }, [createMachine]);
+
+  const handleCreateWiFiMachine = useCallback(() => {
+    refetch();
+  }, [refetch]);
 
   const selectedMachine = useMemo(() => 
     machines.find(m => m.id === selectedMachineForLogs),
@@ -114,7 +119,10 @@ const MachinesPage = () => {
         <section className="space-y-4">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold text-white">Connected Machines</h2>
-            <CreateMachineDialog onCreateMachine={handleCreateMachine} />
+            <div className="flex gap-3">
+              <CreateMachineDialog onCreateMachine={handleCreateMachine} />
+              <CreateWiFiMachineDialog onCreateMachine={handleCreateWiFiMachine} />
+            </div>
           </div>
           
           {machines.length === 0 ? (

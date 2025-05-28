@@ -9,6 +9,10 @@ export interface Machine {
   name: string;
   machine_type: string;
   status: 'idle' | 'running' | 'error' | 'maintenance';
+  connectivity: 'agent' | 'wifi';
+  ip_address?: string;
+  auth_token?: string;
+  last_ping?: string;
   configuration: any;
   last_started: string | null;
   last_stopped: string | null;
@@ -77,21 +81,44 @@ export const useMachines = () => {
     if (!user) return;
 
     try {
-      const { data, error } = await supabase.functions.invoke('start-machine', {
-        body: { machineId },
-        headers: {
-          Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
-        },
-      });
-
-      if (error) {
-        console.error('Error starting machine:', error);
-        toast({
-          title: "Error",
-          description: "Failed to start machine",
-          variant: "destructive",
+      const machine = machines.find(m => m.id === machineId);
+      
+      if (machine?.connectivity === 'wifi') {
+        // Use Wi-Fi job dispatch
+        const { data, error } = await supabase.functions.invoke('dispatch-job-to-wifi', {
+          body: { machineId, jobId: 'demo-job-id' },
+          headers: {
+            Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
+          },
         });
-        return;
+
+        if (error) {
+          console.error('Error starting Wi-Fi machine:', error);
+          toast({
+            title: "Error",
+            description: "Failed to start Wi-Fi machine",
+            variant: "destructive",
+          });
+          return;
+        }
+      } else {
+        // Use agent-based start
+        const { data, error } = await supabase.functions.invoke('start-machine', {
+          body: { machineId },
+          headers: {
+            Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
+          },
+        });
+
+        if (error) {
+          console.error('Error starting machine:', error);
+          toast({
+            title: "Error",
+            description: "Failed to start machine",
+            variant: "destructive",
+          });
+          return;
+        }
       }
 
       toast({

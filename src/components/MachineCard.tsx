@@ -1,7 +1,8 @@
+
 import React, { useCallback } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Play, Square, AlertCircle, Wrench, FileText } from "lucide-react";
+import { Play, Square, AlertCircle, Wrench, FileText, Wifi, Settings } from "lucide-react";
 import DeployProtocolDialog from "@/components/DeployProtocolDialog";
 import EditConfigurationDrawer from "@/components/EditConfigurationDrawer";
 import AgentConfigurationDrawer from "@/components/AgentConfigurationDrawer";
@@ -42,6 +43,14 @@ const MachineCard = React.memo(({ machine, onStart, onStop, onViewLogs, onRefetc
     }
   }, []);
 
+  const getConnectivityIcon = useCallback((connectivity: string) => {
+    return connectivity === 'wifi' ? (
+      <Wifi size={14} className="text-neon-cyan" />
+    ) : (
+      <Settings size={14} className="text-gray-400" />
+    );
+  }, []);
+
   const handleStart = useCallback(() => onStart(machine.id), [onStart, machine.id]);
   const handleStop = useCallback(() => onStop(machine.id), [onStop, machine.id]);
   const handleViewLogs = useCallback(() => onViewLogs(machine.id), [onViewLogs, machine.id]);
@@ -56,6 +65,11 @@ const MachineCard = React.memo(({ machine, onStart, onStop, onViewLogs, onRefetc
     [machine.status]
   );
 
+  const connectivityDisplay = React.useMemo(() => 
+    machine.connectivity === 'wifi' ? 'Wi-Fi Direct' : 'Agent-based',
+    [machine.connectivity]
+  );
+
   return (
     <Card className="bg-dark-card border-gray-800 overflow-hidden h-full flex flex-col">
       <div className={`h-1 ${getStatusColor(machine.status)}`}></div>
@@ -63,6 +77,7 @@ const MachineCard = React.memo(({ machine, onStart, onStop, onViewLogs, onRefetc
         <div className="flex items-center gap-3 mb-3">
           {getStatusIcon(machine.status)}
           <h3 className="text-xl font-semibold text-white truncate flex-1">{machine.name}</h3>
+          {getConnectivityIcon(machine.connectivity)}
         </div>
         
         <div className="space-y-2 text-sm">
@@ -70,6 +85,20 @@ const MachineCard = React.memo(({ machine, onStart, onStop, onViewLogs, onRefetc
             <span className="text-gray-400">Type:</span>
             <span className="text-gray-300 font-medium">{machineTypeDisplay}</span>
           </div>
+          
+          <div className="flex items-center justify-between">
+            <span className="text-gray-400">Connectivity:</span>
+            <span className="text-gray-300 font-medium flex items-center gap-1">
+              {connectivityDisplay}
+            </span>
+          </div>
+
+          {machine.connectivity === 'wifi' && machine.ip_address && (
+            <div className="flex items-center justify-between">
+              <span className="text-gray-400">IP Address:</span>
+              <span className="text-gray-300 font-medium text-xs">{machine.ip_address}</span>
+            </div>
+          )}
           
           <div className="flex items-center justify-between">
             <span className="text-gray-400">Status:</span>
@@ -89,6 +118,15 @@ const MachineCard = React.memo(({ machine, onStart, onStop, onViewLogs, onRefetc
             <p className="text-xs text-gray-500">
               <span className="block">Last started:</span>
               <span className="text-gray-400">{new Date(machine.last_started).toLocaleString()}</span>
+            </p>
+          </div>
+        )}
+
+        {machine.connectivity === 'wifi' && machine.last_ping && (
+          <div className="mt-2">
+            <p className="text-xs text-gray-500">
+              <span className="block">Last ping:</span>
+              <span className="text-gray-400">{new Date(machine.last_ping).toLocaleString()}</span>
             </p>
           </div>
         )}
@@ -144,12 +182,14 @@ const MachineCard = React.memo(({ machine, onStart, onStop, onViewLogs, onRefetc
           />
         </div>
 
-        <div className="flex gap-2 w-full">
-          <AgentConfigurationDrawer 
-            machine={machine}
-            onConfigUpdate={onRefetch}
-          />
-        </div>
+        {machine.connectivity === 'agent' && (
+          <div className="flex gap-2 w-full">
+            <AgentConfigurationDrawer 
+              machine={machine}
+              onConfigUpdate={onRefetch}
+            />
+          </div>
+        )}
       </CardFooter>
     </Card>
   );
