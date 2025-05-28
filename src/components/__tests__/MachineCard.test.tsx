@@ -8,6 +8,7 @@ const mockMachine = {
   name: 'Test Machine',
   machine_type: '3d-printer',
   status: 'idle' as const,
+  connectivity: 'agent' as const,
   configuration: {},
   last_started: null,
   last_stopped: null,
