@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, LogIn } from "lucide-react";
-import RequestAccessButton from "./RequestAccessButton";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,10 +52,10 @@ const Navbar = () => {
 
   const navLinks = [
     { label: "Home", path: "/" },
-    { label: "Vision", path: "/vision" },
-    { label: "Product", path: "/product" },
+    { label: "Platform", path: "/product" },
     { label: "Use Cases", path: "/use-cases" },
-    { label: "Early Access", path: "/early-access" }
+    { label: "Vision", path: "/vision" },
+    { label: "Contact", path: "/contact" }
   ];
 
   return (
@@ -109,7 +108,12 @@ const Navbar = () => {
                 <LogIn size={18} className="mr-1" />
                 Login
               </Link>
-              <RequestAccessButton size="sm" />
+              <Link
+                to="/early-access"
+                className="inline-flex items-center justify-center py-2 px-4 rounded-md bg-neon-cyan/10 text-neon-cyan border border-neon-cyan hover:bg-neon-cyan/20 transition-all duration-300 button-glow cyan-glow text-sm xl:text-base font-medium"
+              >
+                Join Pilot Program
+              </Link>
             </div>
           </div>
 
@@ -152,7 +156,13 @@ const Navbar = () => {
                 Login
               </Link>
               <div className="mt-6 px-4">
-                <RequestAccessButton fullWidth size="sm" />
+                <Link
+                  to="/early-access"
+                  className="w-full inline-flex items-center justify-center py-3 px-6 rounded-md bg-neon-cyan/10 text-neon-cyan border border-neon-cyan hover:bg-neon-cyan/20 transition-all duration-300 button-glow cyan-glow"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Join Pilot Program
+                </Link>
               </div>
             </div>
           </div>
