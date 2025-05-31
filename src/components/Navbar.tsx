@@ -56,7 +56,7 @@ const Navbar = () => {
     { label: "Vision", path: "/vision" },
     { label: "Product", path: "/product" },
     { label: "Use Cases", path: "/use-cases" },
-    { label: "Early Access", path: "/early-access" }
+    { label: "Contact", path: "/contact" }
   ];
 
   return (
