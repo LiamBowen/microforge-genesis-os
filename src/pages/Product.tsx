@@ -1,4 +1,3 @@
-
 import { Cpu, Cloud, Database, GitBranch, FileCode, RefreshCw, Shield, Clock, Settings } from "lucide-react";
 import RequestAccessButton from "@/components/RequestAccessButton";
 
@@ -17,6 +16,218 @@ const Product = () => {
             <p className="text-xl text-gray-300 mb-12 opacity-0 animate-fade-in-up delay-100">
               MicroForge is a comprehensive platform that transforms disconnected manufacturing machines into intelligent, autonomous production systems.
             </p>
+          </div>
+        </div>
+      </section>
+      
+      {/* Dashboard Demo Section */}
+      <section className="py-24 bg-dark-lighter">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-center mb-16 opacity-0 animate-fade-in-up">
+              Live Dashboard Demo
+            </h2>
+            
+            {/* Mock Dashboard Interface */}
+            <div className="bg-dark-card border border-gray-800 rounded-lg p-6 opacity-0 animate-fade-in-up delay-100">
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex items-center">
+                  <div className="w-3 h-3 rounded-full bg-neon-orange mr-2"></div>
+                  <div className="w-3 h-3 rounded-full bg-neon-lime mr-2"></div>
+                  <div className="w-3 h-3 rounded-full bg-neon-cyan mr-4"></div>
+                  <span className="text-sm text-gray-400">MicroForge Dashboard</span>
+                </div>
+                <div className="text-xs text-gray-500">Live Production View</div>
+              </div>
+              
+              <div className="aspect-video bg-dark rounded border border-gray-800 relative overflow-hidden">
+                {/* Header Bar */}
+                <div className="absolute top-0 left-0 right-0 h-12 bg-dark-lighter border-b border-gray-700 flex items-center px-4">
+                  <div className="text-sm font-medium text-gray-300">Production Queue</div>
+                  <div className="ml-auto flex items-center space-x-4">
+                    <div className="text-xs text-neon-lime">● 3 Active</div>
+                    <div className="text-xs text-gray-400">● 2 Queued</div>
+                  </div>
+                </div>
+                
+                {/* Main Content */}
+                <div className="absolute top-12 left-0 right-0 bottom-0 p-4">
+                  <div className="grid grid-cols-3 gap-4 h-full">
+                    {/* Machine 1 */}
+                    <div className="bg-dark-card border border-gray-700 rounded p-3">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-xs font-medium text-gray-300">Printer-01</div>
+                        <div className="w-2 h-2 rounded-full bg-neon-lime animate-pulse"></div>
+                      </div>
+                      <div className="text-xs text-gray-400 mb-2">Bracket_v2.stl</div>
+                      <div className="w-full bg-gray-700 rounded-full h-1.5 mb-2">
+                        <div className="bg-neon-lime h-1.5 rounded-full" style={{width: '67%'}}></div>
+                      </div>
+                      <div className="text-xs text-gray-500">67% • 12min left</div>
+                    </div>
+                    
+                    {/* Machine 2 */}
+                    <div className="bg-dark-card border border-gray-700 rounded p-3">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-xs font-medium text-gray-300">CNC-Alpha</div>
+                        <div className="w-2 h-2 rounded-full bg-neon-cyan animate-pulse"></div>
+                      </div>
+                      <div className="text-xs text-gray-400 mb-2">Housing_part.step</div>
+                      <div className="w-full bg-gray-700 rounded-full h-1.5 mb-2">
+                        <div className="bg-neon-cyan h-1.5 rounded-full" style={{width: '34%'}}></div>
+                      </div>
+                      <div className="text-xs text-gray-500">34% • 28min left</div>
+                    </div>
+                    
+                    {/* Machine 3 */}
+                    <div className="bg-dark-card border border-gray-700 rounded p-3">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-xs font-medium text-gray-300">Printer-02</div>
+                        <div className="w-2 h-2 rounded-full bg-neon-orange animate-pulse"></div>
+                      </div>
+                      <div className="text-xs text-gray-400 mb-2">Gear_assembly.stl</div>
+                      <div className="w-full bg-gray-700 rounded-full h-1.5 mb-2">
+                        <div className="bg-neon-orange h-1.5 rounded-full" style={{width: '89%'}}></div>
+                      </div>
+                      <div className="text-xs text-gray-500">89% • 4min left</div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Animated Data Flow */}
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-neon-cyan rounded-full opacity-50 animate-ping"></div>
+                  <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-neon-lime rounded-full opacity-50 animate-ping" style={{animationDelay: '0.5s'}}></div>
+                  <div className="absolute bottom-1/3 left-1/3 w-2 h-2 bg-neon-orange rounded-full opacity-50 animate-ping" style={{animationDelay: '1s'}}></div>
+                </div>
+              </div>
+              
+              <div className="mt-4 text-center">
+                <p className="text-sm text-gray-400 mb-4">Real-time monitoring and control of your entire production fleet</p>
+                <a href="/early-access" className="inline-flex items-center justify-center py-2 px-4 rounded-md bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 hover:bg-neon-cyan/20 transition-all">
+                  Try Interactive Demo
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* 3 Machines → Command Center Visual */}
+      <section className="py-24 bg-dark">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-center mb-16 opacity-0 animate-fade-in-up">
+              Connected Manufacturing Network
+            </h2>
+            
+            <div className="relative opacity-0 animate-fade-in-up delay-100">
+              {/* Command Center (Center) */}
+              <div className="flex justify-center mb-16">
+                <div className="relative">
+                  <div className="w-32 h-32 bg-dark-card border-2 border-neon-cyan rounded-lg flex flex-col items-center justify-center">
+                    <Settings className="h-8 w-8 text-neon-cyan mb-2" />
+                    <div className="text-sm font-medium text-neon-cyan">Command</div>
+                    <div className="text-xs text-gray-400">Center</div>
+                  </div>
+                  <div className="absolute inset-0 bg-neon-cyan/10 rounded-lg animate-pulse"></div>
+                </div>
+              </div>
+              
+              {/* Machines (Bottom Row) */}
+              <div className="grid grid-cols-3 gap-8 max-w-4xl mx-auto">
+                {/* Machine 1 - 3D Printer */}
+                <div className="flex flex-col items-center">
+                  <div className="relative mb-4">
+                    <div className="w-24 h-24 bg-dark-card border border-neon-lime rounded-lg flex flex-col items-center justify-center">
+                      <div className="w-8 h-8 bg-neon-lime/20 rounded flex items-center justify-center mb-1">
+                        <div className="w-4 h-4 bg-neon-lime rounded-sm"></div>
+                      </div>
+                      <div className="text-xs text-neon-lime">3D Printer</div>
+                    </div>
+                    <div className="absolute -inset-1 bg-neon-lime/20 rounded-lg opacity-50 animate-pulse"></div>
+                  </div>
+                  <div className="text-sm text-gray-300 text-center">Printer-01</div>
+                  <div className="text-xs text-gray-500">Status: Active</div>
+                </div>
+                
+                {/* Machine 2 - CNC */}
+                <div className="flex flex-col items-center">
+                  <div className="relative mb-4">
+                    <div className="w-24 h-24 bg-dark-card border border-neon-orange rounded-lg flex flex-col items-center justify-center">
+                      <div className="w-8 h-8 bg-neon-orange/20 rounded flex items-center justify-center mb-1">
+                        <div className="w-4 h-4 border-2 border-neon-orange rounded"></div>
+                      </div>
+                      <div className="text-xs text-neon-orange">CNC Mill</div>
+                    </div>
+                    <div className="absolute -inset-1 bg-neon-orange/20 rounded-lg opacity-50 animate-pulse"></div>
+                  </div>
+                  <div className="text-sm text-gray-300 text-center">CNC-Alpha</div>
+                  <div className="text-xs text-gray-500">Status: Cutting</div>
+                </div>
+                
+                {/* Machine 3 - Laser Cutter */}
+                <div className="flex flex-col items-center">
+                  <div className="relative mb-4">
+                    <div className="w-24 h-24 bg-dark-card border border-neon-cyan rounded-lg flex flex-col items-center justify-center">
+                      <div className="w-8 h-8 bg-neon-cyan/20 rounded flex items-center justify-center mb-1">
+                        <div className="w-4 h-1 bg-neon-cyan rounded"></div>
+                      </div>
+                      <div className="text-xs text-neon-cyan">Laser Cut</div>
+                    </div>
+                    <div className="absolute -inset-1 bg-neon-cyan/20 rounded-lg opacity-50 animate-pulse"></div>
+                  </div>
+                  <div className="text-sm text-gray-300 text-center">Laser-01</div>
+                  <div className="text-xs text-gray-500">Status: Ready</div>
+                </div>
+              </div>
+              
+              {/* Connection Lines */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{zIndex: -1}}>
+                {/* Lines from machines to command center */}
+                <defs>
+                  <linearGradient id="flow1" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="rgb(34, 197, 94)" stopOpacity="0"/>
+                    <stop offset="50%" stopColor="rgb(34, 197, 94)" stopOpacity="0.8"/>
+                    <stop offset="100%" stopColor="rgb(34, 197, 94)" stopOpacity="0"/>
+                  </linearGradient>
+                  <linearGradient id="flow2" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="rgb(249, 115, 22)" stopOpacity="0"/>
+                    <stop offset="50%" stopColor="rgb(249, 115, 22)" stopOpacity="0.8"/>
+                    <stop offset="100%" stopColor="rgb(249, 115, 22)" stopOpacity="0"/>
+                  </linearGradient>
+                  <linearGradient id="flow3" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="rgb(6, 182, 212)" stopOpacity="0"/>
+                    <stop offset="50%" stopColor="rgb(6, 182, 212)" stopOpacity="0.8"/>
+                    <stop offset="100%" stopColor="rgb(6, 182, 212)" stopOpacity="0"/>
+                  </linearGradient>
+                </defs>
+                
+                <line x1="20%" y1="85%" x2="45%" y2="25%" stroke="url(#flow1)" strokeWidth="2" className="animate-pulse"/>
+                <line x1="50%" y1="85%" x2="50%" y2="25%" stroke="url(#flow2)" strokeWidth="2" className="animate-pulse" style={{animationDelay: '0.5s'}}/>
+                <line x1="80%" y1="85%" x2="55%" y2="25%" stroke="url(#flow3)" strokeWidth="2" className="animate-pulse" style={{animationDelay: '1s'}}/>
+                
+                {/* Data flow indicators */}
+                <circle r="3" fill="rgb(34, 197, 94)" opacity="0.8" className="animate-ping">
+                  <animateMotion dur="3s" repeatCount="indefinite" path="M 120 340 Q 250 200 300 100"/>
+                </circle>
+                <circle r="3" fill="rgb(249, 115, 22)" opacity="0.8" className="animate-ping">
+                  <animateMotion dur="3s" repeatCount="indefinite" begin="1s" path="M 300 340 L 300 100"/>
+                </circle>
+                <circle r="3" fill="rgb(6, 182, 212)" opacity="0.8" className="animate-ping">
+                  <animateMotion dur="3s" repeatCount="indefinite" begin="2s" path="M 480 340 Q 350 200 300 100"/>
+                </circle>
+              </svg>
+            </div>
+            
+            <div className="text-center mt-12 opacity-0 animate-fade-in-up delay-200">
+              <p className="text-lg text-gray-300 mb-6">
+                One unified platform coordinates your entire manufacturing network
+              </p>
+              <p className="text-sm text-gray-400">
+                Real-time data flows between machines and your command center, enabling intelligent scheduling and autonomous operation
+              </p>
+            </div>
           </div>
         </div>
       </section>
