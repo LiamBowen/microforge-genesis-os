@@ -6,6 +6,7 @@ import ProductSection from "@/components/sections/ProductSection";
 import UseCasesSection from "@/components/sections/UseCasesSection";
 import GlobalImpactSection from "@/components/sections/GlobalImpactSection";
 import CTASection from "@/components/sections/CTASection";
+import ProductionSimulationSection from "@/components/sections/ProductionSimulationSection";
 
 const Index = () => {
   return (
@@ -13,6 +14,7 @@ const Index = () => {
       <Hero />
       <VisionSection />
       <ProductSection />
+      <ProductionSimulationSection />
       <UseCasesSection />
       
       {/* Testimonial Section */}
