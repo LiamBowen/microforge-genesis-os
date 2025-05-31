@@ -59,6 +59,20 @@ const ProductionSimulationSection = () => {
     }
   };
 
+  const handlePartSelection = (e: React.MouseEvent, partName: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setSelectedPart(partName);
+    setTimeout(handleStepAdvance, 800);
+  };
+
+  const handleMachineSelection = (e: React.MouseEvent, machineName: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setSelectedMachine(machineName);
+    setTimeout(handleStepAdvance, 800);
+  };
+
   const resetDemo = () => {
     setCurrentStep(0);
     setSelectedPart("");
@@ -100,20 +114,18 @@ const ProductionSimulationSection = () => {
                 <h3 className="text-2xl font-bold mb-6">1. Choose a Part</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   {parts.map((part, index) => (
-                    <div
+                    <button
                       key={index}
-                      onClick={() => {
-                        setSelectedPart(part.name);
-                        setTimeout(handleStepAdvance, 800);
-                      }}
-                      className={`bg-gray-800 rounded-lg p-6 cursor-pointer transition-all duration-300 hover:bg-gray-700 border-2 ${
+                      type="button"
+                      onClick={(e) => handlePartSelection(e, part.name)}
+                      className={`bg-gray-800 rounded-lg p-6 transition-all duration-300 hover:bg-gray-700 border-2 ${
                         selectedPart === part.name ? 'border-neon-cyan scale-105' : 'border-gray-700'
                       }`}
                     >
                       <div className="text-4xl mb-3">{part.icon}</div>
                       <h4 className="font-semibold text-white mb-1">{part.name}</h4>
                       <p className="text-sm text-gray-400">Complexity: {part.complexity}</p>
-                    </div>
+                    </button>
                   ))}
                 </div>
                 {selectedPart && (
@@ -130,13 +142,11 @@ const ProductionSimulationSection = () => {
                 <h3 className="text-2xl font-bold mb-6">2. Select Machine (Auto Suggest Optimal)</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   {machines.map((machine, index) => (
-                    <div
+                    <button
                       key={index}
-                      onClick={() => {
-                        setSelectedMachine(machine.name);
-                        setTimeout(handleStepAdvance, 800);
-                      }}
-                      className={`bg-gray-800 rounded-lg p-6 cursor-pointer transition-all duration-300 hover:bg-gray-700 border-2 relative ${
+                      type="button"
+                      onClick={(e) => handleMachineSelection(e, machine.name)}
+                      className={`bg-gray-800 rounded-lg p-6 transition-all duration-300 hover:bg-gray-700 border-2 relative ${
                         selectedMachine === machine.name ? 'border-neon-cyan scale-105' : 'border-gray-700'
                       } ${machine.optimal ? 'ring-2 ring-neon-lime/50' : ''}`}
                     >
@@ -149,7 +159,7 @@ const ProductionSimulationSection = () => {
                       <h4 className="font-semibold text-white mb-1">{machine.name}</h4>
                       <p className="text-sm text-gray-400 mb-1">Status: {machine.status}</p>
                       <p className="text-sm text-gray-400">Time: {machine.estimatedTime}</p>
-                    </div>
+                    </button>
                   ))}
                 </div>
                 {selectedMachine && (
