@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Check, ArrowRight } from "lucide-react";
 
@@ -22,7 +23,27 @@ const EarlyAccess = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API request
+    // Create mailto link with form data
+    const subject = encodeURIComponent("Early Access Application - MicroForge");
+    const body = encodeURIComponent(`
+Early Access Application
+
+Name: ${formData.name}
+Email: ${formData.email}
+Company: ${formData.company}
+Machine Types: ${formData.machineTypes}
+How did you hear about us: ${formData.hearAboutUs}
+
+Best regards,
+${formData.name}
+    `);
+    
+    const mailtoLink = `mailto:hello@microforge.dev?subject=${subject}&body=${body}`;
+    
+    // Open email client
+    window.location.href = mailtoLink;
+    
+    // Simulate processing and show success message
     setTimeout(() => {
       console.log("Form submitted:", formData);
       setIsSubmitting(false);

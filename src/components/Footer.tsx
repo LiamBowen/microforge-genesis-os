@@ -64,9 +64,8 @@ const Footer = () => {
           
           <div>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-neon-cyan text-sm">Documentation</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-neon-cyan text-sm">API</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-neon-cyan text-sm">Builder Forum</a></li>
+              <li><Link to="/privacy" className="text-gray-400 hover:text-neon-cyan text-sm">Privacy</Link></li>
+              <li><Link to="/terms" className="text-gray-400 hover:text-neon-cyan text-sm">Terms</Link></li>
             </ul>
           </div>
         </div>
@@ -75,10 +74,6 @@ const Footer = () => {
           <p className="text-gray-500 text-sm mb-4 md:mb-0">
             MicroForge © {new Date().getFullYear()}. All rights reserved.
           </p>
-          <div className="flex space-x-6">
-            <Link to="/privacy" className="text-gray-500 hover:text-white text-sm">Privacy</Link>
-            <Link to="/terms" className="text-gray-500 hover:text-white text-sm">Terms</Link>
-          </div>
         </div>
       </div>
     </footer>

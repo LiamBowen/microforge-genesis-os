@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -142,12 +143,6 @@ const Login = () => {
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
                   Remember me
                 </label>
-              </div>
-
-              <div className="text-sm">
-                <Link to="/signup" className="text-neon-lime hover:text-neon-lime/80">
-                  Need an account?
-                </Link>
               </div>
             </div>
 
