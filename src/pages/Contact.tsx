@@ -6,7 +6,9 @@ const Contact = () => {
     <div className="min-h-screen bg-dark text-white">
       <section className="max-w-4xl mx-auto py-24 px-6">
         <div className="text-center mb-16">
-          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">Get in Touch</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+            <span className="gradient-text">Get in Touch</span>
+          </h1>
           <p className="text-lg text-gray-400 mb-12 leading-relaxed max-w-2xl mx-auto">
             Ready to transform your manufacturing workflow? We'd love to hear from you.
           </p>
