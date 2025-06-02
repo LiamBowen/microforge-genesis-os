@@ -168,11 +168,10 @@ const Vision = () => {
               
               <div className="flex opacity-0 animate-fade-in-up delay-300">
                 <div className="w-1/2 pr-12 text-right">
-                  <h3 className="text-xl font-bold text-neon-orange">2026</h3>
-                  <h4 className="text-lg font-medium mb-2">Global Network</h4>
-                  <p className="text-gray-400">
-                    Launch of the MicroForge production network, enabling distributed, on-demand manufacturing anywhere in the world.
-                  </p>
+                  <h3 className="text-xl font-bold text-neon-orange">2027</h3>
+                  <h4 className="text-lg font-medium mb-2">Scale & Network Effects</h4>
+                  <p className="text-gray-400">As adoption grows, we’ll expand MicroForge into a connected OS layer — unifying machines, workflows, and data into a smart, distributed production network.
+                </p>
                 </div>
                 <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-neon-orange mt-1"></div>
                 <div className="w-1/2 pl-12"></div>
