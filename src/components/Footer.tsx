@@ -8,6 +8,11 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleFAQClick = () => {
+    // Navigate to early access page and scroll to FAQ section
+    window.location.href = '/early-access#faq';
+  };
+
   return (
     <footer className="bg-dark-lighter pt-16 pb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,7 +64,7 @@ const Footer = () => {
               <li><Link to="/about" className="text-gray-400 hover:text-neon-cyan text-sm">About</Link></li>
               <li><Link to="/careers" className="text-gray-400 hover:text-neon-cyan text-sm">Careers</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-neon-cyan text-sm">Contact</Link></li>
-              <li><a href="/early-access#faq" className="text-gray-400 hover:text-neon-cyan text-sm">FAQs</a></li>
+              <li><button onClick={handleFAQClick} className="text-gray-400 hover:text-neon-cyan text-sm">FAQs</button></li>
             </ul>
           </div>
           

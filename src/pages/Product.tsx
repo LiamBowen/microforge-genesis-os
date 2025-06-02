@@ -4,7 +4,7 @@ import RequestAccessButton from "@/components/RequestAccessButton";
 const Product = () => {
   return (
     <div className="pt-16 bg-dark min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section with Network Animation */}
       <section className="py-24 bg-hero-pattern">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
@@ -17,18 +17,10 @@ const Product = () => {
               MicroForge is a comprehensive platform that transforms disconnected manufacturing machines into intelligent, autonomous production systems.
             </p>
           </div>
-        </div>
-      </section>
-      
-      {/* 3 Machines → Command Centre Visual */}
-      <section className="py-24 bg-dark">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-center mb-16 opacity-0 animate-fade-in-up">
-              <span className="gradient-text">Connected Manufacturing Network</span>
-            </h2>
-            
-            <div className="relative opacity-0 animate-fade-in-up delay-100">
+          
+          {/* Manufacturing Network Visualization */}
+          <div className="max-w-6xl mx-auto mt-16">
+            <div className="relative opacity-0 animate-fade-in-up delay-200">
               {/* Command Centre (Center) */}
               <div className="flex justify-center mb-16">
                 <div className="relative">
@@ -127,7 +119,7 @@ const Product = () => {
               </svg>
             </div>
             
-            <div className="text-center mt-12 opacity-0 animate-fade-in-up delay-200">
+            <div className="text-center mt-12 opacity-0 animate-fade-in-up delay-300">
               <p className="text-lg text-gray-300 mb-6">
                 One unified platform coordinates your entire manufacturing network
               </p>
