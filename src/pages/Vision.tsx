@@ -1,10 +1,7 @@
-
 import { Github, Rocket, Zap, Globe, Shield } from "lucide-react";
 import RequestAccessButton from "@/components/RequestAccessButton";
-
 const Vision = () => {
-  return (
-    <div className="pt-16 bg-dark min-h-screen">
+  return <div className="pt-16 bg-dark min-h-screen">
       {/* Hero Section */}
       <section className="py-24 bg-hero-pattern">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,11 +146,10 @@ const Vision = () => {
             <div className="space-y-16 relative">
               <div className="flex opacity-0 animate-fade-in-up delay-100">
                 <div className="w-1/2 pr-12 text-right">
-                  <h3 className="text-xl font-bold text-neon-cyan">2024</h3>
-                  <h4 className="text-lg font-medium mb-2">Pilot Program</h4>
-                  <p className="text-gray-400">
-                    Initial deployment with select R&D labs and hardware startups for AI-driven manufacturing automation.
-                  </p>
+                  <h3 className="text-xl font-bold text-neon-cyan">2025</h3>
+                  <h4 className="text-lg font-medium mb-2">Pilot & Proof</h4>
+                  <p className="text-gray-400">We're onboarding a small group of R&D labs and hardware teams to stress test MicroForge in real workflows. This is about finding sharp pain points, validating demand, and tightening the platform for commercial readiness.
+                </p>
                 </div>
                 <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-neon-cyan mt-1"></div>
                 <div className="w-1/2 pl-12"></div>
@@ -202,12 +198,7 @@ const Vision = () => {
             <div className="flex flex-col sm:flex-row justify-center gap-4 opacity-0 animate-fade-in-up delay-200">
               <RequestAccessButton size="lg" />
               
-              <a 
-                href="https://github.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center py-3 px-6 rounded-md border border-gray-700 text-gray-200 hover:bg-gray-800 transition-all"
-              >
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center py-3 px-6 rounded-md border border-gray-700 text-gray-200 hover:bg-gray-800 transition-all">
                 <Github size={20} className="mr-2" />
                 Open Protocol
               </a>
@@ -215,8 +206,6 @@ const Vision = () => {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Vision;
