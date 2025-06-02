@@ -28,7 +28,6 @@ const Footer = () => {
             </Link>
             <p className="text-gray-400 text-sm mb-4">
               The AI OS for autonomous manufacturing.
-              <br />Turn machines into factories that think.
             </p>
             <div className="flex space-x-4">
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" 
@@ -47,29 +46,27 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="text-white font-semibold mb-4">Product</h4>
             <ul className="space-y-2">
-              <li><Link to="/product" className="text-gray-400 hover:text-neon-cyan text-sm">Features</Link></li>
-              <li><Link to="/use-cases" className="text-gray-400 hover:text-neon-cyan text-sm">Use Cases</Link></li>
+              <li><Link to="/" className="text-gray-400 hover:text-neon-cyan text-sm">Home</Link></li>
               <li><Link to="/vision" className="text-gray-400 hover:text-neon-cyan text-sm">Vision</Link></li>
+              <li><Link to="/product" className="text-gray-400 hover:text-neon-cyan text-sm">Product</Link></li>
+              <li><Link to="/use-cases" className="text-gray-400 hover:text-neon-cyan text-sm">Use Cases</Link></li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-white font-semibold mb-4">Resources</h4>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-neon-cyan text-sm">Documentation</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-neon-cyan text-sm">API</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-neon-cyan text-sm">Builder Forum</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-white font-semibold mb-4">Company</h4>
             <ul className="space-y-2">
               <li><Link to="/about" className="text-gray-400 hover:text-neon-cyan text-sm">About</Link></li>
               <li><Link to="/careers" className="text-gray-400 hover:text-neon-cyan text-sm">Careers</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-neon-cyan text-sm">Contact</Link></li>
+            </ul>
+          </div>
+          
+          <div>
+            <ul className="space-y-2">
+              <li><a href="#" className="text-gray-400 hover:text-neon-cyan text-sm">Documentation</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-neon-cyan text-sm">API</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-neon-cyan text-sm">Builder Forum</a></li>
             </ul>
           </div>
         </div>

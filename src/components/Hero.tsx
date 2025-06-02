@@ -1,5 +1,4 @@
 
-import RequestAccessButton from "./RequestAccessButton";
 import DashboardPreview from "./DashboardPreview";
 import AnimatedBackground from "./AnimatedBackground";
 
@@ -19,11 +18,10 @@ const Hero = () => {
             From CAD to machine in minutes. No CAM. No friction. Just click and print, cut, or mill.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-in-up delay-200">
-            <RequestAccessButton size="lg" variant="cyan" />
+          <div className="flex justify-center opacity-0 animate-fade-in-up delay-200">
             <a 
               href="#how-it-works" 
-              className="inline-flex items-center justify-center py-3 px-6 rounded-md border border-gray-700 text-gray-200 hover:bg-gray-800 transition-all"
+              className="inline-flex items-center justify-center py-3 px-6 rounded-md border border-neon-orange bg-neon-orange/10 text-neon-orange hover:bg-neon-orange/20 transition-all duration-300 button-glow orange-glow"
             >
               How It Works ↓
             </a>

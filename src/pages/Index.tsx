@@ -3,7 +3,6 @@ import Hero from "@/components/Hero";
 import TestimonialCard from "@/components/TestimonialCard";
 import VisionSection from "@/components/sections/VisionSection";
 import ProductSection from "@/components/sections/ProductSection";
-import UseCasesSection from "@/components/sections/UseCasesSection";
 import GlobalImpactSection from "@/components/sections/GlobalImpactSection";
 import CTASection from "@/components/sections/CTASection";
 import ProductionSimulationSection from "@/components/sections/ProductionSimulationSection";
@@ -15,7 +14,6 @@ const Index = () => {
       <VisionSection />
       <ProductSection />
       <ProductionSimulationSection />
-      <UseCasesSection />
       
       {/* Testimonial Section */}
       <section className="py-24 bg-dark-lighter">
@@ -23,9 +21,9 @@ const Index = () => {
           <div className="max-w-4xl mx-auto">
             <TestimonialCard 
               quote="Before MicroForge, it took us 3 hours and 2 engineers to prep a part. Now we click one button and the machines do the rest. It's transformed our prototyping speed."
-              name="Alex Chen"
+              name="Could Be You!"
               role="Founder"
-              company="Quantum Robotics"
+              company=""
             />
           </div>
         </div>
