@@ -50,7 +50,7 @@ const Footer = () => {
               <li><Link to="/" className="text-gray-400 hover:text-neon-cyan text-sm">Home</Link></li>
               <li><Link to="/vision" className="text-gray-400 hover:text-neon-cyan text-sm">Vision</Link></li>
               <li><Link to="/product" className="text-gray-400 hover:text-neon-cyan text-sm">Product</Link></li>
-              <li><Link to="/use-cases" className="text-gray-400 hover:text-neon-cyan text-sm">Use Cases</Link></li>
+              <li><Link to="/solutions" className="text-gray-400 hover:text-neon-cyan text-sm">Solutions</Link></li>
             </ul>
           </div>
           
@@ -59,6 +59,7 @@ const Footer = () => {
               <li><Link to="/about" className="text-gray-400 hover:text-neon-cyan text-sm">About</Link></li>
               <li><Link to="/careers" className="text-gray-400 hover:text-neon-cyan text-sm">Careers</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-neon-cyan text-sm">Contact</Link></li>
+              <li><a href="/early-access#faq" className="text-gray-400 hover:text-neon-cyan text-sm">FAQs</a></li>
             </ul>
           </div>
           

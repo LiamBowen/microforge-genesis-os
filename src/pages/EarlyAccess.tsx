@@ -256,7 +256,7 @@ ${formData.name}
       </section>
       
       {/* FAQ Section */}
-      <section className="py-24 bg-dark-lighter">
+      <section id="faq" className="py-24 bg-dark-lighter">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-center mb-16 opacity-0 animate-fade-in-up">
@@ -267,49 +267,49 @@ ${formData.name}
               <div className="bg-dark-card border border-gray-800 rounded-lg p-6">
                 <h3 className="text-xl font-bold mb-2">Can my machine connect directly via Wi-Fi?</h3>
                 <p className="text-gray-300">
-                  Yes, if your machine supports direct HTTP/websocket connection, you can skip the Agent. Setup instructions coming soon.
+                  Yes — if your machine supports HTTP or WebSocket connections, it can connect directly to MicroForge without the Agent. Setup documentation will be available soon.
                 </p>
               </div>
               
               <div className="bg-dark-card border border-gray-800 rounded-lg p-6">
                 <h3 className="text-xl font-bold mb-2">What is the MicroForge Agent?</h3>
                 <p className="text-gray-300">
-                  A lightweight bridge app that connects your offline machines to the cloud, securely.
+                  The MicroForge Agent is a lightweight desktop app that securely connects offline or local-network machines to the MicroForge platform.
                 </p>
               </div>
               
               <div className="bg-dark-card border border-gray-800 rounded-lg p-6">
-                <h3 className="text-xl font-bold mb-2">Do I need the internet?</h3>
+                <h3 className="text-xl font-bold mb-2">Do I need an internet connection?</h3>
                 <p className="text-gray-300">
-                  Yes for cloud version. An on-premise version is coming soon.
+                  Yes — for the cloud version. For fully offline environments, our on-premise version (currently in development) will support local deployments.
                 </p>
               </div>
               
               <div className="bg-dark-card border border-gray-800 rounded-lg p-6">
                 <h3 className="text-xl font-bold mb-2">When will MicroForge be available?</h3>
                 <p className="text-gray-300">
-                  We're launching our pilot program in Q3 2024, with general availability planned for early 2025. Early access partners will begin onboarding in phases starting later this year.
+                  Pilot onboarding begins in Q3 2025. General availability is planned for early 2026. Early access partners will be onboarded in phases starting later this year.
                 </p>
               </div>
               
               <div className="bg-dark-card border border-gray-800 rounded-lg p-6">
                 <h3 className="text-xl font-bold mb-2">What kinds of machines does MicroForge support?</h3>
                 <p className="text-gray-300">
-                  Our initial release supports common CNC mills, 3D printers (FDM and SLA), and laser cutters from major manufacturers. We're rapidly expanding our compatibility list and can prioritize specific machines for early access partners.
+                  We currently support a range of 3D printers (FDM & SLA), CNC mills, and laser cutters from major manufacturers. Support for additional machines is expanding — and we prioritize compatibility requests from pilot partners.
                 </p>
               </div>
               
               <div className="bg-dark-card border border-gray-800 rounded-lg p-6">
                 <h3 className="text-xl font-bold mb-2">Is MicroForge cloud-only or can it run on-premise?</h3>
                 <p className="text-gray-300">
-                  We offer both cloud-based and on-premise deployment options. For organizations with sensitive data or security requirements, our on-premise solution provides all the functionality without external dependencies.
+                  MicroForge can run both in the cloud and on-premise. The on-premise version is designed for organizations with strict security or compliance requirements, offering full functionality in a local environment.
                 </p>
               </div>
               
               <div className="bg-dark-card border border-gray-800 rounded-lg p-6">
                 <h3 className="text-xl font-bold mb-2">How does the pricing model work?</h3>
                 <p className="text-gray-300">
-                  MicroForge is offered as a subscription service with tiers based on the number of connected machines and usage volume. Early access partners receive preferential pricing that will be maintained as we scale.
+                  MicroForge is offered as a subscription, with tiers based on the number of machines and usage volume. Early access partners receive long-term preferred pricing, locked in ahead of our full commercial launch.
                 </p>
               </div>
             </div>

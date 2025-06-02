@@ -1,8 +1,7 @@
-
 import { Code, FlaskConical, Factory, Rocket, GraduationCap } from "lucide-react";
 import RequestAccessButton from "@/components/RequestAccessButton";
 
-const UseCases = () => {
+const Solutions = () => {
   return (
     <div className="pt-16 bg-dark min-h-screen">
       {/* Hero Section */}
@@ -449,4 +448,4 @@ const UseCases = () => {
   );
 };
 
-export default UseCases;
+export default Solutions;

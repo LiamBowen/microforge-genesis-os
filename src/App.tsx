@@ -14,7 +14,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import Vision from "./pages/Vision";
 import Product from "./pages/Product";
-import UseCases from "./pages/UseCases";
+import Solutions from "./pages/Solutions";
 import GetInvolved from "./pages/GetInvolved";
 import EarlyAccess from "./pages/EarlyAccess";
 import Login from "./pages/Login";
@@ -77,7 +77,7 @@ const AppLayout = () => {
           <Route path="/" element={<Index />} />
           <Route path="/vision" element={<Vision />} />
           <Route path="/product" element={<Product />} />
-          <Route path="/use-cases" element={<UseCases />} />
+          <Route path="/solutions" element={<Solutions />} />
           <Route path="/get-involved" element={<GetInvolved />} />
           <Route path="/early-access" element={<EarlyAccess />} />
           <Route path="/login" element={<Login />} />
