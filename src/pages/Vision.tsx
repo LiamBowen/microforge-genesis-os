@@ -159,11 +159,10 @@ const Vision = () => {
                 <div className="w-1/2 pr-12"></div>
                 <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-neon-lime mt-1"></div>
                 <div className="w-1/2 pl-12">
-                  <h3 className="text-xl font-bold text-neon-lime">2025</h3>
-                  <h4 className="text-lg font-medium mb-2">Platform Expansion</h4>
-                  <p className="text-gray-400">
-                    Public launch of MicroForge OS with support for a wide range of machines and production scenarios.
-                  </p>
+                  <h3 className="text-xl font-bold text-neon-lime">2026</h3>
+                  <h4 className="text-lg font-medium mb-2">Launch & Focus</h4>
+                  <p className="text-gray-400">With proven use cases, we’ll launch publicly and go deep into sectors like aerospace R&D and microfactories. The goal is a clean, high-retention SaaS offering with strong early revenue and usage.
+                </p>
                 </div>
               </div>
               
