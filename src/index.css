@@ -93,26 +93,20 @@
   body {
     @apply bg-dark text-foreground scroll-smooth;
     font-feature-settings: "rlig" 1, "calt" 1;
-    /* Prevent horizontal scroll on all devices */
     overflow-x: hidden;
-    /* Improve text rendering on all devices */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Better text scaling on mobile */
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-sans font-bold tracking-tight;
-    /* Improve text wrapping on all screen sizes */
     word-wrap: break-word;
     hyphens: auto;
-    /* Better line height for readability */
     line-height: 1.2;
   }
 
-  /* Enhanced responsive typography with larger mobile text */
   h1 {
     @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl;
     line-height: 1.1;
@@ -133,27 +127,22 @@
     line-height: 1.3;
   }
 
-  /* Enhanced responsive text sizing with larger mobile text */
   p, li {
     @apply text-lg sm:text-xl lg:text-2xl;
     line-height: 1.6;
   }
 
-  /* Larger buttons for better touch targets */
   button {
-    min-height: 56px; /* Increased from 48px for better mobile touch */
+    min-height: 56px;
     min-width: 56px;
     @apply transition-all duration-200;
   }
 
-  /* Enhanced touch-friendly interactive elements */
   a, button, [role="button"] {
     @apply transition-all duration-200;
-    /* Ensure proper touch targets on all devices */
     touch-action: manipulation;
   }
 
-  /* Enhanced glow effects */
   .glow-text {
     text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
   }
@@ -166,7 +155,6 @@
     text-shadow: 0 0 10px rgba(255, 122, 0, 0.5);
   }
 
-  /* Enhanced gradient text with better performance */
   .gradient-text {
     background: linear-gradient(90deg, #00FFFF, #AAFF00, #FF7A00, #00FFFF);
     background-size: 300% 300%;
@@ -175,14 +163,11 @@
     -webkit-text-fill-color: transparent;
     color: transparent;
     animation: gradient-flow 8s ease infinite;
-    /* Ensure cross-browser compatibility */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* GPU acceleration for better performance */
     will-change: background-position;
   }
 
-  /* Enhanced fallback for gradient text */
   @supports not (background-clip: text) or not (-webkit-background-clip: text) {
     .gradient-text {
       background: none;
@@ -191,18 +176,9 @@
     }
   }
 
-  /* Enhanced scrollbar - responsive */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
-  }
-
-  /* Hide scrollbar on mobile and tablet for cleaner look */
-  @media (max-width: 1024px) {
-    ::-webkit-scrollbar {
-      width: 0px;
-      height: 0px;
-    }
   }
 
   ::-webkit-scrollbar-track {
@@ -217,34 +193,17 @@
     @apply bg-muted-foreground;
   }
 
-  /* Enhanced grid pattern background - fully responsive */
   .grid-bg {
     background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 15px 15px;
   }
 
-  @media (min-width: 640px) {
-    .grid-bg {
-      background-size: 20px 20px;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .grid-bg {
-      background-size: 40px 40px;
-      background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    }
-  }
-
-  /* Enhanced responsive containers with better mobile spacing */
   .container {
     @apply px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16;
     max-width: 100%;
   }
 
-  /* Safe area for devices with notches */
   .safe-area-top {
     padding-top: env(safe-area-inset-top);
   }
@@ -253,28 +212,18 @@
     padding-bottom: env(safe-area-inset-bottom);
   }
 
-  /* Enhanced touch optimization */
   .no-zoom {
     touch-action: manipulation;
     user-select: none;
     -webkit-user-select: none;
   }
 
-  /* Better form inputs on mobile */
   input, textarea, select {
     @apply transition-all duration-200;
-    /* Prevent zoom on iOS */
     font-size: 16px;
-  }
-
-  @media (min-width: 640px) {
-    input, textarea, select {
-      font-size: 14px;
-    }
   }
 }
 
-/* Enhanced keyframes for better performance */
 @keyframes gradient-flow {
   0% {
     background-position: 0% 50%;
@@ -287,7 +236,6 @@
   }
 }
 
-/* Enhanced animation delays */
 .delay-100 {
   animation-delay: 0.1s;
 }
@@ -304,25 +252,8 @@
   animation-delay: 0.5s;
 }
 
-/* Enhanced responsive button hover effects */
 .button-glow:hover {
   box-shadow: 0 0 20px var(--glow-color, rgba(0, 255, 255, 0.5));
-}
-
-/* Enhanced touch device optimizations */
-@media (hover: none) and (pointer: coarse) {
-  .button-glow:hover {
-    box-shadow: none;
-  }
-  
-  .hover\:scale-105:hover {
-    transform: none;
-  }
-
-  /* Add active states for touch devices */
-  .button-glow:active {
-    transform: scale(0.98);
-  }
 }
 
 .cyan-glow {
@@ -337,111 +268,78 @@
   --glow-color: rgba(255, 122, 0, 0.5);
 }
 
-/* Enhanced mobile optimizations with better spacing */
+.loading-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.focus\:outline-neon-cyan:focus {
+  outline: 2px solid rgba(0, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Mobile optimizations */
 @media (max-width: 640px) {
-  /* Optimize animations for mobile performance */
+  ::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+  
+  .grid-bg {
+    background-size: 15px 15px;
+  }
+  
   .gradient-text {
     animation: gradient-flow 12s ease infinite;
   }
   
-  .animate-pulse-glow {
-    animation-duration: 5s;
-  }
-  
-  /* Better spacing for mobile with proper proportions */
-  .space-y-24 > * + * {
-    margin-top: 8rem; /* Increased spacing for mobile */
-  }
-
-  .space-y-16 > * + * {
-    margin-top: 6rem; /* Increased spacing for mobile */
-  }
-  
-  .space-y-12 > * + * {
-    margin-top: 4rem; /* Increased spacing for mobile */
-  }
-  
-  .space-y-8 > * + * {
-    margin-top: 3rem; /* Increased spacing for mobile */
-  }
-
-  /* Better padding for mobile with generous spacing */
-  .py-24 {
-    @apply py-20; /* Increased from py-16 */
-  }
-  
-  .py-16 {
-    @apply py-14; /* Increased from py-12 */
-  }
-
-  .py-12 {
-    @apply py-10; /* Increased from py-8 */
-  }
-
-  /* Enhanced mobile menu button touch area */
   .mobile-menu-button {
     min-width: 64px;
     min-height: 64px;
     padding: 20px;
   }
+  
+  input, textarea, select {
+    font-size: 16px;
+  }
 }
 
-/* Tablet-specific optimizations */
+/* Tablet optimizations */
 @media (min-width: 641px) and (max-width: 1024px) {
+  .grid-bg {
+    background-size: 20px 20px;
+  }
+  
   .gradient-text {
     animation: gradient-flow 10s ease infinite;
   }
-
-  /* Better spacing for tablets - using valid Tailwind class */
-  .py-24 {
-    @apply py-20; /* Changed from py-18 to py-20 */
-  }
-
-  /* Optimize touch targets for tablets */
+  
   button {
     min-height: 52px;
     min-width: 52px;
   }
-}
-
-/* Landscape mobile optimizations */
-@media (max-width: 896px) and (orientation: landscape) {
-  h1 {
-    @apply text-3xl sm:text-4xl md:text-5xl;
-  }
   
-  h2 {
-    @apply text-2xl sm:text-3xl md:text-4xl;
-  }
-  
-  .py-24 {
-    @apply py-16;
-  }
-  
-  .py-16 {
-    @apply py-12;
-  }
-
-  /* Reduce vertical spacing in landscape */
-  .space-y-16 > * + * {
-    margin-top: 3rem;
-  }
-
-  .space-y-12 > * + * {
-    margin-top: 2.5rem;
+  input, textarea, select {
+    font-size: 14px;
   }
 }
 
-/* High DPI displays optimization */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .gradient-text {
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-
-  /* Sharper borders on high DPI */
-  .border {
-    border-width: 0.5px;
+/* Desktop optimizations */
+@media (min-width: 1024px) {
+  .grid-bg {
+    background-size: 40px 40px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   }
 }
 
@@ -464,25 +362,41 @@
   }
 }
 
-/* Focus styles for accessibility */
-.focus\:outline-neon-cyan:focus {
-  outline: 2px solid rgba(0, 255, 255, 0.5);
-  outline-offset: 2px;
-}
-
-/* Enhanced loading states */
-.loading-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
+/* Landscape mobile optimizations */
+@media (max-width: 896px) and (orientation: landscape) {
+  h1 {
+    @apply text-3xl sm:text-4xl md:text-5xl;
   }
-  100% {
-    background-position: 200% 0;
+  
+  h2 {
+    @apply text-2xl sm:text-3xl md:text-4xl;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .button-glow:hover {
+    box-shadow: none;
+  }
+  
+  .hover\:scale-105:hover {
+    transform: none;
+  }
+
+  .button-glow:active {
+    transform: scale(0.98);
+  }
+}
+
+/* High DPI displays optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .gradient-text {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .border {
+    border-width: 0.5px;
   }
 }
 
