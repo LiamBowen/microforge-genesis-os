@@ -12,38 +12,38 @@ const VisionSection = () => {
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center md:text-left opacity-0 animate-fade-in-up delay-100">
+            <div className="text-center md:text-left opacity-0 animate-fade-in-up delay-100 flex flex-col">
               <div className="flex justify-center md:justify-start mb-4">
                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-neon-cyan/10 text-neon-cyan">
                   <Factory size={24} />
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-2"><strong>Factories are disconnected.</strong></h3>
-              <p className="text-gray-400">
+              <h3 className="text-xl font-bold mb-4"><strong>Factories are disconnected.</strong></h3>
+              <p className="text-gray-400 flex-1">
                 Most machines aren't networked or intelligent, requiring manual setup and monitoring by experts.
               </p>
             </div>
             
-            <div className="text-center md:text-left opacity-0 animate-fade-in-up delay-200">
+            <div className="text-center md:text-left opacity-0 animate-fade-in-up delay-200 flex flex-col">
               <div className="flex justify-center md:justify-start mb-4">
                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-neon-lime/10 text-neon-lime">
                   <Microchip size={24} />
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-2"><strong>AI + Automation are ready.</strong></h3>
-              <p className="text-gray-400">
+              <h3 className="text-xl font-bold mb-4"><strong>AI + Automation are ready.</strong></h3>
+              <p className="text-gray-400 flex-1">
                 MicroForge uses real-time models to control machines, not just monitor them, creating fully autonomous production.
               </p>
             </div>
             
-            <div className="text-center md:text-left opacity-0 animate-fade-in-up delay-300">
+            <div className="text-center md:text-left opacity-0 animate-fade-in-up delay-300 flex flex-col">
               <div className="flex justify-center md:justify-start mb-4">
                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-neon-orange/10 text-neon-orange">
                   <Database size={24} />
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-2"><strong>The world needs resilient production.</strong></h3>
-              <p className="text-gray-400">
+              <h3 className="text-xl font-bold mb-4"><strong>The world needs resilient production.</strong></h3>
+              <p className="text-gray-400 flex-1">
                 Global supply chains are fragile. Local, autonomous microfactories are the future of resilient manufacturing.
               </p>
             </div>
