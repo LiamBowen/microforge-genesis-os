@@ -9,12 +9,12 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-5xl mx-auto">
-          <h1 className="font-bold mb-4 opacity-0 animate-fade-in-up text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight">
+          <h1 className="font-bold mb-4 opacity-0 animate-fade-in-up text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight">
             <span className="gradient-text block">The Operating System for</span>
-            <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">Autonomous Manufacturing</span>
+            <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">Autonomous Manufacturing</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto opacity-0 animate-fade-in-up delay-100">
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto opacity-0 animate-fade-in-up delay-100">
             From CAD to machine in minutes. No CAM. No friction. Just click and print, cut, or mill.
           </p>
           
