@@ -1,3 +1,4 @@
+
 import { Cpu, Cloud, Database, GitBranch, FileCode, RefreshCw, Shield, Clock, Settings } from "lucide-react";
 import RequestAccessButton from "@/components/RequestAccessButton";
 
@@ -297,85 +298,85 @@ const Product = () => {
             <div className="bg-dark-card border border-gray-800 rounded-lg p-8 opacity-0 animate-fade-in-up delay-100">
               <div className="relative">
                 {/* Layer 1 - UI */}
-                <div className="border border-gray-700 rounded-lg p-4 bg-dark z-30 relative">
+                <div className="border border-neon-cyan/50 rounded-lg p-4 bg-neon-cyan/5 z-30 relative">
                   <div className="flex justify-between items-center mb-2">
-                    <div className="text-sm font-medium text-gray-300">User Interface Layer</div>
+                    <div className="text-sm font-medium text-neon-cyan">User Interface Layer</div>
                     <div className="flex items-center">
                       <Settings className="h-4 w-4 text-neon-cyan mr-2" />
-                      <div className="text-xs text-gray-500">Dashboard & Controls</div>
+                      <div className="text-xs text-gray-400">Dashboard & Controls</div>
                     </div>
                   </div>
                   <div className="grid grid-cols-5 gap-2">
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
-                      <span className="text-xs text-gray-400 font-medium">Design Upload</span>
+                    <div className="border border-neon-cyan/30 rounded h-8 bg-neon-cyan/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-cyan font-medium text-center">Design Upload</span>
                     </div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
-                      <span className="text-xs text-gray-400 font-medium">Job Setup</span>
+                    <div className="border border-neon-cyan/30 rounded h-8 bg-neon-cyan/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-cyan font-medium text-center">Job Setup</span>
                     </div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
-                      <span className="text-xs text-gray-400 font-medium">Queue Manager</span>
+                    <div className="border border-neon-cyan/30 rounded h-8 bg-neon-cyan/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-cyan font-medium text-center">Queue Manager</span>
                     </div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
-                      <span className="text-xs text-gray-400 font-medium">Monitoring Dashboard</span>
+                    <div className="border border-neon-cyan/30 rounded h-8 bg-neon-cyan/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-cyan font-medium text-center">Monitoring Dashboard</span>
                     </div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
-                      <span className="text-xs text-gray-400 font-medium">Fleet Overview</span>
+                    <div className="border border-neon-cyan/30 rounded h-8 bg-neon-cyan/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-cyan font-medium text-center">Fleet Overview</span>
                     </div>
                   </div>
                 </div>
                 
                 {/* Layer 2 - AI */}
-                <div className="border border-gray-700 rounded-lg p-4 bg-dark mt-4 ml-6 mr-6 z-20 relative">
+                <div className="border border-neon-lime/50 rounded-lg p-4 bg-neon-lime/5 mt-4 ml-6 mr-6 z-20 relative">
                   <div className="flex justify-between items-center mb-2">
-                    <div className="text-sm font-medium text-gray-300">AI Processing Layer</div>
+                    <div className="text-sm font-medium text-neon-lime">AI Processing Layer</div>
                     <div className="flex items-center">
                       <Cpu className="h-4 w-4 text-neon-lime mr-2" />
-                      <div className="text-xs text-gray-500">ML Models & Optimization</div>
+                      <div className="text-xs text-gray-400">ML Models & Optimization</div>
                     </div>
                   </div>
                   <div className="grid grid-cols-5 gap-2">
-                    <div className="border border-gray-800 rounded h-6 bg-neon-lime/10 flex items-center justify-center">
-                      <span className="text-xs text-neon-lime font-medium">Geometry Analyzer</span>
+                    <div className="border border-neon-lime/30 rounded h-8 bg-neon-lime/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-lime font-medium text-center">Geometry Analyzer</span>
                     </div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
-                      <span className="text-xs text-gray-400 font-medium">Material Detection</span>
+                    <div className="border border-neon-lime/30 rounded h-8 bg-neon-lime/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-lime font-medium text-center">Material Detection</span>
                     </div>
-                    <div className="border border-gray-800 rounded h-6 bg-neon-lime/10 flex items-center justify-center">
-                      <span className="text-xs text-neon-lime font-medium">Toolpath Generator</span>
+                    <div className="border border-neon-lime/30 rounded h-8 bg-neon-lime/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-lime font-medium text-center">Toolpath Generator</span>
                     </div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
-                      <span className="text-xs text-gray-400 font-medium">Optimal Machine Selector</span>
+                    <div className="border border-neon-lime/30 rounded h-8 bg-neon-lime/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-lime font-medium text-center">Optimal Machine Selector</span>
                     </div>
-                    <div className="border border-gray-800 rounded h-6 bg-neon-lime/10 flex items-center justify-center">
-                      <span className="text-xs text-neon-lime font-medium">Quality Predictor</span>
+                    <div className="border border-neon-lime/30 rounded h-8 bg-neon-lime/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-lime font-medium text-center">Quality Predictor</span>
                     </div>
                   </div>
                 </div>
                 
                 {/* Layer 3 - Machine Control */}
-                <div className="border border-gray-700 rounded-lg p-4 bg-dark mt-4 ml-12 mr-12 z-10 relative">
+                <div className="border border-neon-orange/50 rounded-lg p-4 bg-neon-orange/5 mt-4 ml-12 mr-12 z-10 relative">
                   <div className="flex justify-between items-center mb-2">
-                    <div className="text-sm font-medium text-gray-300">Machine Control Layer</div>
+                    <div className="text-sm font-medium text-neon-orange">Machine Control Layer</div>
                     <div className="flex items-center">
                       <FileCode className="h-4 w-4 text-neon-orange mr-2" />
-                      <div className="text-xs text-gray-500">Hardware Interface</div>
+                      <div className="text-xs text-gray-400">Hardware Interface</div>
                     </div>
                   </div>
                   <div className="grid grid-cols-5 gap-2">
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
-                      <span className="text-xs text-gray-400 font-medium">Command Streamer</span>
+                    <div className="border border-neon-orange/30 rounded h-8 bg-neon-orange/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-orange font-medium text-center">Command Streamer</span>
                     </div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
-                      <span className="text-xs text-gray-400 font-medium">Runtime Monitor</span>
+                    <div className="border border-neon-orange/30 rounded h-8 bg-neon-orange/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-orange font-medium text-center">Runtime Monitor</span>
                     </div>
-                    <div className="border border-gray-800 rounded h-6 bg-neon-orange/10 flex items-center justify-center">
-                      <span className="text-xs text-neon-orange font-medium">Sensor Feedback Handler</span>
+                    <div className="border border-neon-orange/30 rounded h-8 bg-neon-orange/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-orange font-medium text-center">Sensor Feedback Handler</span>
                     </div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
-                      <span className="text-xs text-gray-400 font-medium">Safety Control Logic</span>
+                    <div className="border border-neon-orange/30 rounded h-8 bg-neon-orange/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-orange font-medium text-center">Safety Control Logic</span>
                     </div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
-                      <span className="text-xs text-gray-400 font-medium">Machine Driver API</span>
+                    <div className="border border-neon-orange/30 rounded h-8 bg-neon-orange/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-orange font-medium text-center">Machine Driver API</span>
                     </div>
                   </div>
                 </div>
