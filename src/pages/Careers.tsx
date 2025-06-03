@@ -17,8 +17,8 @@ const Careers = () => {
           <p><strong className="text-white">Accepting CV's now!</strong></p>
           <p>
             Send your portfolio or CV to{" "}
-            <a href="mailto:careers@microforge.com" className="text-neon-cyan hover:text-neon-lime underline transition-colors">
-              careers@microforge.com
+            <a href="mailto:careers@microforge.dev" className="text-neon-cyan hover:text-neon-lime underline transition-colors">
+              careers@microforge.dev
             </a>
           </p>
         </div>
