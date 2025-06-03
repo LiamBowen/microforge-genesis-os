@@ -305,10 +305,22 @@ const Product = () => {
                       <div className="text-xs text-gray-500">Dashboard & Controls</div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter"></div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter"></div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter"></div>
+                  <div className="grid grid-cols-5 gap-2">
+                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
+                      <span className="text-xs text-gray-400 font-medium">Design Upload</span>
+                    </div>
+                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
+                      <span className="text-xs text-gray-400 font-medium">Job Setup</span>
+                    </div>
+                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
+                      <span className="text-xs text-gray-400 font-medium">Queue Manager</span>
+                    </div>
+                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
+                      <span className="text-xs text-gray-400 font-medium">Monitoring Dashboard</span>
+                    </div>
+                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
+                      <span className="text-xs text-gray-400 font-medium">Fleet Overview</span>
+                    </div>
                   </div>
                 </div>
                 
@@ -321,11 +333,22 @@ const Product = () => {
                       <div className="text-xs text-gray-500">ML Models & Optimization</div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-4 gap-2">
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter"></div>
-                    <div className="border border-gray-800 rounded h-6 bg-neon-lime/10"></div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter"></div>
-                    <div className="border border-gray-800 rounded h-6 bg-neon-lime/10"></div>
+                  <div className="grid grid-cols-5 gap-2">
+                    <div className="border border-gray-800 rounded h-6 bg-neon-lime/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-lime font-medium">Geometry Analyzer</span>
+                    </div>
+                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
+                      <span className="text-xs text-gray-400 font-medium">Material Detection</span>
+                    </div>
+                    <div className="border border-gray-800 rounded h-6 bg-neon-lime/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-lime font-medium">Toolpath Generator</span>
+                    </div>
+                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
+                      <span className="text-xs text-gray-400 font-medium">Optimal Machine Selector</span>
+                    </div>
+                    <div className="border border-gray-800 rounded h-6 bg-neon-lime/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-lime font-medium">Quality Predictor</span>
+                    </div>
                   </div>
                 </div>
                 
@@ -339,11 +362,21 @@ const Product = () => {
                     </div>
                   </div>
                   <div className="grid grid-cols-5 gap-2">
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter"></div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter"></div>
-                    <div className="border border-gray-800 rounded h-6 bg-neon-orange/10"></div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter"></div>
-                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter"></div>
+                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
+                      <span className="text-xs text-gray-400 font-medium">Command Streamer</span>
+                    </div>
+                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
+                      <span className="text-xs text-gray-400 font-medium">Runtime Monitor</span>
+                    </div>
+                    <div className="border border-gray-800 rounded h-6 bg-neon-orange/10 flex items-center justify-center">
+                      <span className="text-xs text-neon-orange font-medium">Sensor Feedback Handler</span>
+                    </div>
+                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
+                      <span className="text-xs text-gray-400 font-medium">Safety Control Logic</span>
+                    </div>
+                    <div className="border border-gray-800 rounded h-6 bg-dark-lighter flex items-center justify-center">
+                      <span className="text-xs text-gray-400 font-medium">Machine Driver API</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -352,19 +385,19 @@ const Product = () => {
                 <div className="flex items-center">
                   <div className="w-3 h-3 rounded-full bg-neon-cyan mr-2"></div>
                   <p className="text-gray-300">
-                    <span className="font-medium">User Interface Layer:</span> Design upload, job configuration, monitoring dashboard, and fleet management tools.
+                    <span className="font-medium">User Interface Layer:</span> Tools for uploading designs, configuring jobs, tracking progress, and managing machine fleets - all in a unified dashboard.
                   </p>
                 </div>
                 <div className="flex items-center">
                   <div className="w-3 h-3 rounded-full bg-neon-lime mr-2"></div>
                   <p className="text-gray-300">
-                    <span className="font-medium">AI Processing Layer:</span> Machine learning models for toolpath generation, parameter optimization, and quality control.
+                    <span className="font-medium">AI Processing Layer:</span> ML-powered engine for toolpath generation, machine selection, parameter optimization, and predictive quality control.
                   </p>
                 </div>
                 <div className="flex items-center">
                   <div className="w-3 h-3 rounded-full bg-neon-orange mr-2"></div>
                   <p className="text-gray-300">
-                    <span className="font-medium">Machine Control Layer:</span> Hardware interfaces, real-time control systems, and sensor integration APIs.
+                    <span className="font-medium">Machine Control Layer:</span> Secure hardware interfaces that manage real-time machine control, queue execution, and sensor feedback integration.
                   </p>
                 </div>
               </div>
