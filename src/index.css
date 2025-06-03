@@ -114,35 +114,35 @@
 
   /* Enhanced responsive typography with larger mobile text */
   h1 {
-    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl;
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl;
     line-height: 1.1;
   }
 
   h2 {
-    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl;
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl;
     line-height: 1.2;
   }
 
   h3 {
-    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
     line-height: 1.3;
   }
 
   h4 {
-    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl;
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
     line-height: 1.3;
   }
 
   /* Enhanced responsive text sizing with larger mobile text */
   p, li {
-    @apply text-base sm:text-lg lg:text-xl;
+    @apply text-lg sm:text-xl lg:text-2xl;
     line-height: 1.6;
   }
 
   /* Larger buttons for better touch targets */
   button {
-    min-height: 48px; /* Increased from 44px for better mobile touch */
-    min-width: 48px;
+    min-height: 56px; /* Increased from 48px for better mobile touch */
+    min-width: 56px;
     @apply transition-all duration-200;
   }
 
@@ -350,39 +350,39 @@
   
   /* Better spacing for mobile with proper proportions */
   .space-y-24 > * + * {
-    margin-top: 6rem; /* Increased from 4rem */
+    margin-top: 8rem; /* Increased spacing for mobile */
   }
 
   .space-y-16 > * + * {
-    margin-top: 4rem; /* Increased from 3rem */
+    margin-top: 6rem; /* Increased spacing for mobile */
   }
   
   .space-y-12 > * + * {
-    margin-top: 3rem; /* Increased from 2rem */
+    margin-top: 4rem; /* Increased spacing for mobile */
   }
   
   .space-y-8 > * + * {
-    margin-top: 2rem; /* Increased from 1.5rem */
+    margin-top: 3rem; /* Increased spacing for mobile */
   }
 
   /* Better padding for mobile with generous spacing */
   .py-24 {
-    @apply py-16; /* Increased from py-12 */
+    @apply py-20; /* Increased from py-16 */
   }
   
   .py-16 {
-    @apply py-12; /* Increased from py-8 */
+    @apply py-14; /* Increased from py-12 */
   }
 
   .py-12 {
-    @apply py-8; /* Increased from py-6 */
+    @apply py-10; /* Increased from py-8 */
   }
 
   /* Enhanced mobile menu button touch area */
   .mobile-menu-button {
-    min-width: 56px;
-    min-height: 56px;
-    padding: 16px;
+    min-width: 64px;
+    min-height: 64px;
+    padding: 20px;
   }
 }
 
@@ -392,9 +392,9 @@
     animation: gradient-flow 10s ease infinite;
   }
 
-  /* Better spacing for tablets */
+  /* Better spacing for tablets - using valid Tailwind class */
   .py-24 {
-    @apply py-18;
+    @apply py-20; /* Changed from py-18 to py-20 */
   }
 
   /* Optimize touch targets for tablets */
@@ -407,28 +407,28 @@
 /* Landscape mobile optimizations */
 @media (max-width: 896px) and (orientation: landscape) {
   h1 {
-    @apply text-2xl sm:text-3xl md:text-4xl;
+    @apply text-3xl sm:text-4xl md:text-5xl;
   }
   
   h2 {
-    @apply text-xl sm:text-2xl md:text-3xl;
+    @apply text-2xl sm:text-3xl md:text-4xl;
   }
   
   .py-24 {
-    @apply py-12;
+    @apply py-16;
   }
   
   .py-16 {
-    @apply py-8;
+    @apply py-12;
   }
 
   /* Reduce vertical spacing in landscape */
   .space-y-16 > * + * {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
   }
 
   .space-y-12 > * + * {
-    margin-top: 2rem;
+    margin-top: 2.5rem;
   }
 }
 
@@ -452,15 +452,15 @@
   }
 
   h1 {
-    @apply text-8xl;
+    @apply text-9xl;
   }
 
   h2 {
-    @apply text-7xl;
+    @apply text-8xl;
   }
 
   p, li {
-    @apply text-2xl;
+    @apply text-3xl;
   }
 }
 
