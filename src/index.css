@@ -91,43 +91,64 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-dark text-foreground scroll-smooth;
     font-feature-settings: "rlig" 1, "calt" 1;
+    /* Prevent horizontal scroll on all devices */
+    overflow-x: hidden;
+    /* Improve text rendering on all devices */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Better text scaling on mobile */
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-sans font-bold tracking-tight;
+    /* Improve text wrapping on all screen sizes */
+    word-wrap: break-word;
+    hyphens: auto;
+    /* Better line height for readability */
+    line-height: 1.2;
   }
 
+  /* Enhanced responsive typography */
   h1 {
-    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl;
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl;
+    line-height: 1.1;
   }
 
   h2 {
-    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl;
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl;
+    line-height: 1.2;
   }
 
   h3 {
-    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl;
+    line-height: 1.3;
   }
 
-  h4 {
-    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
-  }
-
+  /* Enhanced responsive text sizing */
   p, li {
-    @apply text-lg sm:text-xl lg:text-2xl;
+    @apply text-sm sm:text-base lg:text-lg;
+    line-height: 1.6;
   }
 
+  /* Better button sizing for all devices */
   button {
+    min-height: 44px; /* Touch-friendly size */
+    min-width: 44px;
     @apply transition-all duration-200;
   }
 
+  /* Enhanced touch-friendly interactive elements */
   a, button, [role="button"] {
     @apply transition-all duration-200;
+    /* Ensure proper touch targets on all devices */
     touch-action: manipulation;
   }
 
+  /* Enhanced glow effects */
   .glow-text {
     text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
   }
@@ -140,6 +161,7 @@
     text-shadow: 0 0 10px rgba(255, 122, 0, 0.5);
   }
 
+  /* Enhanced gradient text with better performance */
   .gradient-text {
     background: linear-gradient(90deg, #00FFFF, #AAFF00, #FF7A00, #00FFFF);
     background-size: 300% 300%;
@@ -148,8 +170,14 @@
     -webkit-text-fill-color: transparent;
     color: transparent;
     animation: gradient-flow 8s ease infinite;
+    /* Ensure cross-browser compatibility */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* GPU acceleration for better performance */
+    will-change: background-position;
   }
 
+  /* Enhanced fallback for gradient text */
   @supports not (background-clip: text) or not (-webkit-background-clip: text) {
     .gradient-text {
       background: none;
@@ -158,13 +186,22 @@
     }
   }
 
+  /* Enhanced scrollbar - responsive */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
 
+  /* Hide scrollbar on mobile and tablet for cleaner look */
+  @media (max-width: 1024px) {
+    ::-webkit-scrollbar {
+      width: 0px;
+      height: 0px;
+    }
+  }
+
   ::-webkit-scrollbar-track {
-    @apply bg-background;
+    @apply bg-dark;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -175,34 +212,64 @@
     @apply bg-muted-foreground;
   }
 
+  /* Enhanced grid pattern background - fully responsive */
   .grid-bg {
     background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 15px 15px;
   }
 
+  @media (min-width: 640px) {
+    .grid-bg {
+      background-size: 20px 20px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-bg {
+      background-size: 40px 40px;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    }
+  }
+
+  /* Enhanced responsive containers */
   .container {
-    @apply px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16;
+    @apply px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12;
     max-width: 100%;
   }
 
-  .button-glow:hover {
-    box-shadow: 0 0 20px var(--glow-color, rgba(0, 255, 255, 0.5));
+  /* Safe area for devices with notches */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
   }
 
-  .cyan-glow {
-    --glow-color: rgba(0, 255, 255, 0.5);
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
-  .lime-glow {
-    --glow-color: rgba(170, 255, 0, 0.5);
+  /* Enhanced touch optimization */
+  .no-zoom {
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
-  .orange-glow {
-    --glow-color: rgba(255, 122, 0, 0.5);
+  /* Better form inputs on mobile */
+  input, textarea, select {
+    @apply transition-all duration-200;
+    /* Prevent zoom on iOS */
+    font-size: 16px;
+  }
+
+  @media (min-width: 640px) {
+    input, textarea, select {
+      font-size: 14px;
+    }
   }
 }
 
+/* Enhanced keyframes for better performance */
 @keyframes gradient-flow {
   0% {
     background-position: 0% 50%;
@@ -215,31 +282,209 @@
   }
 }
 
-/* Mobile-specific improvements only */
-@media (max-width: 640px) {
-  .mobile-menu-button {
-    min-width: 64px;
-    min-height: 64px;
-    padding: 20px;
-  }
-  
-  button {
-    min-height: 56px;
-    min-width: 56px;
-  }
-  
-  input, textarea, select {
-    font-size: 16px;
-  }
+/* Enhanced animation delays */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+.delay-400 {
+  animation-delay: 0.4s;
+}
+.delay-500 {
+  animation-delay: 0.5s;
 }
 
-/* Touch device optimizations */
+/* Enhanced responsive button hover effects */
+.button-glow:hover {
+  box-shadow: 0 0 20px var(--glow-color, rgba(0, 255, 255, 0.5));
+}
+
+/* Enhanced touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
   .button-glow:hover {
     box-shadow: none;
   }
   
+  .hover\:scale-105:hover {
+    transform: none;
+  }
+
+  /* Add active states for touch devices */
   .button-glow:active {
     transform: scale(0.98);
+  }
+}
+
+.cyan-glow {
+  --glow-color: rgba(0, 255, 255, 0.5);
+}
+
+.lime-glow {
+  --glow-color: rgba(170, 255, 0, 0.5);
+}
+
+.orange-glow {
+  --glow-color: rgba(255, 122, 0, 0.5);
+}
+
+/* Enhanced mobile optimizations */
+@media (max-width: 640px) {
+  /* Optimize animations for mobile performance */
+  .gradient-text {
+    animation: gradient-flow 12s ease infinite;
+  }
+  
+  .animate-pulse-glow {
+    animation-duration: 5s;
+  }
+  
+  /* Better spacing for mobile */
+  .space-y-24 > * + * {
+    margin-top: 4rem;
+  }
+
+  .space-y-16 > * + * {
+    margin-top: 3rem;
+  }
+  
+  .space-y-12 > * + * {
+    margin-top: 2rem;
+  }
+  
+  .space-y-8 > * + * {
+    margin-top: 1.5rem;
+  }
+
+  /* Better padding for mobile */
+  .py-24 {
+    @apply py-12;
+  }
+  
+  .py-16 {
+    @apply py-8;
+  }
+
+  .py-12 {
+    @apply py-6;
+  }
+}
+
+/* Tablet-specific optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .gradient-text {
+    animation: gradient-flow 10s ease infinite;
+  }
+
+  /* Better spacing for tablets */
+  .py-24 {
+    @apply py-16;
+  }
+
+  /* Optimize touch targets for tablets */
+  button {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* Landscape mobile optimizations */
+@media (max-width: 896px) and (orientation: landscape) {
+  h1 {
+    @apply text-xl sm:text-2xl md:text-3xl;
+  }
+  
+  h2 {
+    @apply text-lg sm:text-xl md:text-2xl;
+  }
+  
+  .py-24 {
+    @apply py-8;
+  }
+  
+  .py-16 {
+    @apply py-6;
+  }
+
+  /* Reduce vertical spacing in landscape */
+  .space-y-16 > * + * {
+    margin-top: 2rem;
+  }
+
+  .space-y-12 > * + * {
+    margin-top: 1.5rem;
+  }
+}
+
+/* High DPI displays optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .gradient-text {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Sharper borders on high DPI */
+  .border {
+    border-width: 0.5px;
+  }
+}
+
+/* Large desktop optimizations */
+@media (min-width: 1441px) {
+  .container {
+    @apply px-16;
+  }
+
+  h1 {
+    @apply text-7xl;
+  }
+
+  h2 {
+    @apply text-6xl;
+  }
+
+  p, li {
+    @apply text-xl;
+  }
+}
+
+/* Focus styles for accessibility */
+.focus\:outline-neon-cyan:focus {
+  outline: 2px solid rgba(0, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Enhanced loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Print styles */
+@media print {
+  .gradient-text {
+    background: none;
+    color: #000;
+    -webkit-text-fill-color: initial;
+  }
+
+  .animate-pulse-glow,
+  .animate-fade-in-up,
+  .animate-gradient-flow {
+    animation: none;
   }
 }

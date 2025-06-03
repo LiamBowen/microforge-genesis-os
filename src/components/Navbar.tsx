@@ -15,6 +15,7 @@ const Navbar = () => {
 
   const handleLogoClick = () => {
     setIsOpen(false);
+    // Always scroll to top when logo is clicked
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -32,6 +33,7 @@ const Navbar = () => {
     };
   }, []);
 
+  // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -62,11 +64,11 @@ const Navbar = () => {
       scrolled ? "bg-dark/95 backdrop-blur-md shadow-lg border-b border-gray-800" : "bg-transparent"
     }`}>
       <div className="container mx-auto">
-        <div className="flex justify-between items-center h-16 sm:h-18 lg:h-20">
+        <div className="flex justify-between items-center h-14 sm:h-16 lg:h-20">
           <div className="flex items-center min-w-0">
             <Link to="/" className="flex items-center no-zoom" onClick={handleLogoClick}>
               <div className="flex items-center">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 relative mr-3 lg:mr-4 flex-shrink-0">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 relative mr-2 lg:mr-3 flex-shrink-0">
                   <div className="absolute inset-0 bg-neon-cyan rounded-md opacity-20 animate-pulse-glow"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <img 
@@ -76,7 +78,7 @@ const Navbar = () => {
                     />
                   </div>
                 </div>
-                <span className="text-lg sm:text-xl lg:text-2xl font-bold gradient-text truncate">MicroForge</span>
+                <span className="text-base sm:text-lg lg:text-xl font-bold gradient-text truncate">MicroForge</span>
               </div>
             </Link>
           </div>
@@ -111,7 +113,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Tablet Navigation */}
+          {/* Tablet Navigation (md and up, but hidden on lg+) */}
           <div className="hidden md:flex lg:hidden items-center space-x-3">
             <Link 
               to="/login" 
@@ -123,21 +125,21 @@ const Navbar = () => {
             <RequestAccessButton size="sm" />
             <button 
               onClick={toggleMenu} 
-              className="text-white hover:text-neon-cyan focus:outline-none transition-colors duration-200 ml-2 mobile-menu-button"
+              className="text-white hover:text-neon-cyan focus:outline-none p-2 -m-2 transition-colors duration-200 ml-2"
               aria-label="Toggle navigation menu"
             >
-              {isOpen ? <X size={26} /> : <Menu size={26} />}
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
 
-          {/* Mobile Navigation Button with enhanced touch area */}
+          {/* Mobile Navigation Button */}
           <div className="md:hidden flex items-center mobile-menu-container">
             <button 
               onClick={toggleMenu} 
-              className="text-white hover:text-neon-cyan focus:outline-none transition-colors duration-200 mobile-menu-button flex items-center justify-center"
+              className="text-white hover:text-neon-cyan focus:outline-none p-2 -m-2 transition-colors duration-200"
               aria-label="Toggle navigation menu"
             >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
@@ -145,12 +147,12 @@ const Navbar = () => {
         {/* Mobile & Tablet Navigation Menu */}
         {isOpen && (
           <div className="lg:hidden bg-dark/98 backdrop-blur-md border-t border-gray-800 mobile-menu-container">
-            <div className="px-2 pt-6 pb-8 space-y-3 sm:px-4">
+            <div className="px-2 pt-4 pb-6 space-y-2 sm:px-3">
               {navLinks.map(link => (
                 <Link 
                   key={link.path} 
                   to={link.path} 
-                  className={`block px-4 py-4 rounded-md text-lg font-medium transition-all duration-200 no-zoom ${
+                  className={`block px-4 py-3 rounded-md text-base font-medium transition-all duration-200 no-zoom ${
                     location.pathname === link.path 
                       ? "text-neon-cyan bg-dark/50 border-l-2 border-neon-cyan" 
                       : "text-gray-300 hover:text-neon-cyan hover:bg-dark/30"
@@ -161,19 +163,20 @@ const Navbar = () => {
                 </Link>
               ))}
               
+              {/* Only show login on mobile, as it's shown separately on tablet */}
               <div className="md:hidden">
                 <Link 
                   to="/login" 
-                  className="flex items-center px-4 py-4 rounded-md text-lg font-medium text-gray-300 hover:text-neon-lime hover:bg-dark/30 transition-all duration-200 no-zoom" 
+                  className="flex items-center px-4 py-3 rounded-md text-base font-medium text-gray-300 hover:text-neon-lime hover:bg-dark/30 transition-all duration-200 no-zoom" 
                   onClick={() => setIsOpen(false)}
                 >
-                  <LogIn size={20} className="mr-3" />
+                  <LogIn size={18} className="mr-2" />
                   Login
                 </Link>
               </div>
               
-              <div className="mt-8 px-4">
-                <RequestAccessButton fullWidth size="md" />
+              <div className="mt-6 px-4">
+                <RequestAccessButton fullWidth size="sm" />
               </div>
             </div>
           </div>
