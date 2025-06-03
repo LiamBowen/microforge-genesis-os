@@ -15,7 +15,6 @@ const Navbar = () => {
 
   const handleLogoClick = () => {
     setIsOpen(false);
-    // Always scroll to top when logo is clicked
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -33,7 +32,6 @@ const Navbar = () => {
     };
   }, []);
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -113,7 +111,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Tablet Navigation (md and up, but hidden on lg+) */}
+          {/* Tablet Navigation */}
           <div className="hidden md:flex lg:hidden items-center space-x-3">
             <Link 
               to="/login" 
@@ -163,7 +161,6 @@ const Navbar = () => {
                 </Link>
               ))}
               
-              {/* Only show login on mobile, as it's shown separately on tablet */}
               <div className="md:hidden">
                 <Link 
                   to="/login" 

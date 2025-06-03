@@ -16,7 +16,7 @@ const Contact = () => {
 
         <div className="grid gap-10 sm:gap-12 lg:gap-16 mb-16 sm:mb-20 md:grid-cols-2">
           {/* Email Contact */}
-          <div className="bg-dark-card border border-gray-800 rounded-lg p-8 sm:p-10 text-center">
+          <div className="bg-card border border-gray-800 rounded-lg p-8 sm:p-10 text-center">
             <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-neon-cyan/10 rounded-full flex items-center justify-center mb-6 sm:mb-8">
               <Mail className="h-8 w-8 sm:h-10 sm:w-10 text-neon-cyan" />
             </div>
@@ -34,7 +34,7 @@ const Contact = () => {
           </div>
 
           {/* Pilot Program */}
-          <div className="bg-dark-card border border-gray-800 rounded-lg p-8 sm:p-10 text-center">
+          <div className="bg-card border border-gray-800 rounded-lg p-8 sm:p-10 text-center">
             <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-neon-lime/10 rounded-full flex items-center justify-center mb-6 sm:mb-8">
               <MessageCircle className="h-8 w-8 sm:h-10 sm:w-10 text-neon-lime" />
             </div>
@@ -53,7 +53,7 @@ const Contact = () => {
         </div>
 
         {/* What to expect */}
-        <div className="bg-dark-lighter border border-gray-800 rounded-lg p-8 sm:p-10">
+        <div className="bg-muted/20 border border-gray-800 rounded-lg p-8 sm:p-10">
           <h3 className="text-xl sm:text-2xl font-bold mb-8 sm:mb-10 text-center">What to Expect</h3>
           <div className="grid gap-8 sm:gap-10 text-center md:grid-cols-3">
             <div className="space-y-3">
